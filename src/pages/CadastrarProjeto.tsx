@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import voltarIcon from '../img/seta-voltar.png'
 import '../styles/CadastrarProjeto.css';
 
 const CadastrarProjeto = () => {
@@ -34,7 +36,13 @@ const CadastrarProjeto = () => {
   return (
     <div className="container-principal">
       <div className="formulario">
-        <h1 className="texto-titulo">Novo Projeto</h1>
+      <div className="cabecalho">
+          <Link to="/" className="link-voltar">
+            {/* Usando a imagem PNG da seta */}
+            <img src={voltarIcon} alt="Voltar" className="icone-voltar" />
+          </Link>
+          <h1 className="texto-titulo">Novo Projeto</h1>
+        </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Referência do Projeto */}
           <div>

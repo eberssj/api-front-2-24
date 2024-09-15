@@ -1,6 +1,6 @@
 /* Estilos para textos */
 .texto-titulo {
-    @apply text-2xl font-bold mb-4 text-blue-800 text-center;
+    @apply text-2xl font-bold text-blue-800 text-center;
 }
 
 .texto-label {
@@ -40,3 +40,28 @@
 .alinhado-esquerda {
     @apply text-left;
 }
+
+/* Container que segura a seta e o título */
+.cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o conteúdo */
+    margin-bottom: 16px;
+    position: relative;
+  }
+  
+.link-voltar {
+    position: absolute;
+    left: 0; /* Mantém a seta à esquerda */
+    text-decoration: none;
+  }
+  
+  /* Estilo para a imagem da seta */
+.icone-voltar {
+    width: 32px; /* Ajuste o tamanho da seta conforme necessário */
+    height: 32px;
+  }
+  
+.icone-voltar:hover {
+    opacity: 0.8; /* Efeito ao passar o mouse */
+  }
