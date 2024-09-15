@@ -1,7 +1,12 @@
+/* Estilos para o root */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem];
-  text-align: center;
+  max-width: 100%; /* Remover a limitação de largura fixa */
+  margin: 0;
+  padding: 0;
 }
 
+/* O conteúdo principal deve ocupar todo o espaço restante */
+.main-content {
+  margin-left: 240px; /* Garante que o conteúdo começa à direita da sidebar */
+  padding: 2rem; /* Adicionar espaçamento interno */
+}

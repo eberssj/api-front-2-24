@@ -4,7 +4,7 @@ export const Sidebar: React.FC = () => {
   const [selected, setSelected] = useState('Projetos');
 
   return (
-    <div className={`flex flex-col justify-between h-screen bg-white border-r-2 border-blue-800 w-54 px-4 transition-width duration-300 absolute left-0 py-5`}>
+    <div className="flex flex-col justify-between h-full bg-white border-r-2 border-blue-800 w-54 px-4 transition-width duration-300 fixed left-0 top-0 bottom-0 py-5">
       {/* Top Section */}
       <div className="flex flex-col">
         {/* Logo */}

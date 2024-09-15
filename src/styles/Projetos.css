@@ -1,0 +1,29 @@
+/* Estilos para o contêiner principal */
+.container-principal {
+    @apply flex justify-center items-center h-full;
+  }
+  
+  /* Estilos para o conteúdo de projetos */
+  .conteudo-projetos {
+    @apply text-center;
+  }
+  
+  /* Estilos para a mensagem de 'sem projetos' */
+  .sem-projetos {
+    @apply flex flex-col items-center space-y-4;
+  }
+  
+  /* Botão 'Novo projeto' */
+  .botao-novo-projeto {
+    @apply bg-white text-blue-900 border-2 border-blue-900 px-4 py-2 rounded hover:bg-blue-100 font-bold;
+  }
+  
+  /* Estilos para a lista de projetos (quando houver) */
+  .lista-projetos {
+    @apply grid grid-cols-1 gap-4;
+  }
+  
+  .projeto-item {
+    @apply border p-4 rounded shadow-md;
+  }
+  

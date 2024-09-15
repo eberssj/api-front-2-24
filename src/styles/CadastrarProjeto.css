@@ -1,0 +1,42 @@
+/* Estilos para textos */
+.texto-titulo {
+    @apply text-2xl font-bold mb-4 text-blue-800 text-center;
+}
+
+.texto-label {
+    @apply block mb-1 font-medium text-left;
+}
+
+/* Estilos para inputs */
+.input-padrao {
+    @apply w-full border p-2 rounded;
+    border-color: #1e3a8a; /* Azul escuro */
+}
+
+/* Estilos para inputs de data e arquivo */
+.input-flexivel {
+    @apply border p-2 rounded;
+    border-color: #1e3a8a; /* Azul escuro */
+    display: inline-block;
+}
+
+/* Estilos para o contêiner principal */
+.container-principal {
+    @apply flex justify-start; /* Ocupa a largura total disponível */
+    width: 100%;
+}
+
+/* Estilos para o formulário */
+.formulario {
+    @apply w-full; /* Ocupa 100% da largura disponível */
+}
+
+/* Estilos para o botão de submit */
+.botao-submit {
+    @apply text-blue-900 border-2 border-blue-900 px-4 py-2 rounded bg-white hover:bg-blue-100 font-bold;
+}
+
+/* Estilos para alinhar inputs flexíveis à esquerda */
+.alinhado-esquerda {
+    @apply text-left;
+}
