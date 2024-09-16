@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom";
 import PageNotAllowed from "../pages/PageNotAllowed";
 import { useAuth } from "../hook/Auth";
 
@@ -10,7 +9,7 @@ export const PrivateRoutes = ({ children, tiposAllowed }: { children: JSX.Elemen
     }
 
     if (!adm) {
-        return <Navigate to="/" replace/>
+        return <PageNotAllowed />
     }
 
     if ( adm && tiposAllowed.includes(adm.tipo)) {
