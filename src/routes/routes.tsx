@@ -1,52 +1,39 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import '../App.css';
-import { Sidebar } from '../components/Sidebar';
+import { Route, BrowserRouter, Routes as Switch} from 'react-router-dom';
+import Adm from '../pages/Adm';
+import PageNotFounded from '../pages/PageNotFounded';
+import { PrivateRoutes } from './privateRoutes';
+import Login from '../pages/login';
 import CadastrarProjeto from '../pages/CadastrarProjeto';
 import Projetos from '../pages/Projetos';
-import Adm from '../pages/Adm';
-import Login from "../pages/login";
-import PageNotFounded from "../pages/PageNotFounded";
-import { PrivateRoutes } from "./privateRoutes";
 
-function AppContent() {
-  const location = useLocation(); // Hook para acessar a rota atual
+export default function Routes() {
+    return (
+        <BrowserRouter>
+            <Switch>
+              
+                <Route path="/adm" element={
+                      <PrivateRoutes tiposAllowed={[1]}>
+                        <Adm />
+                      </PrivateRoutes>
+                }/>
 
-  const isLoginPage = location.pathname === "/login"; // Verifica se a rota atual é "/login"
+                <Route path="*" element={<PageNotFounded></PageNotFounded>} />
 
-  return (
-    <div className={!isLoginPage ? "app-root" : ""}> {/* Remove o ID root se for a página de login */}
-      {!isLoginPage && ( 
-        <div>
-          <Sidebar />
-        </div>
-      )}
-      {!isLoginPage ? (  // Condicional para adicionar "main-content" em todas, exceto na página de login
-        <div className="main-content">
-          <Routes>
-            <Route path="/adm" element={
-              <PrivateRoutes tiposAllowed={[1]}>
-                <Adm />
-              </PrivateRoutes>
-            }/>
-            <Route path="*" element={<PageNotFounded />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/cadastrar-projeto" element={<CadastrarProjeto />} />
-            <Route path="/" element={<Projetos />} />
-          </Routes>
-        </div>
-      ) : ( // Renderiza as rotas sem "main-content" para a página de login
-        <Routes>
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      )}
-    </div>
-  );
-}
+                <Route path="/login" element={<Login></Login>} />
 
-export default function App() {
-  return (
-    <Router>
-      <AppContent /> {/* Renderiza o conteúdo do aplicativo dentro do Router */}
-    </Router>
-  );
+                <Route path="/adm/cadastrar-projeto" element={
+                  <PrivateRoutes tiposAllowed={[1]}>
+                    <CadastrarProjeto />
+                  </PrivateRoutes>
+                } />
+
+                <Route path="/adm/projetos" element={
+                  <PrivateRoutes tiposAllowed={[1]}>
+                    <Projetos />
+                  </PrivateRoutes>
+                } />
+
+            </Switch>
+        </BrowserRouter>
+    )
 }
