@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom"
+import { Sidebar } from "../components/Sidebar"
 
 export default function Adm() {
 
     return (
         <div>
-            <h1>Adm</h1>
-            <Link to="/adm">Go to Home</Link>
+            <Sidebar />
+                <h1>Adm</h1>
+                <Link to="/adm">Go to Home</Link>
         </div>
     )
 }
