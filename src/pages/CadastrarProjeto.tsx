@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import voltarIcon from '../img/seta-voltar.png'
 import '../styles/CadastrarProjeto.css';
-import { Sidebar } from '../components/Sidebar';
+import { Sidebar } from '../components/Sidebar/Sidebar';
 
 const CadastrarProjeto = () => {
   const [project, setProject] = useState({
