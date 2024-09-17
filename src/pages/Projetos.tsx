@@ -1,4 +1,4 @@
-import { Sidebar } from '../components/Sidebar';
+import { Sidebar } from '../components/Sidebar/Sidebar';
 import '../styles/Projetos.css';
 import { useNavigate } from 'react-router-dom';
 
