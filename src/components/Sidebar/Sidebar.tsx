@@ -9,7 +9,7 @@ export const Sidebar: React.FC = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const { adm } = useContext(AuthContext);
-  
+
   const handleSignout = () => {
     Swal.fire({
         title: "Deseja realmente sair?",
@@ -81,8 +81,8 @@ export const Sidebar: React.FC = () => {
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gray-600 rounded-full"></div>
               <div className='flex flex-col items-start'>
-                <p className="text-gray-900">Administrador</p>
-                <p className="text-gray-600 text-sm">administrador@gmail.com</p>
+                <p className="text-gray-900">Administrador {adm?.nome}</p>
+                <p className="text-gray-600 text-sm">{adm?.email}</p>
               </div>
           </div>
         </div>
