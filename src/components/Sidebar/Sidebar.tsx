@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../hook/Auth';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 export const Sidebar: React.FC = () => {
   const [selected, setSelected] = useState('Projetos');
   const { logout } = useAuth();
-
+  const navigate = useNavigate();
+  
   const handleSignout = () => {
     Swal.fire({
         title: "Deseja realmente sair?",
@@ -26,6 +28,7 @@ export const Sidebar: React.FC = () => {
     }).then((result) => {
         if (result.isConfirmed) {
             logout();
+            navigate("/login");
         }
     });
   }
