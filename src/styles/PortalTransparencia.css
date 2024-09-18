@@ -1,0 +1,51 @@
+.container-texto {
+    text-align: center;
+    margin-bottom: 2vh;
+}
+
+.container-texto h1 {
+    color: #0F3684;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.container-projetos-externo {
+    border: 1px solid #0F3684;
+    border-radius: 6px;
+    padding: 3vh;
+    width: 140vh;
+}
+
+.container-projeto {
+    border: 1px solid #0F3684;
+    border-radius: 6px;
+    padding: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2vh;
+    width: 100%;
+    gap: 8rem;
+}
+
+.itens-direita {
+    text-align: center;
+}
+
+.itens-direita i {
+    font-size: 3.5vh;
+    color: #0F3684;
+}
+
+.itens-direita p {
+    color: #0F3684;
+}
+
+strong {
+    color: #0F3684;
+}
+
+.container-principal {
+    display: flex;
+    flex-direction: column;
+}

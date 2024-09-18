@@ -5,6 +5,7 @@ import { PrivateRoutes } from './privateRoutes';
 import Login from '../pages/login';
 import CadastrarProjeto from '../pages/CadastrarProjeto';
 import Projetos from '../pages/Projetos';
+import PortalTransparencia from '../pages/PortalTransparencia';
 
 export default function Routes() {
     return (
@@ -18,6 +19,8 @@ export default function Routes() {
                 }/>
 
                 <Route path="*" element={<PageNotFounded></PageNotFounded>} />
+
+                <Route path="/" element={<PortalTransparencia></PortalTransparencia>} />
 
                 <Route path="/login" element={<Login></Login>} />
 

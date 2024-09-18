@@ -1,13 +1,20 @@
-import { Sidebar } from '../components/Sidebar/Sidebar';
-import '../styles/Projetos.css';
-import { useNavigate } from 'react-router-dom';
+import { Sidebar } from "../components/Sidebar/Sidebar"
+import '../styles/PortalTransparencia.css';
 
-const Projetos = () => {
-  const navigate = useNavigate();
+const PortalTransparencia = () => {
 
-  return (
-    <div className="container-principal">
-      <Sidebar />
+    return (
+        <div className="container-principal">
+            <Sidebar />
+            <div className="container-texto">
+                <h1>Fundação de Apoio à Pesquisa de Pós-Graduandos(FAPG)</h1>
+                <p>A Fundação vem com o objetivo de trazer transformações importantes para o  meio acadêmico, e busca conseguir isso com a obstinação dos seus  dirigentes <br /> e funcionários no sentido de torná-la sempre mais ágil e  precisa</p>
+            
+                <br />
+            
+                <p>Abaixo estão todos os projetos desenvolvidos.</p>
+            </div>
+
             <div className="container-projetos-externo">
                 <div className="container-projeto">
                     <div className="itens-esquerda">
@@ -57,18 +64,8 @@ const Projetos = () => {
                     </div>
                 </div>
             </div>
-        <div className="conteudo-projetos">
-          <div className="sem-projetos">
-            <p>Ainda não há projetos cadastrados</p>
-            <button
-              onClick={() => navigate('/adm/cadastrar-projeto')}
-              className="botao-novo-projeto">
-              Novo projeto
-            </button>
-          </div>
         </div>
-    </div>
-  );
-};
+    )
+}
 
-export default Projetos;
+export default PortalTransparencia
