@@ -1,74 +1,73 @@
+import { useEffect, useState } from 'react';
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import '../styles/Projetos.css';
 import { useNavigate } from 'react-router-dom';
+import { Projeto } from '../Type/Projeto';
+import axios from 'axios';
 
 const Projetos = () => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const [projetos, setProjetos] = useState<Projeto[]>([]);
 
-  return (
+    const formatarData = (dataArray: number[]) => {
+        if (Array.isArray(dataArray) && dataArray.length === 3) {
+            return new Date(dataArray[0], dataArray[1] - 1, dataArray[2]).toLocaleDateString('pt-BR', {
+                day: 'numeric',
+                month: 'numeric',
+                year: 'numeric'
+            });
+        }
+        return 'Data inválida';
+    };
+
+    useEffect(() => {
+        const fetchProjetos = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/projeto/listar');
+                setProjetos(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchProjetos();
+    }, []);
+
+    return (
     <div className="container-principal">
-      <Sidebar />
+        <Sidebar />
             <div className="container-projetos-externo">
-                <div className="container-projeto">
+            <div>
+                {projetos.map((projeto) => (
+                <div className="container-projeto" key={projeto.id}>
                     <div className="itens-esquerda">
-                        <p><strong>Refêrencia do projeto:</strong> Capacitação na Modalidade Online em “Operações em Processos Siderúrgicos”</p>
-                        <p><strong>Coordenador:</strong> João Maurício Godoy</p>
-                        <p><strong>Valor:</strong> R$12345,90</p>
+                        <p><strong>Referência do projeto:</strong> {projeto.referenciaProjeto}</p>
+                        <p><strong>Coordenador:</strong> {projeto.coordenador}</p>
+                        <p><strong>Valor:</strong> R$:{projeto.valor}</p>
                     </div>
                     <div className="itens-meio">
-                        <p><strong>Início:</strong> dd/mm/aaaa</p>
-                        <p><strong>Término:</strong> dd/mm/aaaa</p>
+                        <p><strong>Início:</strong> {formatarData(projeto.dataInicio)}</p>
+                        <p><strong>Término:</strong> {formatarData(projeto.dataTermino)}</p>
                     </div>
                     <div className="itens-direita">
                         <i className="bi bi-file-earmark-text"></i>
-                        <p><strong>Detalhes</strong></p>
                     </div>
                 </div>
-
-                <div className="container-projeto">
-                    <div className="itens-esquerda">
-                        <p><strong>Refêrencia do projeto:</strong> Capacitação na Modalidade Online em “Operações em Processos Siderúrgicos”</p>
-                        <p><strong>Coordenador:</strong> João Maurício Godoy</p>
-                        <p><strong>Valor:</strong> R$12345,90</p>
-                    </div>
-                    <div className="itens-meio">
-                        <p><strong>Início:</strong> dd/mm/aaaa</p>
-                        <p><strong>Término:</strong> dd/mm/aaaa</p>
-                    </div>
-                    <div className="itens-direita">
-                        <i className="bi bi-file-earmark-text"></i>
-                        <p><strong>Detalhes</strong></p>
-                    </div>
-                </div>
-
-                <div className="container-projeto">
-                    <div className="itens-esquerda">
-                        <p><strong>Refêrencia do projeto:</strong> Capacitação na Modalidade Online em “Operações em Processos Siderúrgicos”</p>
-                        <p><strong>Coordenador:</strong> João Maurício Godoy</p>
-                        <p><strong>Valor:</strong> R$12345,90</p>
-                    </div>
-                    <div className="itens-meio">
-                        <p><strong>Início:</strong> dd/mm/aaaa</p>
-                        <p><strong>Término:</strong> dd/mm/aaaa</p>
-                    </div>
-                    <div className="itens-direita">
-                        <i className="bi bi-file-earmark-text"></i>
-                        <p><strong>Detalhes</strong></p>
-                    </div>
-                </div>
+                ))}
             </div>
         <div className="conteudo-projetos">
-          <div className="sem-projetos">
+            <div className="sem-projetos">
             <p>Ainda não há projetos cadastrados</p>
             <button
-              onClick={() => navigate('/adm/cadastrar-projeto')}
-              className="botao-novo-projeto">
-              Novo projeto
+                onClick={() => navigate('/adm/cadastrar-projeto')}
+                className="botao-novo-projeto">
+                Novo projeto
             </button>
-          </div>
+            </div>
         </div>
     </div>
-  );
+    </div>
+    );
 };
 
 export default Projetos;
