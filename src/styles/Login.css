@@ -4,6 +4,7 @@
     flex-direction: row;
     height: 100vh; /* Altura de 100% da tela */
     width: 100vw;  /* Largura de 100% da tela */
+    margin-left: -15% !important;
 }
 
 /* Lado esquerdo (formulário) - fundo branco */

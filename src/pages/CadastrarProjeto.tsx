@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import voltarIcon from '../img/seta-voltar.png'
 import '../styles/CadastrarProjeto.css';
 import { Sidebar } from '../components/Sidebar/Sidebar';
 
@@ -39,9 +38,8 @@ const CadastrarProjeto = () => {
       <Sidebar />
         <div className="formulario">
         <div className="cabecalho">
-            <Link to="/" className="link-voltar">
-              {/* Usando a imagem PNG da seta */}
-              <img src={voltarIcon} alt="Voltar" className="icone-voltar" />
+            <Link to="/adm/projetos" className="link-voltar">
+              <i className="bi bi-arrow-left"></i>
             </Link>
             <h1 className="texto-titulo">Novo Projeto</h1>
           </div>

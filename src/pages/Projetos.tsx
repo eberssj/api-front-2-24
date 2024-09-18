@@ -12,7 +12,7 @@ const Projetos = () => {
           <div className="sem-projetos">
             <p>Ainda não há projetos cadastrados</p>
             <button
-              onClick={() => navigate('/cadastrar-projeto')}
+              onClick={() => navigate('/adm/cadastrar-projeto')}
               className="botao-novo-projeto">
               Novo projeto
             </button>

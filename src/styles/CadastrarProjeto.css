@@ -23,7 +23,8 @@
 /* Estilos para o contêiner principal */
 .container-principal {
     @apply flex justify-start; /* Ocupa a largura total disponível */
-    width: 100%;
+    width: 98%;
+    margin: 5vh 0;
 }
 
 /* Estilos para o formulário */
@@ -54,13 +55,9 @@
     position: absolute;
     left: 0; /* Mantém a seta à esquerda */
     text-decoration: none;
+    
   }
-  
-  /* Estilo para a imagem da seta */
-.icone-voltar {
-    width: 32px; /* Ajuste o tamanho da seta conforme necessário */
-    height: 32px;
-  }
+
   
 .icone-voltar:hover {
     opacity: 0.8; /* Efeito ao passar o mouse */

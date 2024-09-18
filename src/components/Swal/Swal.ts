@@ -1,5 +1,5 @@
 import Swal, { SweetAlertOptions } from "sweetalert2";
-import './swal.css';
+import './Swal.css';
 
 export const warning = (message: string) => {
     const options: SweetAlertOptions = {

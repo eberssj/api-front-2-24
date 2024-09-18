@@ -38,8 +38,8 @@ export const Sidebar: React.FC = () => {
         <div className="flex items-center justify-center h-20">
             <div className="flex items-center justify-center w-full h-full">
               <img 
-                src="src/img/logo.jpeg" 
-                alt="Logo" 
+                src="../src/img/logo.jpeg"
+                alt="Logo"
                 className="object-contain max-h-full max-w-full" 
               />
             </div>
@@ -47,20 +47,18 @@ export const Sidebar: React.FC = () => {
 
         {/* Menu Items */}
         <ul className="flex flex-col mt-10 space-y-4">
-          {['Projetos'].map((item) => (
-            <li key={item}>
-              <a
-                href="#"
-                onClick={() => setSelected(item)}
-                className={`flex items-center px-4 py-2 ${selected === item ? 'bg-blue-800 text-white rounded-md' : 'rounded-md text-gray-600 hover:bg-gray-200 hover:text-gray-900'} transition-all duration-300`}
-              >
-                <span className="mr-4">
-                  <i className="bi bi-calendar mr-2"></i>
-                  {item}
-                </span>
-              </a>
-            </li>
-          ))}
+          <li>
+            <a
+              href="/adm/projetos"
+              onClick={() => setSelected('Projetos')}
+              className={`flex items-center px-4 py-2 ${selected === 'Projetos' ? 'bg-blue-800 text-white rounded-md' : 'rounded-md text-gray-600 hover:bg-gray-200 hover:text-gray-900'} transition-all duration-300`}
+            >
+              <span className="mr-4">
+                <i className="bi bi-calendar mr-2"></i>
+                Projetos
+              </span>
+            </a>
+          </li>
         </ul>
       </div>
 

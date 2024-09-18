@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { useAuth } from "../hook/Auth";
 import { jwtDecode } from "jwt-decode";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAxios } from "../hook/Axios";
 import axios from "axios";
 import { AuthContext } from "../hook/ContextAuth";
@@ -127,7 +127,7 @@ export default function Login() {
                     icon: 'success',
                     title: 'Login efetuado com sucesso!',
                 });
-                navigate("/adm", { replace: true });
+                navigate("/adm/projetos", { replace: true });
 
                 localStorage.setItem("loginAttempts", "0");
                 setAttempt(0);
@@ -184,7 +184,6 @@ export default function Login() {
                     <button onClick={handleLogin}>Entrar</button>
                     {mensagemErro && <div className="login-error">{mensagemErro} <br/> {mensagemExemplo}</div>}
                     {erro && <div className="login-error">Verifique suas informações.</div>}
-                    <Link to="/register">Cadastre-se</Link>
                 </div>
             </div>
 
