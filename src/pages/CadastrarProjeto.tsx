@@ -150,7 +150,8 @@ const CadastrarProjeto = () => {
               <label className="texto-label">Propostas/Relatórios Técnicos</label>
               <input 
                 type="file" 
-                name="propostas" 
+                name="propostas"
+                accept=".pdf,.docx"
                 onChange={handleFileChange}
                 className="input-flexivel" 
               />
@@ -162,6 +163,7 @@ const CadastrarProjeto = () => {
               <input 
                 type="file" 
                 name="contratos" 
+                accept=".pdf,.docx"
                 onChange={handleFileChange}
                 className="input-flexivel" 
               />
@@ -172,7 +174,8 @@ const CadastrarProjeto = () => {
               <label className="texto-label">Artigos</label>
               <input 
                 type="file" 
-                name="artigos" 
+                name="artigos"
+                accept=".pdf,.docx"
                 onChange={handleFileChange}
                 className="input-flexivel" 
               />
