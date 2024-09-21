@@ -18,9 +18,18 @@ const CadastrarProjeto = () => {
     artigos: null,
   });
 
+  const [errors, setErrors] = useState({
+    referencia: false,
+    empresa: false,
+    coordenador: false,
+    valor: false,
+    dataInicio: false,
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setProject(prev => ({ ...prev, [name]: value }));
+    setErrors(prev => ({ ...prev, [name]: false }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,9 +37,28 @@ const CadastrarProjeto = () => {
     setProject(prev => ({ ...prev, [name]: files ? files[0] : null }));
   };
 
+  const validateForm = () => {
+    const newErrors = {
+      referencia: project.referencia.trim() === '',
+      empresa: project.empresa.trim() === '',
+      coordenador: project.coordenador.trim() === '',
+      valor: project.valor.trim() === '',
+      dataInicio: project.dataInicio === '',
+    };
+
+    setErrors(newErrors);
+    return !Object.values(newErrors).includes(true);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(project);
+
+    if (validateForm()) {
+      console.log('Projeto adicionado:', project);
+      // Lógica de envio para API aqui
+    } else {
+      console.log('Existem erros no formulário.');
+    }
   };
 
   return (
@@ -52,9 +80,9 @@ const CadastrarProjeto = () => {
                 name="referencia" 
                 value={project.referencia} 
                 onChange={handleChange}
-                className="input-padrao" 
-                required 
+                className={`input-padrao ${errors.referencia ? 'input-erro' : ''}`} 
               />
+              {errors.referencia && <span className="erro-texto">* Este campo é obrigatório.</span>}
             </div>
 
             {/* Empresa */}
@@ -65,9 +93,9 @@ const CadastrarProjeto = () => {
                 name="empresa" 
                 value={project.empresa} 
                 onChange={handleChange}
-                className="input-padrao" 
-                required 
+                className={`input-padrao ${errors.empresa ? 'input-erro' : ''}`} 
               />
+              {errors.empresa && <span className="erro-texto">* Este campo é obrigatório.</span>}
             </div>
 
             {/* Objeto */}
@@ -101,9 +129,9 @@ const CadastrarProjeto = () => {
                 name="coordenador" 
                 value={project.coordenador} 
                 onChange={handleChange}
-                className="input-padrao" 
-                required 
+                className={`input-padrao ${errors.coordenador ? 'input-erro' : ''}`} 
               />
+              {errors.coordenador && <span className="erro-texto">* Este campo é obrigatório.</span>}
             </div>
 
             {/* Valor do Projeto */}
@@ -114,9 +142,9 @@ const CadastrarProjeto = () => {
                 name="valor" 
                 value={project.valor} 
                 onChange={handleChange}
-                className="input-padrao" 
-                required 
+                className={`input-padrao ${errors.valor ? 'input-erro' : ''}`} 
               />
+              {errors.valor && <span className="erro-texto">* Este campo é obrigatório.</span>}
             </div>
 
             {/* Data de Início */}
@@ -127,21 +155,20 @@ const CadastrarProjeto = () => {
                 name="dataInicio" 
                 value={project.dataInicio} 
                 onChange={handleChange}
-                className="input-flexivel" 
-                required 
+                className={`input-flexivel ${errors.dataInicio ? 'input-erro' : ''}`} 
               />
+              {errors.dataInicio && <span className="erro-texto">* Este campo é obrigatório.</span>}
             </div>
 
             {/* Data de Término */}
             <div className="alinhado-esquerda">
-              <label className="texto-label">Data de término*</label>
+              <label className="texto-label">Data de término</label>
               <input 
                 type="date" 
                 name="dataTermino" 
                 value={project.dataTermino} 
                 onChange={handleChange}
                 className="input-flexivel" 
-                required 
               />
             </div>
 
