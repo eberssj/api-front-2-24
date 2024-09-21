@@ -62,3 +62,17 @@
 .icone-voltar:hover {
     opacity: 0.8; /* Efeito ao passar o mouse */
   }
+
+/* Estilo para os campos de input com erro */
+.input-erro {
+    border: 1px solid red;
+    color: red;
+  }
+  
+  /* Estilo para a mensagem de erro em vermelho */
+  .erro-texto {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 4px;
+  }
+  
