@@ -36,6 +36,7 @@ const Projetos = () => {
     return (
     <div className="container-principal">
         <Sidebar />
+        {projetos.length > 0 ? (
             <div className="container-projetos-externo">
             <div>
                 {projetos.map((projeto) => (
@@ -49,23 +50,27 @@ const Projetos = () => {
                         <p><strong>Início:</strong> {formatarData(projeto.dataInicio)}</p>
                         <p><strong>Término:</strong> {formatarData(projeto.dataTermino)}</p>
                     </div>
-                    <div className="itens-direita">
+                    <div className="itens-direita" onClick={() => navigate(`/projeto/${projeto.id}`, { state: projeto })}>
                         <i className="bi bi-file-earmark-text"></i>
+                        <p><strong>Detalhes</strong></p>
                     </div>
+
                 </div>
                 ))}
             </div>
+            </div>
+        ) : (
         <div className="conteudo-projetos">
             <div className="sem-projetos">
             <p>Ainda não há projetos cadastrados</p>
-            <button
+            </div>
+        </div>
+        )}
+        <button
                 onClick={() => navigate('/adm/cadastrar-projeto')}
                 className="botao-novo-projeto">
                 Novo projeto
             </button>
-            </div>
-        </div>
-    </div>
     </div>
     );
 };

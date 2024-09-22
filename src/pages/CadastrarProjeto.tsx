@@ -67,7 +67,7 @@ const CadastrarProjeto = () => {
         <div className="formulario">
         <div className="cabecalho">
             <Link to="/adm/projetos" className="link-voltar">
-              <i className="bi bi-arrow-left"></i>
+              <strong><i className="bi bi-arrow-left text-3xl text-blue-900"></i></strong>
             </Link>
             <h1 className="texto-titulo">Novo Projeto</h1>
           </div>

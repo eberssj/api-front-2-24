@@ -37,7 +37,7 @@ export const Sidebar: React.FC = () => {
 
   const renderMenuAdm   = () => {
     return (
-      <div className="flex flex-col justify-between h-full bg-white border-r-2 border-blue-800 w-54 px-4 transition-width duration-300 fixed left-0 top-0 bottom-0 py-5">
+      <div className="flex flex-col justify-between h-full bg-white border-r-2 border-blue-800 w-56 px-4 transition-width duration-300 fixed left-0 top-0 bottom-0 py-5">
         {/* Top Section */}
         <div className="flex flex-col">
           {/* Logo */}
@@ -72,14 +72,14 @@ export const Sidebar: React.FC = () => {
           {/* Logout */}
           <div>
             <p className='mb-4' onClick={handleSignout}>
-              <i className="bi bi-box-arrow-right ml-1 mr-2"></i>
+              <i className="bi bi-box-arrow-right ml-1 mr-2 text-xl"></i>
               Logout
             </p>
           </div>
   
           {/* Admin Info */}
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gray-600 rounded-full"></div>
+            <i className="bi bi-person-circle text-4xl text-blue-900"></i>
               <div className='flex flex-col items-start'>
                 <p className="text-gray-900">Administrador {adm?.nome}</p>
                 <p className="text-gray-600 text-sm">{adm?.email}</p>

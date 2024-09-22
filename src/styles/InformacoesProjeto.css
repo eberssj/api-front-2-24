@@ -1,0 +1,12 @@
+.titulo {
+    font-weight: bold;
+    color: #0F3684;
+}
+
+.texto {
+    border-bottom: 1px solid #0F3684;
+}
+
+.container-informacoes div {
+    margin-bottom: 1rem;
+}

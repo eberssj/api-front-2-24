@@ -12,18 +12,17 @@
 .container-projetos-externo {
     border: 1px solid #0F3684;
     border-radius: 6px;
-    padding: 3vh;
-    width: 140vh;
+    padding: 2rem;
+    width: 92rem;
+    height: 44rem;
 }
 
 .container-projeto {
     border: 1px solid #0F3684;
     border-radius: 6px;
-    padding: 2vh;
+    padding: 2rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2vh;
+    margin-bottom: 1rem;
     width: 100%;
     gap: 8rem;
 }

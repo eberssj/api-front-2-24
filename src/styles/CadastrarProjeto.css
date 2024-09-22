@@ -55,8 +55,7 @@
     position: absolute;
     left: 0; /* Mantém a seta à esquerda */
     text-decoration: none;
-    
-  }
+}
 
   
 .icone-voltar:hover {

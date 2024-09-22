@@ -6,6 +6,7 @@ import Login from '../pages/login';
 import CadastrarProjeto from '../pages/CadastrarProjeto';
 import Projetos from '../pages/Projetos';
 import PortalTransparencia from '../pages/PortalTransparencia';
+import InformacoesProjeto from '../pages/InformacoesProjeto';
 
 export default function Routes() {
     return (
@@ -35,6 +36,8 @@ export default function Routes() {
                     <Projetos />
                   </PrivateRoutes>
                 } />
+
+                <Route path="/projeto/:id" element={<InformacoesProjeto />} />
 
             </Switch>
         </BrowserRouter>
