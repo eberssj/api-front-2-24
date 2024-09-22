@@ -1,10 +1,12 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Projeto } from '../Type/Projeto';
 import { Sidebar } from '../components/Sidebar/Sidebar';
+import "../styles/InformacoesProjeto.css"
 
 const InformacoesProjeto = () => {
     const location = useLocation();
     const projeto: Projeto = location.state;
+    const navigate = useNavigate()
 
     const formatarData = (dataArray: number[]) => {
         if (Array.isArray(dataArray) && dataArray.length === 3) {
@@ -22,9 +24,9 @@ const InformacoesProjeto = () => {
         <Sidebar />
           <div className="formulario">
           <div className="cabecalho">
-              <Link to="/adm/projetos" className="link-voltar">
-                <strong><i className="bi bi-arrow-left text-3xl text-blue-900"></i></strong>
-              </Link>
+                <strong onClick={() => navigate(-1)} className="link-voltar">
+                    <i className="bi bi-arrow-left text-3xl text-blue-900"></i>
+                </strong>
               <h1 className="texto-titulo">Informações do Projeto</h1>
             </div>
             <div className='container-informacoes'>

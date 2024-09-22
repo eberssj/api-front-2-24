@@ -50,7 +50,7 @@ const Projetos = () => {
                         <p><strong>Início:</strong> {formatarData(projeto.dataInicio)}</p>
                         <p><strong>Término:</strong> {formatarData(projeto.dataTermino)}</p>
                     </div>
-                    <div className="itens-direita" onClick={() => navigate(`/projeto/${projeto.id}`, { state: projeto })}>
+                    <div className="itens-direita cursor-pointer" onClick={() => navigate(`/projeto/${projeto.id}`, { state: projeto })}>
                         <i className="bi bi-file-earmark-text"></i>
                         <p><strong>Detalhes</strong></p>
                     </div>

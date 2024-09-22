@@ -70,7 +70,7 @@ export const Sidebar: React.FC = () => {
   
         <div className="flex flex-col items-start">
           {/* Logout */}
-          <div>
+          <div className='cursor-pointer'>
             <p className='mb-4' onClick={handleSignout}>
               <i className="bi bi-box-arrow-right ml-1 mr-2 text-xl"></i>
               Logout
@@ -92,7 +92,7 @@ export const Sidebar: React.FC = () => {
 
   const renderMenuUser = () => {
     return (
-      <div className="flex flex-col justify-between h-full bg-white border-r-2 border-blue-800 w-54 px-4 transition-width duration-300 fixed left-0 top-0 bottom-0 py-5">
+      <div className="flex flex-col justify-between h-full bg-white border-r-2 border-blue-800 w-56 px-4 transition-width duration-300 fixed left-0 top-0 bottom-0 py-5">
         {/* Top Section */}
         <div className="flex flex-col">
           {/* Logo */}
