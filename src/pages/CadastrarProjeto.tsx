@@ -2,8 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/CadastrarProjeto.css';
 import { Sidebar } from '../components/Sidebar/Sidebar';
+import { erroror, Toast } from "../components/Swal/Swal";
+import { useNavigate } from 'react-router-dom'; // Para redirecionar
 
 const CadastrarProjeto = () => {
+
+  const navigate = useNavigate();
+
   const [project, setProject] = useState({
     referencia: '',
     empresa: '',
@@ -52,12 +57,21 @@ const CadastrarProjeto = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (validateForm()) {
-      console.log('Projeto adicionado:', project);
-      // Lógica de envio para API aqui
+      Toast.fire({
+        icon: 'success',
+        title: 'Projeto criado com sucesso!',
+      });
+
+      console.log('Dados do formulário:', project);
+  
+      setTimeout(() => {
+        navigate('/adm/projetos');
+      }, 3000);
+
     } else {
-      console.log('Existem erros no formulário.');
+      erroror('Não foi possível cadastrar o projeto.');
     }
   };
 
