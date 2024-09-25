@@ -3,8 +3,13 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/CadastrarProjeto.css';
 import { Sidebar } from '../components/Sidebar/Sidebar';
+import { erroror, Toast } from "../components/Swal/Swal";
+import { useNavigate } from 'react-router-dom'; // Para redirecionar
 
 const CadastrarProjeto = () => {
+
+  const navigate = useNavigate();
+
   const [project, setProject] = useState({
     referencia: '',
     empresa: '',
@@ -56,7 +61,7 @@ const CadastrarProjeto = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     if (validateForm()) {
       const formData = new FormData();
 
@@ -111,7 +116,7 @@ const CadastrarProjeto = () => {
         console.error('Erro ao cadastrar o projeto:', error);
       }
     } else {
-      console.log('Existem erros no formulário.');
+      erroror('Não foi possível cadastrar o projeto.');
     }
   };
 
