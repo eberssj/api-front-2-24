@@ -1,29 +1,56 @@
 /* Estilos para o contêiner principal */
 .container-principal {
-    @apply flex justify-center items-center h-full;
-  }
-  
-  /* Estilos para o conteúdo de projetos */
-  .conteudo-projetos {
-    @apply text-center;
-  }
-  
-  /* Estilos para a mensagem de 'sem projetos' */
-  .sem-projetos {
-    @apply flex flex-col items-center space-y-4;
-  }
-  
-  /* Botão 'Novo projeto' */
-  .botao-novo-projeto {
-    @apply bg-white text-blue-900 border-2 border-blue-900 px-4 py-2 rounded hover:bg-blue-100 font-bold my-5;
-  }
-  
-  /* Estilos para a lista de projetos (quando houver) */
-  .lista-projetos {
-    @apply grid grid-cols-1 gap-4;
-  }
-  
-  .projeto-item {
-    @apply border p-4 rounded shadow-md;
-  }
-  
+  @apply flex justify-center items-center h-full;
+}
+
+/* Estilos para o contêiner externo dos projetos */
+.container-projetos-externo {
+  @apply w-full h-96 overflow-y-scroll; /* Mantém a rolagem sempre visível */
+  padding: 1rem;
+  border: 1px solid #ccc; /* Apenas para visualização */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  scrollbar-width: thin; /* Para navegadores Firefox */
+}
+
+/* Estilos para cada projeto */
+.container-projeto {
+  @apply flex justify-between p-4 rounded border shadow-md;
+}
+
+/* Estilos para o conteúdo de projetos */
+.conteudo-projetos {
+  @apply text-center;
+}
+
+/* Estilos para a mensagem de 'sem projetos' */
+.sem-projetos {
+  @apply flex flex-col items-center space-y-4;
+}
+
+/* Botão 'Novo projeto' */
+.botao-novo-projeto {
+  @apply bg-white text-blue-900 border-2 border-blue-900 px-4 py-2 rounded hover:bg-blue-100 font-bold my-5;
+}
+
+/* Scroll bar customizada */
+.container-projetos-externo::-webkit-scrollbar {
+  width: 16px; /* Define a largura da barra de rolagem */
+  background-color: #f1f1f1; /* Cor de fundo da barra de rolagem */
+}
+
+.container-projetos-externo::-webkit-scrollbar-thumb {
+  background-color: #888; /* Cor da parte "arrastável" da barra */
+  border-radius: 10px;
+}
+
+.container-projetos-externo::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Para navegadores que não suportam Webkit (Firefox) */
+.container-projetos-externo {
+  scrollbar-color: #888 #f1f1f1; /* Cor da barra e do fundo */
+  scrollbar-width: thin; /* Largura da barra */
+}

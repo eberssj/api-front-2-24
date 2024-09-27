@@ -48,6 +48,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 8px;
 }
 
 .login-form button:hover {
@@ -69,6 +70,16 @@
     background-repeat: no-repeat; /* Impede repetição da imagem */
 }
 
+.link-home {
+    border-bottom: 1px solid blue;
+    color: blue;
+    cursor: pointer;
+    display: inline; 
+    padding: 2px;
+}
+
+
+
 /* Responsividade */
 @media (max-width: 768px) {
     .login-container {
@@ -78,3 +89,4 @@
         display: none; /* Esconde o lado da imagem em dispositivos menores */
     }
 }
+

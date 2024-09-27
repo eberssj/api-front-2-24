@@ -61,6 +61,11 @@ export default function Login() {
         return emailRegex.test(email);
     };
 
+    const handleHome = () => {
+        navigate("/")
+    }
+    
+
     const handleLogin = () => {
 
         if (isBlocked) {
@@ -193,6 +198,7 @@ export default function Login() {
                     <button onClick={handleLogin}>Entrar</button>
                     {mensagemErro && <div className="login-error">{mensagemErro} <br/> {mensagemExemplo}</div>}
                     {erro && <div className="login-error">Verifique suas informações.</div>}
+                    <p onClick={handleHome} className="link-home">Ir para a Home</p>
                 </div>
             </div>
 

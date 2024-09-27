@@ -236,6 +236,17 @@ const CadastrarProjeto = () => {
           </div>
 
           <div>
+            <label htmlFor="opcoes" className='texto-select'>Situação*</label> <br />
+            <select id="opcoes" name="opcoes" className="custom-select">
+              <option value="" disabled selected>Escolha uma opção</option>
+              <option value="naoIniciado">Não iniciado</option>
+              <option value="emAndamento">Em andamento</option>
+              <option value="Encerrado">Encerrado</option>
+            </select>
+          </div>
+
+
+          {/* <div>
             <label className="texto-label">Situação*</label>
             <input
               type="text"
@@ -245,21 +256,24 @@ const CadastrarProjeto = () => {
               className={`input-padrao ${errors.situacao ? 'input-erro' : ''}`}
             />
             {errors.situacao && <span className="erro-texto">* Este campo é obrigatório e deve ser um número.</span>}
-          </div>
+          </div> */}
 
           <div>
             <label className="texto-label">Anexar propostas</label>
-            <input type="file" name="propostas" onChange={handleFileChange} className="input-padrao" />
+            <input type="file" name="propostas" onChange={handleFileChange} className="input-padrao" 
+            accept="image/*, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
           </div>
 
           <div>
             <label className="texto-label">Anexar contratos</label>
-            <input type="file" name="contratos" onChange={handleFileChange} className="input-padrao" />
+            <input type="file" name="contratos" onChange={handleFileChange} className="input-padrao" 
+            accept="image/*, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
           </div>
 
           <div>
             <label className="texto-label">Anexar artigos</label>
-            <input type="file" name="artigos" onChange={handleFileChange} className="input-padrao" />
+            <input type="file" name="artigos" onChange={handleFileChange} className="input-padrao" 
+            accept="image/*, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
           </div>
 
           <div className="text-center">

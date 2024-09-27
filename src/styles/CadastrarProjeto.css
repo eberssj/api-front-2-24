@@ -75,3 +75,18 @@
     margin-top: 4px;
   }
   
+  .custom-select {
+    width: 100%; /* Largura máxima */
+    background-color: transparent; /* Remove o fundo padrão */
+    border: 1px solid #1e3a8a; /* Borda na cor especificada */
+    padding: 8px; /* Espaçamento interno para melhorar a aparência */
+    font-size: 16px; /* Tamanho da fonte */
+    border-radius: 4px; /* Bordas arredondadas (opcional) */
+    appearance: none; /* Remove o estilo padrão do navegador */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+  .texto-select {
+    font-weight: bold;
+  }
