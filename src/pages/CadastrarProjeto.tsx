@@ -1,11 +1,14 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, ChangeEvent, FormEvent, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/CadastrarProjeto.css';
 import { Sidebar } from '../components/Sidebar/Sidebar';
-import { erroror } from "../components/Swal/Swal";
+import { erroror, Toast } from "../components/Swal/Swal";
+import { AuthContext } from '../hook/ContextAuth';
 
 const CadastrarProjeto = () => {
+  const navigate = useNavigate();
+  const { adm } = useContext(AuthContext);
   const [project, setProject] = useState({
     referencia: '',
     empresa: '',
@@ -19,6 +22,7 @@ const CadastrarProjeto = () => {
     propostas: null,
     contratos: null,
     artigos: null,
+    idAdm: 1
   });
 
   const [errors, setErrors] = useState({
@@ -71,6 +75,7 @@ const CadastrarProjeto = () => {
         dataInicio: project.dataInicio,
         dataTermino: project.dataTermino,
         situacao: parseFloat(project.situacao),
+        idAdm: 1
       };
 
       formData.append('projeto', new Blob([JSON.stringify(projeto)], {
@@ -91,10 +96,15 @@ const CadastrarProjeto = () => {
         const response = await axios.post('http://localhost:8080/projeto/cadastrar', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${adm?.token}`,
           },
         });
 
         console.log('Projeto cadastrado com sucesso:', response.data);
+        Toast.fire({
+          icon: 'success',
+          title: 'Projeto cadastrado com sucesso!',
+        });
         setProject({
           referencia: '',
           empresa: '',
@@ -108,7 +118,11 @@ const CadastrarProjeto = () => {
           propostas: null,
           contratos: null,
           artigos: null,
+          idAdm: 1   
         });
+
+        navigate('/adm/projetos');
+
       } catch (error) {
         console.error('Erro ao cadastrar o projeto:', error);
         erroror('Não foi possível cadastrar o projeto.');

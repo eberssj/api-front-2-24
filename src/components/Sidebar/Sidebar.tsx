@@ -81,7 +81,7 @@ export const Sidebar: React.FC = () => {
           <div className="flex items-center space-x-2">
             <i className="bi bi-person-circle text-4xl text-blue-900"></i>
               <div className='flex flex-col items-start'>
-                <p className="text-gray-900">Administrador {adm?.nome}</p>
+                <p className="text-gray-900">Administrador: {adm?.nome}</p>
                 <p className="text-gray-600 text-sm">{adm?.email}</p>
               </div>
           </div>

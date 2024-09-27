@@ -113,12 +113,21 @@ export default function Login() {
                 const tipo = await axios.get(`http://localhost:8080/adm/${decoded.sub}/tipo`, {
                     headers: { Authorization: `Bearer ${data.token}` },
                 });
+                const user = await axios.get(`http://localhost:8080/adm/${decoded.sub}/infoAdm`, {
+                    headers: { Authorization: `Bearer ${data.token}` },
+                }
+                )
 
                 const admData = {
                     token: data.token,
                     tipo: tipo.data,
                     sub: decoded.sub,
-                    email,
+                    email: user.data.email,
+                    nome: user.data.nome,
+                    telefone: user.data.telefone,
+                    cpf: user.data.cpf,
+                    id: user.data.id,
+                    ativo: user.data.ativo,
                 };
 
                 login(admData);
