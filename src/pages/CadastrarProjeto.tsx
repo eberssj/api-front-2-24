@@ -3,13 +3,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/CadastrarProjeto.css';
 import { Sidebar } from '../components/Sidebar/Sidebar';
-import { erroror, Toast } from "../components/Swal/Swal";
-import { useNavigate } from 'react-router-dom'; // Para redirecionar
+import { erroror } from "../components/Swal/Swal";
 
 const CadastrarProjeto = () => {
-
-  const navigate = useNavigate();
-
   const [project, setProject] = useState({
     referencia: '',
     empresa: '',
@@ -52,7 +48,7 @@ const CadastrarProjeto = () => {
       coordenador: project.coordenador.trim() === '',
       valor: project.valor.trim() === '' || isNaN(Number(project.valor)),
       dataInicio: project.dataInicio === '',
-      situacao: project.situacao.trim() === '' || isNaN(Number(project.situacao)), // Validação para situação
+      situacao: project.situacao.trim() === '' || isNaN(Number(project.situacao)),
     };
 
     setErrors(newErrors);
@@ -61,12 +57,11 @@ const CadastrarProjeto = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     if (validateForm()) {
       const formData = new FormData();
 
-      // Adiciona os campos de texto
-      formData.append('projeto', JSON.stringify({
+      const projeto = {
         referenciaProjeto: project.referencia,
         empresa: project.empresa,
         objeto: project.objeto,
@@ -76,9 +71,12 @@ const CadastrarProjeto = () => {
         dataInicio: project.dataInicio,
         dataTermino: project.dataTermino,
         situacao: parseFloat(project.situacao),
+      };
+
+      formData.append('projeto', new Blob([JSON.stringify(projeto)], {
+        type: 'application/json',
       }));
 
-      // Adiciona os arquivos (se existirem)
       if (project.propostas) {
         formData.append('propostas', project.propostas);
       }
@@ -97,7 +95,6 @@ const CadastrarProjeto = () => {
         });
 
         console.log('Projeto cadastrado com sucesso:', response.data);
-        // Resetar o formulário após o envio, se necessário
         setProject({
           referencia: '',
           empresa: '',
@@ -114,6 +111,7 @@ const CadastrarProjeto = () => {
         });
       } catch (error) {
         console.error('Erro ao cadastrar o projeto:', error);
+        erroror('Não foi possível cadastrar o projeto.');
       }
     } else {
       erroror('Não foi possível cadastrar o projeto.');
@@ -131,7 +129,6 @@ const CadastrarProjeto = () => {
           <h1 className="texto-titulo">Novo Projeto</h1>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Referência do Projeto */}
           <div>
             <label className="texto-label">Referência do projeto*</label>
             <input
@@ -144,7 +141,6 @@ const CadastrarProjeto = () => {
             {errors.referencia && <span className="erro-texto">* Este campo é obrigatório.</span>}
           </div>
 
-          {/* Empresa */}
           <div>
             <label className="texto-label">Empresa*</label>
             <input
@@ -157,7 +153,6 @@ const CadastrarProjeto = () => {
             {errors.empresa && <span className="erro-texto">* Este campo é obrigatório.</span>}
           </div>
 
-          {/* Objeto */}
           <div>
             <label className="texto-label">Objeto</label>
             <input
@@ -169,7 +164,6 @@ const CadastrarProjeto = () => {
             />
           </div>
 
-          {/* Descrição */}
           <div>
             <label className="texto-label">Descrição</label>
             <textarea
@@ -180,7 +174,6 @@ const CadastrarProjeto = () => {
             />
           </div>
 
-          {/* Coordenador */}
           <div>
             <label className="texto-label">Coordenador*</label>
             <input
@@ -193,7 +186,6 @@ const CadastrarProjeto = () => {
             {errors.coordenador && <span className="erro-texto">* Este campo é obrigatório.</span>}
           </div>
 
-          {/* Valor do Projeto */}
           <div>
             <label className="texto-label">Valor do projeto*</label>
             <input
@@ -206,7 +198,6 @@ const CadastrarProjeto = () => {
             {errors.valor && <span className="erro-texto">* Este campo é obrigatório e deve ser um número.</span>}
           </div>
 
-          {/* Data de Início */}
           <div className="alinhado-esquerda">
             <label className="texto-label">Data de início*</label>
             <input
@@ -219,7 +210,6 @@ const CadastrarProjeto = () => {
             {errors.dataInicio && <span className="erro-texto">* Este campo é obrigatório.</span>}
           </div>
 
-          {/* Data de Término */}
           <div className="alinhado-esquerda">
             <label className="texto-label">Data de término</label>
             <input
@@ -231,7 +221,6 @@ const CadastrarProjeto = () => {
             />
           </div>
 
-          {/* Situação */}
           <div>
             <label className="texto-label">Situação*</label>
             <input
@@ -244,30 +233,23 @@ const CadastrarProjeto = () => {
             {errors.situacao && <span className="erro-texto">* Este campo é obrigatório e deve ser um número.</span>}
           </div>
 
-          {/* Anexar Propostas */}
           <div>
             <label className="texto-label">Anexar propostas</label>
             <input type="file" name="propostas" onChange={handleFileChange} className="input-padrao" />
           </div>
 
-          {/* Anexar Contratos */}
           <div>
             <label className="texto-label">Anexar contratos</label>
             <input type="file" name="contratos" onChange={handleFileChange} className="input-padrao" />
           </div>
 
-          {/* Anexar Artigos */}
           <div>
             <label className="texto-label">Anexar artigos</label>
             <input type="file" name="artigos" onChange={handleFileChange} className="input-padrao" />
           </div>
 
-          {/* Submit Button */}
           <div className="text-center">
-            <button
-              type="submit"
-              className="botao-submit"
-            >
+            <button type="submit" className="botao-submit">
               Adicionar projeto
             </button>
           </div>
