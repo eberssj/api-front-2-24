@@ -22,7 +22,7 @@ const CadastrarProjeto = () => {
     propostas: null,
     contratos: null,
     artigos: null,
-    idAdm: 1
+    adm: adm?.id
   });
 
   const [errors, setErrors] = useState({
@@ -33,6 +33,12 @@ const CadastrarProjeto = () => {
     dataInicio: false,
     situacao: false,
   });
+
+  const handleChange2 = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setProject((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: false }));
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -52,7 +58,7 @@ const CadastrarProjeto = () => {
       coordenador: project.coordenador.trim() === '',
       valor: project.valor.trim() === '' || isNaN(Number(project.valor)),
       dataInicio: project.dataInicio === '',
-      situacao: project.situacao.trim() === '' || isNaN(Number(project.situacao)),
+      situacao: project.situacao.trim() === ''
     };
 
     setErrors(newErrors);
@@ -74,8 +80,8 @@ const CadastrarProjeto = () => {
         valor: parseFloat(project.valor),
         dataInicio: project.dataInicio,
         dataTermino: project.dataTermino,
-        situacao: parseFloat(project.situacao),
-        idAdm: 1
+        situacao: project.situacao,
+        adm: adm?.id
       };
 
       formData.append('projeto', new Blob([JSON.stringify(projeto)], {
@@ -118,14 +124,14 @@ const CadastrarProjeto = () => {
           propostas: null,
           contratos: null,
           artigos: null,
-          idAdm: 1   
+          adm: adm?.id 
         });
 
         navigate('/adm/projetos');
 
       } catch (error) {
         console.error('Erro ao cadastrar o projeto:', error);
-        erroror('Não foi possível cadastrar o projeto.');
+        erroror('Não foi possível cadastrar o projeto222.');
       }
     } else {
       erroror('Não foi possível cadastrar o projeto.');
@@ -237,7 +243,7 @@ const CadastrarProjeto = () => {
 
           <div>
             <label htmlFor="opcoes" className='texto-select'>Situação*</label> <br />
-            <select id="opcoes" name="opcoes" className="custom-select">
+            <select id="opcoes" name="situacao" value={project.situacao} onChange={handleChange2} className="custom-select">
               <option value="" disabled selected>Escolha uma opção</option>
               <option value="naoIniciado">Não iniciado</option>
               <option value="emAndamento">Em andamento</option>
