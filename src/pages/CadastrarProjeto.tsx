@@ -32,6 +32,9 @@ const CadastrarProjeto = () => {
     valor: false,
     dataInicio: false,
     situacao: false,
+    dataTermino: false,
+    objeto: false,
+    descricao: false,
   });
 
   const handleChange2 = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -56,9 +59,12 @@ const CadastrarProjeto = () => {
       referencia: project.referencia.trim() === '',
       empresa: project.empresa.trim() === '',
       coordenador: project.coordenador.trim() === '',
-      valor: project.valor.trim() === '' || isNaN(Number(project.valor)),
+      valor: project.valor.trim() === '' || isNaN(Number(project.valor)) || Number(project.valor) <= 0,
       dataInicio: project.dataInicio === '',
-      situacao: project.situacao.trim() === ''
+      situacao: project.situacao.trim() === '',
+      dataTermino: project.dataTermino === '' || project.dataTermino < project.dataInicio,
+      objeto: project.objeto.trim() === '',
+      descricao: project.descricao.trim() === '',
     };
 
     setErrors(newErrors);
@@ -131,7 +137,7 @@ const CadastrarProjeto = () => {
 
       } catch (error) {
         console.error('Erro ao cadastrar o projeto:', error);
-        erroror('Não foi possível cadastrar o projeto222.');
+        erroror('Não foi possível cadastrar o projeto.');
       }
     } else {
       erroror('Não foi possível cadastrar o projeto.');
@@ -150,7 +156,7 @@ const CadastrarProjeto = () => {
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="texto-label">Referência do projeto*</label>
+            <label className="texto-label">Referência do projeto</label>
             <input
               type="text"
               name="referencia"
@@ -162,7 +168,7 @@ const CadastrarProjeto = () => {
           </div>
 
           <div>
-            <label className="texto-label">Empresa*</label>
+            <label className="texto-label">Empresa</label>
             <input
               type="text"
               name="empresa"
@@ -182,6 +188,7 @@ const CadastrarProjeto = () => {
               onChange={handleChange}
               className="input-padrao"
             />
+            {errors.objeto && <span className="erro-texto">* Este campo é obrigatório.</span>}
           </div>
 
           <div>
@@ -192,10 +199,11 @@ const CadastrarProjeto = () => {
               onChange={handleChange}
               className="input-padrao"
             />
+            {errors.descricao && <span className="erro-texto">* Este campo é obrigatório.</span>}
           </div>
 
           <div>
-            <label className="texto-label">Coordenador*</label>
+            <label className="texto-label">Coordenador</label>
             <input
               type="text"
               name="coordenador"
@@ -207,7 +215,7 @@ const CadastrarProjeto = () => {
           </div>
 
           <div>
-            <label className="texto-label">Valor do projeto*</label>
+            <label className="texto-label">Valor do projeto</label>
             <input
               type="text"
               name="valor"
@@ -219,7 +227,7 @@ const CadastrarProjeto = () => {
           </div>
 
           <div className="alinhado-esquerda">
-            <label className="texto-label">Data de início*</label>
+            <label className="texto-label">Data de início</label>
             <input
               type="date"
               name="dataInicio"
@@ -227,7 +235,7 @@ const CadastrarProjeto = () => {
               onChange={handleChange}
               className={`input-padrao ${errors.dataInicio ? 'input-erro' : ''}`}
             />
-            {errors.dataInicio && <span className="erro-texto">* Este campo é obrigatório.</span>}
+            {errors.dataInicio && <span className="erro-texto">* Este campo é obrigatório, verifique suas informações.</span>}
           </div>
 
           <div className="alinhado-esquerda">
@@ -239,16 +247,18 @@ const CadastrarProjeto = () => {
               onChange={handleChange}
               className="input-padrao"
             />
+            {errors.dataTermino && <span className="erro-texto">* Este campo é obrigatório, verifique suas informações.</span>}
           </div>
 
           <div>
-            <label htmlFor="opcoes" className='texto-select'>Situação*</label> <br />
+            <label htmlFor="opcoes" className='texto-select'>Situação</label> <br />
             <select id="opcoes" name="situacao" value={project.situacao} onChange={handleChange2} className="custom-select">
               <option value="" disabled selected>Escolha uma opção</option>
               <option value="naoIniciado">Não iniciado</option>
               <option value="emAndamento">Em andamento</option>
               <option value="Encerrado">Encerrado</option>
             </select>
+            {errors.situacao && <span className="erro-texto">* Este campo é obrigatório, verifique suas informações.</span>}
           </div>
 
 
