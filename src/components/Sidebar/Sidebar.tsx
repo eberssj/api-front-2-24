@@ -110,7 +110,7 @@ export const Sidebar: React.FC = () => {
           <ul className="flex flex-col mt-10 space-y-4">
             <li>
               <a
-                href="/adm/projetos"
+                href="/"
                 onClick={() => setSelected('Projetos')}
                 className={`flex items-center px-4 py-2 ${selected === 'Projetos' ? 'bg-blue-800 text-white rounded-md' : 'rounded-md text-gray-600 hover:bg-gray-200 hover:text-gray-900'} transition-all duration-300`}
               >
