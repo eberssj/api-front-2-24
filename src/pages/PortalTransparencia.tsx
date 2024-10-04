@@ -12,6 +12,8 @@ const PortalTransparencia = () => {
     const [referenciaProjeto, setReferenciaProjeto] = useState('');
     const [coordenador, setCoordenador] = useState('');
     const [valorProjeto, setValorProjeto] = useState('');
+    const [valorMinimoProjeto, setValorMinimoProjeto] = useState('');
+    const [valorMaximoProjeto, setValorMaximoProjeto] = useState('');
     const [dataInicio, setDataInicio] = useState('');
     const [dataTermino, setDataTermino] = useState('');
 
@@ -49,7 +51,10 @@ const PortalTransparencia = () => {
         const projetosFiltrados = projetos.filter((projeto) => {
             const referenciaProjetoMatch = referenciaProjeto ? projeto.referenciaProjeto.toLowerCase().includes(referenciaProjeto.toLowerCase()) : true;
             const coordenadorMatch = coordenador ? projeto.coordenador.toLowerCase().includes(coordenador.toLowerCase()) : true;
-            const valorProjetoMatch = valorProjeto ? projeto.valor.toString().includes(valorProjeto) : true;
+            const valorProjetoMatch = valorProjeto ? projeto.valor == valorProjeto : true;
+
+            const valorMinimoProjetoMatch = valorMinimoProjeto ? projeto.valor >= valorMinimoProjeto : true;
+            const valorMaximoProjetoMatch = valorMaximoProjeto ? projeto.valor <= valorMaximoProjeto : true;
 
             const dataInicioFormatada = formatarDataParaComparacao(projeto.dataInicio);
             const dataTerminoFormatada = formatarDataParaComparacao(projeto.dataTermino);
@@ -60,7 +65,7 @@ const PortalTransparencia = () => {
             const dataInicioMatch = dataInicio ? dataInicioFormatada >= dataInicioFiltro : true;
             const dataTerminoMatch = dataTermino ? dataTerminoFormatada <= dataTerminoFiltro : true;
 
-            return referenciaProjetoMatch && coordenadorMatch && valorProjetoMatch && dataInicioMatch && dataTerminoMatch;
+            return referenciaProjetoMatch && coordenadorMatch && valorProjetoMatch && valorMinimoProjetoMatch && valorMaximoProjetoMatch && dataInicioMatch && dataTerminoMatch;
         });
 
         setProjetosFiltrados(projetosFiltrados);
@@ -94,6 +99,20 @@ const PortalTransparencia = () => {
                             placeholder="Valor do projeto"
                             value={valorProjeto}
                             onChange={(e) => setValorProjeto(e.target.value)}
+                            className="input-filtrar-projetos"
+                        />
+                        <input
+                            type="text"
+                            placeholder="Valor mínimo"
+                            value={valorMinimoProjeto}
+                            onChange={(e) => setValorMinimoProjeto(e.target.value)}
+                            className="input-filtrar-projetos"
+                        />
+                        <input
+                            type="text"
+                            placeholder="Valor máximo"
+                            value={valorMaximoProjeto}
+                            onChange={(e) => setValorMaximoProjeto(e.target.value)}
                             className="input-filtrar-projetos"
                         />
                         <input
