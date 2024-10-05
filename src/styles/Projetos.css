@@ -1,6 +1,9 @@
 /* Estilos para o contêiner principal */
-.container-principal {
-  @apply flex justify-center items-center h-full;
+.container-principal-projetos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
 }
 
 /* Estilos para o contêiner externo dos projetos */

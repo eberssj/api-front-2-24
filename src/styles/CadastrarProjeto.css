@@ -21,10 +21,11 @@
 }
 
 /* Estilos para o contêiner principal */
-.container-principal {
+.container-principal-cadastrar {
     @apply flex justify-start; /* Ocupa a largura total disponível */
     width: 98%;
     margin: 5vh 0;
+    padding: 2rem;
 }
 
 /* Estilos para o formulário */

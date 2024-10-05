@@ -145,7 +145,7 @@ const CadastrarProjeto = () => {
   };
 
   return (
-    <div className="container-principal">
+    <div className="container-principal-cadastrar">
       <Sidebar />
       <div className="formulario">
         <div className="cabecalho">

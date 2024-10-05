@@ -34,7 +34,7 @@ const Projetos = () => {
     }, []);
 
     return (
-    <div className="container-principal">
+    <div className="container-principal-projetos">
         <Sidebar />
         {projetos.length > 0 ? (
             <div className="container-projetos-externo">
