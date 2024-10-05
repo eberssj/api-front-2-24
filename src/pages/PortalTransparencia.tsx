@@ -72,70 +72,83 @@ const PortalTransparencia = () => {
     };
 
     return (
-        <div className="container-principal">
+        <div className="container-principal-portal">
             <Sidebar />
             <div className="container-texto">
                 <h1>Fundação de Apoio à Pesquisa de Pós-Graduandos (FAPG)</h1>
                 <p>A Fundação vem com o objetivo de trazer transformações importantes para o meio acadêmico, e busca conseguir isso com a obstinação dos seus dirigentes <br /> e funcionários no sentido de torná-la sempre mais ágil e precisa.</p>
                 <br />
                 <div className="filtros">
-                    <form onSubmit={(e) => { e.preventDefault(); aplicarFiltro(); }}>
-                        <input
-                            type="text"
-                            placeholder="Referência do projeto"
-                            value={referenciaProjeto}
-                            onChange={(e) => setReferenciaProjeto(e.target.value)}
-                            className="input-filtrar-projetos"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Coordenador"
-                            value={coordenador}
-                            onChange={(e) => setCoordenador(e.target.value)}
-                            className="input-filtrar-projetos"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Valor do projeto"
-                            value={valorProjeto}
-                            onChange={(e) => setValorProjeto(e.target.value)}
-                            className="input-filtrar-projetos"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Valor mínimo"
-                            value={valorMinimoProjeto}
-                            onChange={(e) => setValorMinimoProjeto(e.target.value)}
-                            className="input-filtrar-projetos"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Valor máximo"
-                            value={valorMaximoProjeto}
-                            onChange={(e) => setValorMaximoProjeto(e.target.value)}
-                            className="input-filtrar-projetos"
-                        />
-                        <input
-                            type="date"
-                            placeholder="Data de início"
-                            value={dataInicio}
-                            onChange={(e) => setDataInicio(e.target.value)}
-                            className="input-filtrar-projetos"
-                        />
-                        <input
-                            type="date"
-                            placeholder="Data de término"
-                            value={dataTermino}
-                            onChange={(e) => setDataTermino(e.target.value)}
-                            className="input-filtrar-projetos"
-                        />
-                        <button type="submit" className="botao-filtrar-projetos">Aplicar Filtros</button>
+                    <form onSubmit={(e) => { e.preventDefault(); aplicarFiltro(); }} className="space-y-4">
+                        <div>
+                            <label className="texto-label">Referência do projeto</label>
+                            <input
+                                type="text"
+                                value={referenciaProjeto}
+                                onChange={(e) => setReferenciaProjeto(e.target.value)}
+                                className="input-padrao"
+                            />
+                        </div>
+                        <div>
+                            <label className="texto-label">Coordenador</label>
+                            <input
+                                type="text"
+                                value={coordenador}
+                                onChange={(e) => setCoordenador(e.target.value)}
+                                className="input-padrao"
+                            />
+                        </div>
+                        <div>
+                            <label className="texto-label">Valor do projeto</label>
+                            <input
+                                type="text"
+                                value={valorProjeto}
+                                onChange={(e) => setValorProjeto(e.target.value)}
+                                className="input-padrao"
+                            />
+                        </div>
+                        <div>
+                            <label className="texto-label">Valor mínimo</label>
+                            <input
+                                type="text"
+                                value={valorMinimoProjeto}
+                                onChange={(e) => setValorMinimoProjeto(e.target.value)}
+                                className="input-padrao"
+                            />
+                        </div>
+                        <div>
+                            <label className="texto-label">Valor máximo</label>
+                            <input
+                                type="text"
+                                value={valorMaximoProjeto}
+                                onChange={(e) => setValorMaximoProjeto(e.target.value)}
+                                className="input-padrao"
+                            />
+                        </div>
+                        <div>
+                            <label className="texto-label">Data de início</label>
+                            <input
+                                type="date"
+                                value={dataInicio}
+                                onChange={(e) => setDataInicio(e.target.value)}
+                                className="input-padrao"
+                            />
+                        </div>
+                        <div>
+                            <label className="texto-label">Data de término</label>
+                            <input
+                                type="date"
+                                value={dataTermino}
+                                onChange={(e) => setDataTermino(e.target.value)}
+                                className="input-padrao"
+                            />
+                        </div>
+                        <button type="submit" className="botao-filtrar-projetos">Buscar</button>
                     </form>
                 </div>
                 <br />
                 {projetosFiltrados.length > 0 ? (
                     <>
-                        <p>Abaixo estão todos os projetos desenvolvidos.</p>
                         <br />
                         <div className="container-projetos-externo">
                             <div>
