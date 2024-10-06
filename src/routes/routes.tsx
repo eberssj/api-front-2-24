@@ -7,6 +7,8 @@ import CadastrarProjeto from '../pages/CadastrarProjeto';
 import Projetos from '../pages/Projetos';
 import PortalTransparencia from '../pages/PortalTransparencia';
 import InformacoesProjeto from '../pages/InformacoesProjeto';
+import Dashboard from '../pages/Dashboard';
+
 
 export default function Routes() {
     return (
@@ -36,6 +38,14 @@ export default function Routes() {
                     <Projetos />
                   </PrivateRoutes>
                 } />
+
+                <Route path="/adm/dashboard" element={
+                  <PrivateRoutes tiposAllowed={[1]}>
+                    <Dashboard />
+                  </PrivateRoutes>
+                } />
+
+                
 
                 <Route path="/projeto/:id" element={<InformacoesProjeto />} />
 
