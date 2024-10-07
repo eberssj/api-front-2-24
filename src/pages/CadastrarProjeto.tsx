@@ -254,8 +254,7 @@ const CadastrarProjeto = () => {
             <label htmlFor="opcoes" className='texto-select'>Situação</label> <br />
             <select id="opcoes" name="situacao" value={project.situacao} onChange={handleChange2} className="custom-select">
               <option value="" disabled selected>Escolha uma opção</option>
-              <option value="naoIniciado">Não iniciado</option>
-              <option value="emAndamento">Em andamento</option>
+              <option value="Em Andamento">Em andamento</option>
               <option value="Encerrado">Encerrado</option>
             </select>
             {errors.situacao && <span className="erro-texto">* Este campo é obrigatório, verifique suas informações.</span>}
