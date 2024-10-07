@@ -4,6 +4,8 @@ import { Sidebar } from '../components/Sidebar/Sidebar';
 import axios from 'axios';
 import '../styles/InformacoesProjeto.css';
 import { AuthContext } from '../hook/ContextAuth'; // Importando o contexto de autenticação
+import { Toast } from '../components/Swal/Swal';
+import Swal from 'sweetalert2';
 
 interface Arquivo {
     id: number;
@@ -75,18 +77,38 @@ const InformacoesProjeto = () => {
     };
 
     const deletarProjeto = () => {
-        const token = localStorage.getItem('token'); // Supondo que o token esteja armazenado no localStorage
-    
-        axios.delete(`http://localhost:8080/projeto/excluir/${projeto.id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
+
+        Swal.fire({
+            title: 'Deseja deletar o projeto?',
+            showDenyButton: true,
+            confirmButtonText: 'Sim',
+            denyButtonText: 'Não',
+            width: 410,
+            confirmButtonColor: 'rgb(255, 0, 53)',
+            denyButtonColor: 'rgb(0,114,187)',
+            heightAuto: false,
+            backdrop: true,
+            customClass: {
+            confirmButton: 'cButton',
+            denyButton: 'dButton',
             }
-        })
-        .then(() => {
-            alert('Projeto deletado com sucesso!');
-            navigate('/projetos'); // Redirecionar para a página de listagem
-        })
-        .catch(error => console.error('Erro ao deletar o projeto:', error));
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`http://localhost:8080/projeto/excluir/${projeto.id}`, {
+                    headers: {
+                    Authorization: `Bearer ${adm?.token}`
+                    }
+            })
+            .then(() => {
+                Toast.fire({
+                icon: 'success',
+                title: 'Projeto deletado com sucesso!'
+                });
+                navigate('/adm/projetos');
+            })
+            .catch(error => console.error('Erro ao deletar o projeto:', error));
+            }
+        });
     };
     
     
