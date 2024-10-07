@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import axios from 'axios';
 import '../styles/InformacoesProjeto.css';
+import { AuthContext } from '../hook/ContextAuth'; // Importando o contexto de autenticação
 
-// Define types for your entities
 interface Arquivo {
     id: number;
     nomeArquivo: string;
@@ -25,20 +25,29 @@ interface Projeto {
 
 const InformacoesProjeto = () => {
     const location = useLocation();
-    const projeto: Projeto = location.state; // Use the correct type here
     const navigate = useNavigate();
-    const [arquivos, setArquivos] = useState<Arquivo[]>([]); // Define the type of arquivos
+    const projeto: Projeto = location.state; // Obtem o projeto da navegação
+    const [arquivos, setArquivos] = useState<Arquivo[]>([]); // Estado para armazenar os arquivos
+    const { adm } = useContext(AuthContext); // Utilizando o contexto de autenticação para pegar o token do admin
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/arquivos/projeto/${projeto.id}`)
+        // Requisição para obter os arquivos do projeto
+        axios.get(`http://localhost:8080/arquivos/projeto/${projeto.id}`, {
+            headers: {
+                Authorization: `Bearer ${adm?.token}` // Passando o token do administrador no cabeçalho da requisição
+            }
+        })
             .then(response => setArquivos(response.data))
             .catch(error => console.error(error));
-    }, [projeto.id]);
+    }, [projeto.id, adm]);
 
-    // Define the correct types for arquivoId and nomeArquivo
     const downloadArquivo = (arquivoId: number, nomeArquivo: string) => {
+        // Requisição para download de arquivo
         axios.get(`http://localhost:8080/arquivos/download/${arquivoId}`, {
             responseType: 'blob',
+            headers: {
+                Authorization: `Bearer ${adm?.token}` // Passando o token para autenticação
+            }
         })
         .then((response) => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -53,8 +62,8 @@ const InformacoesProjeto = () => {
         });
     };
 
-    // Define the correct type for dataArray as number[]
     const formatarData = (dataArray: number[]): string => {
+        // Função para formatar a data no formato dd/mm/yyyy
         if (Array.isArray(dataArray) && dataArray.length === 3) {
             return new Date(dataArray[0], dataArray[1] - 1, dataArray[2]).toLocaleDateString('pt-BR', {
                 day: 'numeric',
@@ -63,6 +72,28 @@ const InformacoesProjeto = () => {
             });
         }
         return 'Data inválida';
+    };
+
+    const deletarProjeto = () => {
+        const token = localStorage.getItem('token'); // Supondo que o token esteja armazenado no localStorage
+    
+        axios.delete(`http://localhost:8080/projeto/excluir/${projeto.id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(() => {
+            alert('Projeto deletado com sucesso!');
+            navigate('/projetos'); // Redirecionar para a página de listagem
+        })
+        .catch(error => console.error('Erro ao deletar o projeto:', error));
+    };
+    
+    
+
+    const editarProjeto = () => {
+        // Navegação para a página de edição do projeto
+        navigate(`/projeto/editar/${projeto.id}`, { state: projeto });
     };
 
     return (
@@ -76,6 +107,7 @@ const InformacoesProjeto = () => {
                     <h1 className="texto-titulo">Informações do Projeto</h1>
                 </div>
                 <div className="container-informacoes">
+                    {/* Informações do projeto */}
                     <div>
                         <p className="titulo">Referência do projeto</p>
                         <p className="texto">{projeto.referenciaProjeto}</p>
@@ -111,6 +143,7 @@ const InformacoesProjeto = () => {
                         <p className="texto">{formatarData(projeto.dataTermino)}</p>
                     </div>
 
+                    {/* Lista de arquivos */}
                     <div>
                         <p className="titulo">Arquivos do projeto</p>
                         {arquivos.length > 0 ? (
@@ -127,6 +160,12 @@ const InformacoesProjeto = () => {
                         ) : (
                             <p>Nenhum arquivo disponível.</p>
                         )}
+                    </div>
+
+                    {/* Botões de Ação */}
+                    <div className="botoes-container">
+                        <button className="botao-editar" onClick={editarProjeto}>Editar Projeto</button>
+                        <button className="botao-deletar" onClick={deletarProjeto}>Deletar Projeto</button>
                     </div>
                 </div>
             </div>

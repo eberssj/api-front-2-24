@@ -7,6 +7,7 @@ import CadastrarProjeto from '../pages/CadastrarProjeto';
 import Projetos from '../pages/Projetos';
 import PortalTransparencia from '../pages/PortalTransparencia';
 import InformacoesProjeto from '../pages/InformacoesProjeto';
+import EditarProjeto from '../pages/EditarProjeto';
 
 export default function Routes() {
     return (
@@ -28,12 +29,19 @@ export default function Routes() {
                 <Route path="/adm/cadastrar-projeto" element={
                   <PrivateRoutes tiposAllowed={[1]}>
                     <CadastrarProjeto />
+
                   </PrivateRoutes>
                 } />
 
                 <Route path="/adm/projetos" element={
                   <PrivateRoutes tiposAllowed={[1]}>
                     <Projetos />
+                  </PrivateRoutes>
+                } />
+
+                <Route path="/projeto/editar/:id" element={
+                  <PrivateRoutes tiposAllowed={[1]}>
+                    <EditarProjeto />
                   </PrivateRoutes>
                 } />
 
