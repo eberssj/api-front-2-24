@@ -3,6 +3,7 @@ import { useAuth } from '../../hook/Auth';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../hook/ContextAuth';
+import { Toast } from '../Swal/Swal';
 
 export const Sidebar: React.FC = () => {
   const [selected, setSelected] = useState('Projetos');
@@ -29,6 +30,10 @@ export const Sidebar: React.FC = () => {
 
     }).then((result) => {
         if (result.isConfirmed) {
+            Toast.fire({
+                icon: 'success',
+                title: 'Logout realizado com sucesso!'
+            });
             logout();
             navigate("/login");
         }
