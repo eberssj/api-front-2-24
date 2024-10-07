@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import '../styles/Dashboard.css';
-import { useNavigate } from 'react-router-dom';
-import { Projeto } from '../Type/Projeto';
 import axios from 'axios';
+import { Bar, Line } from 'react-chartjs-2';
 
 const Dashboard = () => {
-    const navigate = useNavigate();
-    const [projetos, setProjetos] = useState<Projeto[]>([]);
+    const [projetos, setProjetos] = useState([]);
     const [filtro, setFiltro] = useState<string>('');
 
     useEffect(() => {
@@ -27,27 +25,82 @@ const Dashboard = () => {
         setFiltro(e.target.value);
     };
 
+    // Dados para gráficos
+    const coordenadorData = {
+        labels: projetos.map(projeto => projeto.coordenador),
+        datasets: [
+            {
+                label: 'Valores dos Projetos',
+                data: projetos.map(projeto => projeto.valor),
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const faixaOrcamentariaData = {
+        labels: projetos.map(projeto => projeto.coordenador),
+        datasets: [
+            {
+                label: 'Faixa Orçamentária',
+                data: projetos.map(projeto => projeto.valor),
+                backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const datasExecucaoData = {
+        labels: projetos.map(projeto => new Date(projeto.data_inicio).toLocaleDateString('pt-BR')),
+        datasets: [
+            {
+                label: 'Data de Início',
+                data: projetos.map(projeto => new Date(projeto.data_inicio).getTime()),
+                fill: false,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                tension: 0.1,
+            },
+        ],
+    };
+
     return (
-        <div className="container-principal-projetos">
+        <div className="dashboard-container-principal-projetos">
             <Sidebar />
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px', width: '100%' }}>
+            <div className="dashboard-container-input">
                 <h1>Selecione um filtro</h1>
                 <select
                     value={filtro}
                     onChange={handleFiltroChange}
-                    style={{ padding: '10px', fontSize: '16px', width: '300px', textAlign: 'center', marginBottom: '20px' }}
+                    className="dashboard-select"
                 >
                     <option value="">Escolha uma opção</option>
                     <option value="coordenador">Coordenador</option>
-                    <option value="dataExecucao">Data de Execução</option>
-                    <option value="classificacao">Classificação</option>
-                    <option value="situacaoAtual">Situação Atual</option>
                     <option value="faixaOrcamentaria">Faixa Orçamentária</option>
+                    <option value="datasExecucao">Datas de Execução</option>
                 </select>
 
                 {/* O conteúdo filtrado será mostrado aqui */}
-                <div style={{ marginTop: '20px' }}>
-                    <p>Aqui será exibido o conteúdo baseado na escolha do filtro: {filtro}</p>
+                <div className="dashboard-graficos-container">
+                    {filtro === 'coordenador' && (
+                        <div>
+                            <h2>Gráfico de Coordenadores</h2>
+                            <Bar data={coordenadorData} />
+                        </div>
+                    )}
+                    {filtro === 'faixaOrcamentaria' && (
+                        <div>
+                            <h2>Gráfico de Faixa Orçamentária</h2>
+                            <Bar data={faixaOrcamentariaData} />
+                        </div>
+                    )}
+                    {filtro === 'datasExecucao' && (
+                        <div>
+                            <h2>Gráfico de Datas de Execução</h2>
+                            <Line data={datasExecucaoData} />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

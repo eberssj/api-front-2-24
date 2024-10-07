@@ -72,7 +72,7 @@ export const Sidebar: React.FC = () => {
                 className={`flex items-center px-4 py-2 ${selected === 'Projetos' ? 'bg-blue-800 text-white rounded-md' : 'rounded-md text-gray-600 hover:bg-gray-200 hover:text-gray-900'} transition-all duration-300`}
               >
                 <span className="mr-4">
-                  <i className="bi bi-calendar mr-2"></i>
+                  <i className="bi bi-graph-up mr-2"></i>
                   Dashboard
                 </span>
               </a>

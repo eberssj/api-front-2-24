@@ -1,4 +1,4 @@
-.container-principal-projetos {
+.dashboard-container-principal-projetos {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +6,7 @@
     background-color: #f4f4f4;
 }
 
-.container-input {
+.dashboard-container-input {
     text-align: center;
     background-color: #fff;
     padding: 40px;
@@ -14,14 +14,14 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+.dashboard-h1 {
     font-family: 'Arial', sans-serif;
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;
 }
 
-select {
+.dashboard-select {
     width: 300px;
     padding: 12px;
     font-size: 16px;
@@ -33,23 +33,23 @@ select {
     color: #333;
 }
 
-select:focus {
+.dashboard-select:focus {
     border-color: #0056b3;
 }
 
-select option {
+.dashboard-select option {
     font-size: 16px;
     color: #333;
 }
 
-p {
+.dashboard-p {
     font-family: 'Arial', sans-serif;
     font-size: 18px;
     margin-top: 20px;
     color: #555;
 }
 
-.container-input div {
+.dashboard-container-input div {
     margin-top: 20px;
     font-size: 16px;
     color: #666;
