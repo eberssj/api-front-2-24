@@ -11,6 +11,7 @@ const PortalTransparencia = () => {
     const [projetosFiltrados, setProjetosFiltrados] = useState<Projeto[]>([]);
     const [referenciaProjeto, setReferenciaProjeto] = useState('');
     const [coordenador, setCoordenador] = useState('');
+    const [situacao, setSituacao] = useState('');
     const [valorProjeto, setValorProjeto] = useState('');
     const [valorMinimoProjeto, setValorMinimoProjeto] = useState('');
     const [valorMaximoProjeto, setValorMaximoProjeto] = useState('');
@@ -50,7 +51,11 @@ const PortalTransparencia = () => {
     const aplicarFiltro = () => {
         const projetosFiltrados = projetos.filter((projeto) => {
             const referenciaProjetoMatch = referenciaProjeto ? projeto.referenciaProjeto.toLowerCase().includes(referenciaProjeto.toLowerCase()) : true;
+
             const coordenadorMatch = coordenador ? projeto.coordenador.toLowerCase().includes(coordenador.toLowerCase()) : true;
+
+            const situacaoMatch = situacao ? projeto.situacao == situacao : true
+
             const valorProjetoMatch = valorProjeto ? projeto.valor == valorProjeto : true;
 
             const valorMinimoProjetoMatch = valorMinimoProjeto ? projeto.valor >= valorMinimoProjeto : true;
@@ -65,7 +70,7 @@ const PortalTransparencia = () => {
             const dataInicioMatch = dataInicio ? dataInicioFormatada >= dataInicioFiltro : true;
             const dataTerminoMatch = dataTermino ? dataTerminoFormatada <= dataTerminoFiltro : true;
 
-            return referenciaProjetoMatch && coordenadorMatch && valorProjetoMatch && valorMinimoProjetoMatch && valorMaximoProjetoMatch && dataInicioMatch && dataTerminoMatch;
+            return referenciaProjetoMatch && coordenadorMatch && situacaoMatch && valorProjetoMatch && valorMinimoProjetoMatch && valorMaximoProjetoMatch && dataInicioMatch && dataTerminoMatch;
         });
 
         setProjetosFiltrados(projetosFiltrados);
@@ -97,6 +102,14 @@ const PortalTransparencia = () => {
                                 onChange={(e) => setCoordenador(e.target.value)}
                                 className="input-padrao"
                             />
+                        </div>
+                        <div>
+                            <label className="texto-label">Situação</label>
+                            <select id="situacao" name="situacao" value={situacao} onChange={(e) => setSituacao(e.target.value)} className="custom-select">
+                                <option value="">Escolha uma opção</option>
+                                <option value="Em Andamento">Em andamento</option>
+                                <option value="Encerrado">Encerrado</option>
+                            </select>
                         </div>
                         <div>
                             <label className="texto-label">Valor do projeto</label>
@@ -157,6 +170,7 @@ const PortalTransparencia = () => {
                                         <div className="itens-esquerda">
                                             <p><strong>Referência do projeto:</strong> {projeto.referenciaProjeto}</p>
                                             <p><strong>Coordenador:</strong> {projeto.coordenador}</p>
+                                            <p><strong>Situação:</strong> {projeto.situacao}</p>
                                             <p><strong>Valor:</strong> R$:{projeto.valor}</p>
                                         </div>
                                         <div className="itens-meio">
