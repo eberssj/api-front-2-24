@@ -15,6 +15,11 @@ export default function Routes() {
     return (
         <BrowserRouter>
             <Switch>
+                <Route path="/adm/dashboard" element={
+                      <PrivateRoutes tiposAllowed={[1]}>
+                        <Dashboard />
+                      </PrivateRoutes>
+                }/>
               
                 <Route path="/adm" element={
                       <PrivateRoutes tiposAllowed={[1]}>
