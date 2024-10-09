@@ -17,7 +17,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({ prop, onValueChange }) => {
             try {
                 const response = await axios.get<Projeto[]>('http://localhost:8080/projeto/listar');
                 const projetos = response.data;
-                const opcoesEspecificas = Array.from(new Set(projetos.map((projeto) => projeto[prop] as string)));
+                const opcoesEspecificas = Array.from(new Set(projetos.map((projeto) => projeto[prop] as string))).sort((a, b) => a.localeCompare(b));
                 setOpcoes(opcoesEspecificas);
             } catch (error) {
                 console.error(error);
