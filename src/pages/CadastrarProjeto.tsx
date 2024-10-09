@@ -18,7 +18,6 @@ const CadastrarProjeto = () => {
     valor: '',
     dataInicio: '',
     dataTermino: '',
-    situacao: '',
     propostas: null,
     contratos: null,
     artigos: null,
@@ -31,17 +30,10 @@ const CadastrarProjeto = () => {
     coordenador: false,
     valor: false,
     dataInicio: false,
-    situacao: false,
     dataTermino: false,
     objeto: false,
     descricao: false,
   });
-
-  const handleChange2 = (e: ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setProject((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: false }));
-  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -61,7 +53,6 @@ const CadastrarProjeto = () => {
       coordenador: project.coordenador.trim() === '',
       valor: project.valor.trim() === '' || isNaN(Number(project.valor)) || Number(project.valor) <= 0,
       dataInicio: project.dataInicio === '',
-      situacao: project.situacao.trim() === '',
       dataTermino: project.dataTermino === '' || project.dataTermino < project.dataInicio,
       objeto: project.objeto.trim() === '',
       descricao: project.descricao.trim() === '',
@@ -77,6 +68,8 @@ const CadastrarProjeto = () => {
     if (validateForm()) {
       const formData = new FormData();
 
+      const situacao = new Date(project.dataTermino) >= new Date() ? "Em Andamento" : "Encerrado";
+
       const projeto = {
         referenciaProjeto: project.referencia,
         empresa: project.empresa,
@@ -86,14 +79,16 @@ const CadastrarProjeto = () => {
         valor: parseFloat(project.valor),
         dataInicio: project.dataInicio,
         dataTermino: project.dataTermino,
-        situacao: project.situacao,
+        situacao: situacao, // Incluindo a situação calculada
         adm: adm?.id
       };
 
+      // Adiciona os dados do projeto no FormData
       formData.append('projeto', new Blob([JSON.stringify(projeto)], {
         type: 'application/json',
       }));
 
+      // Adiciona arquivos se existirem
       if (project.propostas) {
         formData.append('propostas', project.propostas);
       }
@@ -117,6 +112,8 @@ const CadastrarProjeto = () => {
           icon: 'success',
           title: 'Projeto cadastrado com sucesso!',
         });
+
+        // Reseta os campos do formulário
         setProject({
           referencia: '',
           empresa: '',
@@ -126,7 +123,6 @@ const CadastrarProjeto = () => {
           valor: '',
           dataInicio: '',
           dataTermino: '',
-          situacao: '',
           propostas: null,
           contratos: null,
           artigos: null,
@@ -245,57 +241,42 @@ const CadastrarProjeto = () => {
               name="dataTermino"
               value={project.dataTermino}
               onChange={handleChange}
+              className={`input-padrao ${errors.dataTermino ? 'input-erro' : ''}`}
+            />
+            {errors.dataTermino && <span className="erro-texto">* Este campo é obrigatório e deve ser posterior à data de início.</span>}
+          </div>
+
+          <div>
+            <label className="texto-label">Propostas</label>
+            <input
+              type="file"
+              name="propostas"
+              onChange={handleFileChange}
               className="input-padrao"
             />
-            {errors.dataTermino && <span className="erro-texto">* Este campo é obrigatório, verifique suas informações.</span>}
           </div>
 
           <div>
-            <label htmlFor="opcoes" className='texto-select'>Situação</label> <br />
-            <select id="opcoes" name="situacao" value={project.situacao} onChange={handleChange2} className="custom-select">
-              <option value="" disabled selected>Escolha uma opção</option>
-              <option value="Em Andamento">Em andamento</option>
-              <option value="Encerrado">Encerrado</option>
-            </select>
-            {errors.situacao && <span className="erro-texto">* Este campo é obrigatório, verifique suas informações.</span>}
-          </div>
-
-
-          {/* <div>
-            <label className="texto-label">Situação*</label>
+            <label className="texto-label">Contratos</label>
             <input
-              type="text"
-              name="situacao"
-              value={project.situacao}
-              onChange={handleChange}
-              className={`input-padrao ${errors.situacao ? 'input-erro' : ''}`}
+              type="file"
+              name="contratos"
+              onChange={handleFileChange}
+              className="input-padrao"
             />
-            {errors.situacao && <span className="erro-texto">* Este campo é obrigatório e deve ser um número.</span>}
-          </div> */}
-
-          <div>
-            <label className="texto-label">Anexar propostas</label>
-            <input type="file" name="propostas" onChange={handleFileChange} className="input-padrao" 
-            accept="image/*, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
           </div>
 
           <div>
-            <label className="texto-label">Anexar contratos</label>
-            <input type="file" name="contratos" onChange={handleFileChange} className="input-padrao" 
-            accept="image/*, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+            <label className="texto-label">Artigos</label>
+            <input
+              type="file"
+              name="artigos"
+              onChange={handleFileChange}
+              className="input-padrao"
+            />
           </div>
 
-          <div>
-            <label className="texto-label">Anexar artigos</label>
-            <input type="file" name="artigos" onChange={handleFileChange} className="input-padrao" 
-            accept="image/*, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-          </div>
-
-          <div className="text-center">
-            <button type="submit" className="botao-submit">
-              Adicionar projeto
-            </button>
-          </div>
+          <button type="submit" className="botao-submit">Cadastrar</button>
         </form>
       </div>
     </div>

@@ -47,6 +47,7 @@ export default function Routes() {
                 } />
 
                 <Route path="/projeto/:id" element={<InformacoesProjeto />} />
+                <Route path="/projeto/editar/:id" element={<EditarProjeto />} />
 
             </Switch>
         </BrowserRouter>

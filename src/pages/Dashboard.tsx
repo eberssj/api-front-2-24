@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import '../styles/Dashboard.css';
-import { useNavigate } from 'react-router-dom';
 import { Projeto } from '../Type/Projeto';
 import axios from 'axios';
 
@@ -14,7 +13,6 @@ declare global {
 }
 
 const Dashboard = () => {
-    const navigate = useNavigate();
     const [projetos, setProjetos] = useState<Projeto[]>([]);
     const [filtro, setFiltro] = useState<string>('coordenador'); // Filtro padrão para coordenador
 
@@ -102,7 +100,8 @@ const Dashboard = () => {
                         ...dataArray,
                     ]);
                 }
-
+                
+                
                 const chart = new window.google.charts.Bar(document.getElementById('chart_div'));
                 chart.draw(data, window.google.charts.Bar.convertOptions(options));
             }
@@ -123,6 +122,7 @@ const Dashboard = () => {
                 >
                     <option value="coordenador">Coordenador</option>
                     <option value="faixaOrcamentaria">Faixa Orçamentária</option>
+                    <option value="data">Data</option>
                 </select>
 
                 {/* Div que contém o gráfico */}
