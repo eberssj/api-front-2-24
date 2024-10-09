@@ -4,6 +4,7 @@ import '../styles/PortalTransparencia.css';
 import { Projeto } from "../Type/Projeto";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import AutoComplete from '../components/AutoComplete/AutoComplete'
 
 const PortalTransparencia = () => {
     const navigate = useNavigate();
@@ -96,12 +97,7 @@ const PortalTransparencia = () => {
                         </div>
                         <div>
                             <label className="texto-label">Coordenador</label>
-                            <input
-                                type="text"
-                                value={coordenador}
-                                onChange={(e) => setCoordenador(e.target.value)}
-                                className="input-padrao"
-                            />
+                            <AutoComplete prop="coordenador" onValueChange={setCoordenador} />
                         </div>
                         <div>
                             <label className="texto-label">Situação</label>
