@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import '../styles/EditarProjeto.css';
+import { Sidebar } from '../components/Sidebar/Sidebar';
 
 // Definição da interface do Projeto
 interface Projeto {
@@ -43,36 +44,43 @@ const EditarProjeto = () => {
     };
 
     return (
-        <div className="editar-projeto-container">
-            <h1 className="titulo-editar">Editar Projeto</h1>
-            <form className="form-editar" onSubmit={handleSubmit}>
-                <div className="campo-editar">
-                    <label>Referência do Projeto</label>
-                    <input type="text" name="referenciaProjeto" value={formData.referenciaProjeto} onChange={handleChange} />
+        <div className="container-principal">
+            <Sidebar />
+            <form className="formulario" onSubmit={handleSubmit}>
+                <div className='cabecalho'>
+                <strong onClick={() => navigate(-1)} className="link-voltar">
+                        <i className="bi bi-arrow-left text-3xl text-blue-900"></i>
+                    </strong>
+                    <h1 className="texto-titulo">Editar Projeto</h1>
                 </div>
-                <div className="campo-editar">
-                    <label>Empresa</label>
-                    <input type="text" name="empresa" value={formData.empresa} onChange={handleChange} />
+                <div className='container-informacoes'>
+                    <div>
+                        <label className='titulo'>Referência do Projeto</label> <br />
+                        <input className='texto' type="text" name="referenciaProjeto" value={formData.referenciaProjeto} onChange={handleChange} />
+                    </div>
+                    <div>
+                        <label className='titulo'>Empresa</label> <br />
+                        <input className='texto' type="text" name="empresa" value={formData.empresa} onChange={handleChange} />
+                    </div>
+                    <div>
+                        <label className='titulo'>Objeto</label> <br />
+                        <textarea className='texto' name="objeto" value={formData.objeto} onChange={handleChange} />
+                    </div>
+                    <div>
+                        <label className='titulo'>Descrição</label> <br />
+                        <input className='texto' type="text" name="descricao" value={formData.descricao} onChange={handleChange} />
+                    </div>
+                    <div>
+                        <label className='titulo'>Coordenador</label> <br />
+                        <input className='texto' type="text" name="coordenador" value={formData.coordenador} onChange={handleChange} />
+                    </div>
+                    <div>
+                        <label className='titulo'>Valor</label> <br />
+                        <input className='texto' type="number" name="valor" value={formData.valor} onChange={handleChange} />
+                    </div>
                 </div>
-                <div className="campo-editar">
-                    <label>Objeto</label>
-                    <input type="text" name="objeto" value={formData.objeto} onChange={handleChange} />
-                </div>
-                <div className="campo-editar">
-                    <label>Descrição</label>
-                    <input type="text" name="descricao" value={formData.descricao} onChange={handleChange} />
-                </div>
-                <div className="campo-editar">
-                    <label>Coordenador</label>
-                    <input type="text" name="coordenador" value={formData.coordenador} onChange={handleChange} />
-                </div>
-                <div className="campo-editar">
-                    <label>Valor</label>
-                    <input type="number" name="valor" value={formData.valor} onChange={handleChange} />
-                </div>
-                {/* Botões de ação */}
                 <div className="botoes-editar">
-                    <button type="submit" className="botao-salvar">Salvar</button>
+                    <button type="submit" className="botao-salvar" onChange={handleSubmit}>Salvar</button>
                     <button type="button" className="botao-cancelar" onClick={() => navigate(-1)}>Cancelar</button>
                 </div>
             </form>
