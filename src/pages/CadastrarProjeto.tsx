@@ -276,7 +276,9 @@ const CadastrarProjeto = () => {
             />
           </div>
 
-          <button type="submit" className="botao-submit">Cadastrar</button>
+          <div className="flex justify-center">
+            <button type="submit" className="botao-submit">Cadastrar</button>
+          </div>
         </form>
       </div>
     </div>
