@@ -86,7 +86,7 @@ const Dashboard = () => {
                             valor < 100000 ? '90k a 100k' : 'Acima de 100k';
                         acc[faixa] = (acc[faixa] || 0) + 1;
                         return acc;
-                    }, {} as Record<string, number>);
+                    }, {} as Record<string, number>);   
 
                     // Definir a ordem fixa das faixas
                     const faixasOrcamentarias = [
@@ -100,6 +100,59 @@ const Dashboard = () => {
                     data = new window.google.visualization.arrayToDataTable([
                         ['Faixa Orçamentária', 'Quantidade de Projetos'],
                         ...dataArray,
+                    ]);
+                } else if (filtro === 'situacaoAtual') {
+                    // Agrupar por situação (finalizado ou em andamento)
+                    const situacaoCounts: Record<string, number> = projetos.reduce((acc, projeto) => {
+                        if (!projeto.dataTermino || projeto.dataTermino.length !== 3) {
+                            console.warn(`Projeto ${projeto.referenciaProjeto || 'Desconhecido'} sem data de término válida!`);
+                            acc['Em andamento'] = (acc['Em andamento'] || 0) + 1;
+                            return acc;
+                        }
+
+                        const [ano, mes, dia] = projeto.dataTermino;
+                        const dataTermino = new Date(ano, mes - 1, dia);
+
+                        if (isNaN(dataTermino.getTime())) {
+                            console.warn(`Projeto ${projeto.referenciaProjeto || 'Desconhecido'} com data de término inválida: ${projeto.dataTermino}`);
+                            acc['Em andamento'] = (acc['Em andamento'] || 0) + 1;
+                            return acc;
+                        }
+
+                        const hoje = new Date();
+                        const dataTerminoSemHoras = new Date(dataTermino.getFullYear(), dataTermino.getMonth(), dataTermino.getDate());
+                        const hojeSemHoras = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+
+                        const situacao = dataTerminoSemHoras <= hojeSemHoras ? 'Finalizado' : 'Em andamento';
+                        acc[situacao] = (acc[situacao] || 0) + 1;
+                        return acc;
+                    }, {} as Record<string, number>);
+
+                    data = new window.google.visualization.arrayToDataTable([
+                        ['Situação Atual', 'Quantidade de Projetos'],
+                        ...Object.entries(situacaoCounts),
+                    ]);
+                } else if (filtro === 'dataDeExecucao') {
+                    // Agrupar por ano de execução (ano de início)
+                    const anoExecucaoCounts: Record<string, number> = projetos.reduce((acc, projeto) => {
+                        if (!projeto.dataInicio || projeto.dataInicio.length !== 3) {
+                            console.warn(`Projeto ${projeto.referenciaProjeto || 'Desconhecido'} sem data de início válida!`);
+                            return acc;
+                        }
+
+                        const [ano] = projeto.dataInicio;
+                        if (!ano) {
+                            console.warn(`Projeto ${projeto.referenciaProjeto || 'Desconhecido'} com ano de início inválido: ${projeto.dataInicio}`);
+                            return acc;
+                        }
+
+                        acc[ano] = (acc[ano] || 0) + 1;
+                        return acc;
+                    }, {} as Record<string, number>);
+
+                    data = new window.google.visualization.arrayToDataTable([
+                        ['Ano de Execução', 'Quantidade de Projetos'],
+                        ...Object.entries(anoExecucaoCounts),
                     ]);
                 }
 
@@ -123,6 +176,8 @@ const Dashboard = () => {
                 >
                     <option value="coordenador">Coordenador</option>
                     <option value="faixaOrcamentaria">Faixa Orçamentária</option>
+                    <option value="situacaoAtual">Situação Atual</option>
+                    <option value="dataDeExecucao">Data de Execução</option> {/* Novo filtro */}
                 </select>
 
                 {/* Div que contém o gráfico */}
