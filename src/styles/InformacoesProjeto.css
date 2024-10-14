@@ -4,7 +4,10 @@
 }
 
 .texto {
-    border-bottom: 1px solid #0F3684;
+    border: none !important;
+    outline: none !important;
+    border-bottom: 1px solid #0F3684 !important;
+    width: 100%;
 }
 
 .container-informacoes div {
@@ -51,4 +54,50 @@
 
 .arquivo-botao:hover {
     background-color: #0d2d6b;
+}
+
+.botoes-container {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 2rem;
+}
+
+.botao-editar {
+    border: 2px solid orange;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: #f59c02;
+    font-weight: bold;
+}
+
+.botao-deletar {
+    border: 2px solid red;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: red;
+    font-weight: bold;
+}
+
+.botoes-editar {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 2rem;
+}
+
+.botao-salvar {
+    border: 2px solid green;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: green;
+    font-weight: bold;
+}
+
+.botao-cancelar {
+    border: 2px solid #0F3684;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #0F3684;
+    font-weight: bold;
 }
