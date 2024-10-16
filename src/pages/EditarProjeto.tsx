@@ -1,8 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
 import '../styles/EditarProjeto.css';
 import { Sidebar } from '../components/Sidebar/Sidebar';
+import { AuthContext } from '../hook/ContextAuth';
 
 // Definição da interface do Projeto
 interface Projeto {
@@ -18,6 +19,7 @@ interface Projeto {
 }
 
 const EditarProjeto = () => {
+    const { adm } = useContext(AuthContext);
     const location = useLocation();
     const projeto: Projeto = location.state; // Recebe o projeto da navegação
     const navigate = useNavigate();
@@ -26,21 +28,30 @@ const EditarProjeto = () => {
     const [formData, setFormData] = useState<Projeto>(projeto);
 
     // Função para lidar com a mudança nos inputs
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     // Função para enviar o formulário de edição
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        axios.put(`http://localhost:8080/projetos/editar/${projeto.id}`, formData)
-            .then(() => {
-                alert('Projeto atualizado com sucesso!');
-                navigate(-1); // Voltar à página de informações do projeto
-            })
-            .catch(error => {
-                console.error('Erro ao atualizar o projeto:', error);
-            });
+
+        axios({
+            method: 'put',
+            url: `http://localhost:8080/projeto/editar/${projeto.id}`, // Corrigi o endpoint
+            data: formData,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${adm?.token}`
+            }
+        })
+        .then(() => {
+            alert('Projeto atualizado com sucesso!');
+            navigate(-1); // Voltar à página anterior
+        })
+        .catch(error => {
+            console.error('Erro ao atualizar o projeto:', error);
+        });
     };
 
     return (
@@ -48,7 +59,7 @@ const EditarProjeto = () => {
             <Sidebar />
             <form className="formulario" onSubmit={handleSubmit}>
                 <div className='cabecalho'>
-                <strong onClick={() => navigate(-1)} className="link-voltar">
+                    <strong onClick={() => navigate(-1)} className="link-voltar">
                         <i className="bi bi-arrow-left text-3xl text-blue-900"></i>
                     </strong>
                     <h1 className="texto-titulo">Editar Projeto</h1>
@@ -80,7 +91,7 @@ const EditarProjeto = () => {
                     </div>
                 </div>
                 <div className="botoes-editar">
-                    <button type="submit" className="botao-salvar" onChange={handleSubmit}>Salvar</button>
+                    <button type="submit" className="botao-salvar">Salvar</button>
                     <button type="button" className="botao-cancelar" onClick={() => navigate(-1)}>Cancelar</button>
                 </div>
             </form>
