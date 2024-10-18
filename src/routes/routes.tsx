@@ -47,7 +47,13 @@ export default function Routes() {
                 } />
 
                 <Route path="/projeto/:id" element={<InformacoesProjeto />} />
-                <Route path="/projeto/editar/:id" element={<EditarProjeto />} />
+
+                <Route path="/projeto/editar/:id" element={
+                  <PrivateRoutes tiposAllowed={[1]}>
+                    <EditarProjeto />
+
+                  </PrivateRoutes>
+                } />
 
             </Switch>
         </BrowserRouter>
