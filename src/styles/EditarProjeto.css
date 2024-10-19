@@ -57,3 +57,24 @@
 .btn-salvar:hover {
     background-color: #3498db;
 }
+
+.botao-salvar, .botao-cancelar {
+    width: 20%;
+}
+
+.botoes-editar {
+    gap: 2rem;
+}
+
+
+@media (max-width: 468px) {
+    .botoes-editar {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .botao-salvar, .botao-cancelar {
+        width: 80%;
+    }
+}
