@@ -52,13 +52,12 @@ const Dashboard = () => {
                 // Definir os dados do gráfico com base no filtro selecionado
                 let data;
                 const options = {
-                    width: 800,
-                    height: 600,
+                    width: '100%',
+                    height: '100%',
                     legend: { position: 'none' },
                     bar: { groupWidth: "90%" }
                 };
 
-                
                 if (filtro === 'coordenador') {
                     // Agrupar por coordenador
                     const coordenadorCounts: Record<string, number> = projetos.reduce((acc, projeto) => {
@@ -161,17 +160,29 @@ const Dashboard = () => {
         };
 
         loadGoogleCharts();
+
+        // Adicionar event listener para redimensionar o gráfico
+        const handleResize = () => {
+            drawChart();
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Remover event listener quando o componente for desmontado
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, [projetos, filtro]); // Redesenhar gráfico quando os projetos ou o filtro mudarem
 
     return (
         <div className="container-principal-projetos">
             <Sidebar />
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px', width: '100%' }}>
-                <h1>Selecione um filtro</h1>
+            <div className="container-grafico">
+                <h1 className="titulo-filtro">Selecione um filtro</h1>
                 <select
                     value={filtro}
                     onChange={handleFiltroChange}
-                    style={{ padding: '10px', fontSize: '16px', width: '300px', textAlign: 'center', marginBottom: '20px' }}
+                    className="select-filtro"
                 >
                     <option value="coordenador">Coordenador</option>
                     <option value="faixaOrcamentaria">Faixa Orçamentária</option>
