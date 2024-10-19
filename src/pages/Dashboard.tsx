@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import '../styles/Dashboard.css';
-import { useNavigate } from 'react-router-dom';
 import { Projeto } from '../Type/Projeto';
 import axios from 'axios';
 
@@ -14,7 +13,6 @@ declare global {
 }
 
 const Dashboard = () => {
-    const navigate = useNavigate();
     const [projetos, setProjetos] = useState<Projeto[]>([]);
     const [filtro, setFiltro] = useState<string>('coordenador'); // Filtro padrão para coordenador
 
@@ -60,6 +58,7 @@ const Dashboard = () => {
                     bar: { groupWidth: "90%" }
                 };
 
+                
                 if (filtro === 'coordenador') {
                     // Agrupar por coordenador
                     const coordenadorCounts: Record<string, number> = projetos.reduce((acc, projeto) => {
@@ -181,7 +180,7 @@ const Dashboard = () => {
                 </select>
 
                 {/* Div que contém o gráfico */}
-                <div id="chart_div" style={{ marginTop: '50px' }}></div>
+                <div id="chart_div"></div>
             </div>
         </div>
     );
