@@ -186,8 +186,12 @@ const InformacoesProjeto = () => {
 
                     {/* Botões de Ação */}
                     <div className="botoes-container">
-                        <button className="botao-editar" onClick={editarProjeto}>Editar Projeto</button>
-                        <button className="botao-deletar" onClick={deletarProjeto}>Deletar Projeto</button>
+                        <button className="botao-editar" onClick={editarProjeto}>
+                            <p>Editar Projeto</p>    
+                        </button>
+                        <button className="botao-deletar" onClick={deletarProjeto}>
+                            <p>Deletar Projeto</p>    
+                        </button>
                     </div>
                 </div>
             </div>
