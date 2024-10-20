@@ -203,7 +203,7 @@ export default function Login() {
             </div>
 
             <div className="login-right-side">
-                {/* Não é mais necessário a tag <img> */}
+                <img src="../src/img/login.png" alt="" />
             </div>
         </div>
     );

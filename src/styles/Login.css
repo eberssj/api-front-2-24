@@ -1,7 +1,8 @@
 /* Container principal que divide a página */
 .login-container {
     display: flex;
-    flex-direction: row;
+    justify-content: space-between; /* Espaço entre os dois lados */
+    align-items: center; /* Alinha verticalmente ao centro */
     height: 100vh; /* Altura de 100% da tela */
     width: 100vw;  /* Largura de 100% da tela */
     margin-left: -240px !important;
@@ -9,18 +10,17 @@
 
 /* Lado esquerdo (formulário) - fundo branco */
 .login-left-side {
-    flex: 1;
     background-color: #ffffff; /* Fundo branco */
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    width: 50%; /* Define 50% da largura */
+    height: 100%; /* Ocupa 100% da altura */
 }
 
 /* Centralização do formulário de login */
 .login-form {
-    width: 100%;
-    max-width: 350px; /* Ajuste conforme necessário */
+    width: 60%;
     text-align: center;
 }
 
@@ -63,11 +63,19 @@
 
 /* Lado direito com imagem de fundo */
 .login-right-side {
-    flex: 1;
-    background-image: url('../img/background_login.png'); /* Caminho da imagem */
-    background-size: cover; /* Faz a imagem cobrir toda a área */
-    background-position: center; /* Centraliza a imagem */
-    background-repeat: no-repeat; /* Impede repetição da imagem */
+    background: linear-gradient(to bottom, #000031, #0071b8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%; /* Define 50% da largura */
+    height: 100%; /* Ocupa 100% da altura */
+    position: fixed;
+    right: 0;
+}
+
+.login-right-side img {
+    max-width: 70%;
+    height: auto;
 }
 
 .link-home {
@@ -79,14 +87,69 @@
 }
 
 
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .login-container {
-        flex-direction: column;
-    }
-    .login-right-side {
-        display: none; /* Esconde o lado da imagem em dispositivos menores */
+@media (max-width: 440px) {
+    .login-right-side img {
+        max-width: 60%;
     }
 }
 
+
+
+@media (min-width: 440px) and (max-width: 650px) {
+    .login-right-side img {
+        max-width: 42%;
+    }
+}
+
+
+
+@media (min-width: 650px) and (max-width: 760px) {
+    .login-container {
+        flex-direction: column-reverse;
+        margin: 0 !important;
+    }
+
+    .login-left-side {
+        width: 100%;
+        margin-left: -4rem;
+        padding: 14.5rem 6rem 0 0;
+    }
+
+    .login-right-side {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 260px;
+    }
+
+    .login-left-side h1 {
+        font-size: 24px;
+        color: #004186;
+        font-weight: bold;
+    }
+
+    .login-right-side img {
+        max-width: 32%;
+        margin-right: 5rem;
+    }
+
+    .login-form {
+        width: 100%;
+    }
+}
+
+@media (min-width: 761px) and (max-width: 920px) {
+    .login-left-side {
+        width: 70%;
+        padding: 0 10% 0 0;
+    }
+}
+
+@media (min-width: 921px) and (max-width: 1300px) {
+    .login-left-side {
+        width: 70%;
+        margin-left: -5% !important;
+        padding: 0 10% 0 0;
+    }
+}

@@ -1,6 +1,8 @@
 /* Estilos para textos */
 .texto-titulo {
-    @apply text-2xl font-bold text-blue-800 text-center;
+    @apply text-2xl font-bold text-center;
+    color: darkblue !important;
+    margin-top: 40px;
 }
 
 .texto-label {
@@ -10,6 +12,7 @@
 /* Estilos para inputs */
 .input-padrao {
     @apply w-full border p-2 rounded;
+    background-color: transparent;
     border-color: #1e3a8a; /* Azul escuro */
 }
 
@@ -55,6 +58,7 @@
 .link-voltar {
     position: absolute;
     left: 0; /* Mantém a seta à esquerda */
+    top: 0;
     text-decoration: none;
 }
 

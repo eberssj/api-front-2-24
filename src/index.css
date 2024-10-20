@@ -8,3 +8,15 @@ body {
     box-sizing: border-box;
     margin-left: 240px;
 }
+
+@media (max-width: 760px) {
+    body {
+        margin-left: 5rem;
+    }
+}
+
+@media (min-width: 761px) and (max-width: 920px) {
+    body {
+        margin-left: 12rem;
+    }
+}

@@ -54,3 +54,30 @@
     font-size: 16px;
     color: #666;
 }
+
+.select-filtro {
+    @apply border p-2 rounded;
+    border-color: #1e3a8a;
+    margin: 2vh;
+}
+
+.titulo-filtro {
+    @apply text-2xl font-bold text-center;
+    color: darkblue !important;
+    margin-top: 40px;
+}
+
+.container-grafico {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5vh;
+    width: 100%;
+}
+
+#chart_div {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    height: 60vh;
+    width: 90vw;
+    max-width: 100%;
+}

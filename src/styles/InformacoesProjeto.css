@@ -59,7 +59,8 @@
 .botoes-container {
     display: flex;
     justify-content: center;
-    gap: 4rem;
+    align-items: center;
+    gap: 2rem;
     margin-top: 2rem;
 }
 
@@ -82,6 +83,7 @@
 .botoes-editar {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 4rem;
     margin-top: 2rem;
 }
@@ -100,4 +102,47 @@
     border-radius: 8px;
     color: #0F3684;
     font-weight: bold;
+}
+
+.cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  
+.icone-voltar:hover {
+    opacity: 0.8;
+  }
+
+@media (max-width: 320px) {
+    .botoes-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .botao-deletar, .botao-editar {
+        height: auto;
+        width: auto;
+        padding: auto;
+    }
+}
+
+@media (max-width: 568px) and (min-width: 321px) {
+    .botoes-container {
+        gap: 1rem;
+    }
+
+    .botao-deletar, .botao-editar {
+        height: auto;
+        width: auto;
+        padding: auto;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 569px) {
+    .botoes-container {
+        gap: 2rem;
+    }
 }

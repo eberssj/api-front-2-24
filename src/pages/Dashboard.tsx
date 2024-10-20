@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import '../styles/Dashboard.css';
-import { useNavigate } from 'react-router-dom';
 import { Projeto } from '../Type/Projeto';
 import axios from 'axios';
 
@@ -14,7 +13,6 @@ declare global {
 }
 
 const Dashboard = () => {
-    const navigate = useNavigate();
     const [projetos, setProjetos] = useState<Projeto[]>([]);
     const [filtro, setFiltro] = useState<string>('coordenador'); // Filtro padrão para coordenador
 
@@ -54,8 +52,8 @@ const Dashboard = () => {
                 // Definir os dados do gráfico com base no filtro selecionado
                 let data;
                 const options = {
-                    width: 800,
-                    height: 600,
+                    width: '100%',
+                    height: '100%',
                     legend: { position: 'none' },
                     bar: { groupWidth: "90%" }
                 };
@@ -162,17 +160,29 @@ const Dashboard = () => {
         };
 
         loadGoogleCharts();
+
+        // Adicionar event listener para redimensionar o gráfico
+        const handleResize = () => {
+            drawChart();
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Remover event listener quando o componente for desmontado
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, [projetos, filtro]); // Redesenhar gráfico quando os projetos ou o filtro mudarem
 
     return (
         <div className="container-principal-projetos">
             <Sidebar />
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px', width: '100%' }}>
-                <h1>Selecione um filtro</h1>
+            <div className="container-grafico">
+                <h1 className="titulo-filtro">Selecione um filtro</h1>
                 <select
                     value={filtro}
                     onChange={handleFiltroChange}
-                    style={{ padding: '10px', fontSize: '16px', width: '300px', textAlign: 'center', marginBottom: '20px' }}
+                    className="select-filtro"
                 >
                     <option value="coordenador">Coordenador</option>
                     <option value="faixaOrcamentaria">Faixa Orçamentária</option>
@@ -181,7 +191,7 @@ const Dashboard = () => {
                 </select>
 
                 {/* Div que contém o gráfico */}
-                <div id="chart_div" style={{ marginTop: '50px' }}></div>
+                <div id="chart_div"></div>
             </div>
         </div>
     );

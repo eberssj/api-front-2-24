@@ -46,6 +46,7 @@ const Projetos = () => {
                         <p><strong>Coordenador:</strong> {projeto.coordenador}</p>
                         <p><strong>Valor:</strong> R$:{projeto.valor}</p>
                     </div>
+                    <div className='agrupar-meio-esquerda'>
                     <div className="itens-meio">
                         <p><strong>Início:</strong> {formatarData(projeto.dataInicio)}</p>
                         <p><strong>Término:</strong> {formatarData(projeto.dataTermino)}</p>
@@ -53,6 +54,7 @@ const Projetos = () => {
                     <div className="itens-direita cursor-pointer" onClick={() => navigate(`/projeto/${projeto.id}`, { state: projeto })}>
                         <i className="bi bi-file-earmark-text"></i>
                         <p><strong>Detalhes</strong></p>
+                    </div>
                     </div>
 
                 </div>

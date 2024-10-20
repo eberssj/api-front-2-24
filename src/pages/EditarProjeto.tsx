@@ -218,12 +218,9 @@ const EditarProjeto = () => {
                             </div>
                         ))}
                     </div>
-
-                    <div className="input-container">
-                        <label>Adicionar Novo Arquivo</label>
-                        <input type="file" name="propostas" onChange={handleArquivoChange} />
-                        <input type="file" name="contratos" onChange={handleArquivoChange} />
-                        <input type="file" name="artigos" onChange={handleArquivoChange} />
+                    <div>
+                        <label className="titulo">Artigos (Novo arquivo)</label>
+                        <input type="file" name="artigos" onChange={handleFileChange} />
                     </div>
 
                     <div className="botoes-editar">
