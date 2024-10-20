@@ -152,10 +152,12 @@ const InformacoesProjeto = () => {
                         <p className="texto">{projeto.coordenador}</p>
                     </div>
 
-                    <div>
-                        <p className="titulo">Valor do Projeto</p>
-                        <p className="texto">R${projeto.valor}</p>
-                    </div>
+                    { adm && (
+                        <div>
+                            <p className="titulo">Valor do Projeto</p>
+                            <p className="texto">R${projeto.valor}</p>
+                        </div>
+                    )}
                     <div>
                         <p className="titulo">Data de início</p>
                         <p className="texto">{formatarData(projeto.dataInicio)}</p>
@@ -185,6 +187,7 @@ const InformacoesProjeto = () => {
                     </div>
 
                     {/* Botões de Ação */}
+                    { adm && (
                     <div className="botoes-container">
                         <button className="botao-editar" onClick={editarProjeto}>
                             <p>Editar Projeto</p>    
@@ -193,6 +196,7 @@ const InformacoesProjeto = () => {
                             <p>Deletar Projeto</p>    
                         </button>
                     </div>
+                )}
                 </div>
             </div>
         </div>

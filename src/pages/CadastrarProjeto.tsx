@@ -15,7 +15,7 @@ const CadastrarProjeto = () => {
     objeto: '',
     descricao: '',
     coordenador: '',
-    valor: '',
+    valor: 'R$ 0,00', // Valor inicial formatado
     dataInicio: '',
     dataTermino: '',
     propostas: null,
@@ -35,9 +35,27 @@ const CadastrarProjeto = () => {
     descricao: false,
   });
 
+  // Formata o valor com máscara de dinheiro
+  const formatCurrency = (value: string) => {
+    const numericValue = value.replace(/\D/g, '');
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+    return formatter.format(parseFloat(numericValue) / 100);
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setProject((prev) => ({ ...prev, [name]: value }));
+
+    // Formata o valor para a máscara de dinheiro se for o campo de valor
+    if (name === 'valor') {
+      const formattedValue = formatCurrency(value);
+      setProject((prev) => ({ ...prev, [name]: formattedValue }));
+    } else {
+      setProject((prev) => ({ ...prev, [name]: value }));
+    }
+
     setErrors((prev) => ({ ...prev, [name]: false }));
   };
 
@@ -51,7 +69,7 @@ const CadastrarProjeto = () => {
       referencia: project.referencia.trim() === '',
       empresa: project.empresa.trim() === '',
       coordenador: project.coordenador.trim() === '',
-      valor: project.valor.trim() === '' || isNaN(Number(project.valor)) || Number(project.valor) <= 0,
+      valor: project.valor.trim() === '' || isNaN(Number(project.valor.replace(/\D/g, ''))) || Number(project.valor.replace(/\D/g, '')) <= 0,
       dataInicio: project.dataInicio === '',
       dataTermino: project.dataTermino === '' || project.dataTermino < project.dataInicio,
       objeto: project.objeto.trim() === '',
@@ -76,10 +94,10 @@ const CadastrarProjeto = () => {
         objeto: project.objeto,
         descricao: project.descricao,
         coordenador: project.coordenador,
-        valor: parseFloat(project.valor),
+        valor: parseFloat(project.valor.replace(/\D/g, '')) / 100,  // Remove caracteres e divide por 100 para centavos
         dataInicio: project.dataInicio,
         dataTermino: project.dataTermino,
-        situacao: situacao, // Incluindo a situação calculada
+        situacao: situacao,
         adm: adm?.id
       };
 
@@ -120,7 +138,7 @@ const CadastrarProjeto = () => {
           objeto: '',
           descricao: '',
           coordenador: '',
-          valor: '',
+          valor: 'R$ 0,00', // Reseta o valor para a máscara inicial
           dataInicio: '',
           dataTermino: '',
           propostas: null,

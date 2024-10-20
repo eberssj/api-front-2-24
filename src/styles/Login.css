@@ -63,7 +63,7 @@
 
 /* Lado direito com imagem de fundo */
 .login-right-side {
-    background: linear-gradient(to bottom, #00008b, #87cefa);
+    background: linear-gradient(to bottom, #000031, #0071b8);
     display: flex;
     justify-content: center;
     align-items: center;

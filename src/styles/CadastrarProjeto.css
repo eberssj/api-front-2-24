@@ -12,6 +12,7 @@
 /* Estilos para inputs */
 .input-padrao {
     @apply w-full border p-2 rounded;
+    background-color: transparent;
     border-color: #1e3a8a; /* Azul escuro */
 }
 

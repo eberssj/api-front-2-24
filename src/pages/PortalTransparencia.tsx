@@ -13,9 +13,6 @@ const PortalTransparencia = () => {
     const [referenciaProjeto, setReferenciaProjeto] = useState('');
     const [coordenador, setCoordenador] = useState('');
     const [situacao, setSituacao] = useState('');
-    const [valorProjeto, setValorProjeto] = useState('');
-    const [valorMinimoProjeto, setValorMinimoProjeto] = useState('');
-    const [valorMaximoProjeto, setValorMaximoProjeto] = useState('');
     const [dataInicio, setDataInicio] = useState('');
     const [dataTermino, setDataTermino] = useState('');
 
@@ -57,11 +54,6 @@ const PortalTransparencia = () => {
 
             const situacaoMatch = situacao ? projeto.situacao == situacao : true
 
-            const valorProjetoMatch = valorProjeto ? projeto.valor == valorProjeto : true;
-
-            const valorMinimoProjetoMatch = valorMinimoProjeto ? projeto.valor >= valorMinimoProjeto : true;
-            const valorMaximoProjetoMatch = valorMaximoProjeto ? projeto.valor <= valorMaximoProjeto : true;
-
             const dataInicioFormatada = formatarDataParaComparacao(projeto.dataInicio);
             const dataTerminoFormatada = formatarDataParaComparacao(projeto.dataTermino);
 
@@ -71,7 +63,7 @@ const PortalTransparencia = () => {
             const dataInicioMatch = dataInicio ? dataInicioFormatada >= dataInicioFiltro : true;
             const dataTerminoMatch = dataTermino ? dataTerminoFormatada <= dataTerminoFiltro : true;
 
-            return referenciaProjetoMatch && coordenadorMatch && situacaoMatch && valorProjetoMatch && valorMinimoProjetoMatch && valorMaximoProjetoMatch && dataInicioMatch && dataTerminoMatch;
+            return referenciaProjetoMatch && coordenadorMatch && situacaoMatch && dataInicioMatch && dataTerminoMatch;
         });
 
         setProjetosFiltrados(projetosFiltrados);
@@ -97,7 +89,7 @@ const PortalTransparencia = () => {
                         </div>
                         <div>
                             <label className="texto-label">Coordenador</label>
-                            <AutoComplete prop="coordenador" onValueChange={setCoordenador} />
+                            <AutoComplete prop="coordenador" onValueChange={setCoordenador}/>
                         </div>
                         <div>
                             <label className="texto-label">Situação</label>
@@ -106,33 +98,6 @@ const PortalTransparencia = () => {
                                 <option value="Em Andamento">Em andamento</option>
                                 <option value="Encerrado">Encerrado</option>
                             </select>
-                        </div>
-                        <div>
-                            <label className="texto-label">Valor do projeto</label>
-                            <input
-                                type="text"
-                                value={valorProjeto}
-                                onChange={(e) => setValorProjeto(e.target.value)}
-                                className="input-padrao"
-                            />
-                        </div>
-                        <div>
-                            <label className="texto-label">Valor mínimo</label>
-                            <input
-                                type="text"
-                                value={valorMinimoProjeto}
-                                onChange={(e) => setValorMinimoProjeto(e.target.value)}
-                                className="input-padrao"
-                            />
-                        </div>
-                        <div>
-                            <label className="texto-label">Valor máximo</label>
-                            <input
-                                type="text"
-                                value={valorMaximoProjeto}
-                                onChange={(e) => setValorMaximoProjeto(e.target.value)}
-                                className="input-padrao"
-                            />
                         </div>
                         <div>
                             <label className="texto-label">Data de início</label>
@@ -167,7 +132,6 @@ const PortalTransparencia = () => {
                                             <p><strong>Referência do projeto:</strong> {projeto.referenciaProjeto}</p>
                                             <p><strong>Coordenador:</strong> {projeto.coordenador}</p>
                                             <p><strong>Situação:</strong> {projeto.situacao}</p>
-                                            <p><strong>Valor:</strong> R$:{projeto.valor}</p>
                                         </div>
                                         <div className="itens-meio">
                                             <p><strong>Início:</strong> {formatarDataParaVisualizacao(projeto.dataInicio)}</p>
