@@ -20,6 +20,7 @@ interface Projeto {
     valor: number;
     dataInicio: string;
     dataTermino: string;
+    situacao: string;
 }
 
 const EditarProjeto = () => {
@@ -93,7 +94,7 @@ const EditarProjeto = () => {
             if (formData) {
                 const projeto = {
                     ...formData,
-                    adm: adm?.id, // Enviando apenas o ID do administrador
+                    adm: adm?.id, // Enviando o ID do administrador
                 };
                 data.append('projeto', new Blob([JSON.stringify(projeto)], { type: 'application/json' }));
             }
@@ -167,6 +168,57 @@ const EditarProjeto = () => {
                             onChange={handleInputChange}
                         />
                     </div>
+                    <div className="input-container">
+                        <label>Coordenador</label>
+                        <input
+                            type="text"
+                            className="input-projeto"
+                            name="coordenador"
+                            value={formData.coordenador}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="input-container">
+                        <label>Valor</label>
+                        <input
+                            type="number"
+                            className="input-projeto"
+                            name="valor"
+                            value={formData.valor}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="input-container">
+                        <label>Data de Início</label>
+                        <input
+                            type="date"
+                            className="input-projeto"
+                            name="dataInicio"
+                            value={formData.dataInicio}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="input-container">
+                        <label>Data de Término</label>
+                        <input
+                            type="date"
+                            className="input-projeto"
+                            name="dataTermino"
+                            value={formData.dataTermino}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="input-container">
+                        <label>Situação</label>
+                        <input
+                            type="text"
+                            className="input-projeto"
+                            name="situacao"
+                            value={formData.situacao}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+
                     <div className="arquivos-container">
                         <h2>Arquivos Existentes</h2>
                         {arquivosExistentes.map((arquivo) => (
