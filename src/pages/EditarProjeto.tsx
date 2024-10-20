@@ -125,121 +125,129 @@ const EditarProjeto = () => {
     if (!formData) return <div>Erro: Projeto não encontrado.</div>;
 
     return (
-        <div className="container-principal">
+        <div className="container-principal-editar">
             <Sidebar />
-            <div className="formulario-editar-projeto">
-                <h1 className="texto-titulo">Editar Projeto</h1>
-                <form onSubmit={handleSubmit} className="container-informacoes">
-                    <div className="input-container">
-                        <label>Referência do Projeto</label>
+            <div className="formulario">
+                <div className="cabecalho">
+                    <div className="link-voltar" onClick={() => navigate(-1)}>
+                        <strong><i className="bi bi-arrow-left text-3xl text-blue-900"></i></strong>
+                    </div>
+                    <h1 className="texto-titulo">Editar Projeto</h1>
+                 </div>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label className='texto-label'>Referência do Projeto</label>
                         <input
                             type="text"
-                            className="input-projeto"
+                            className="input-padrao"
                             name="referenciaProjeto"
                             value={formData.referenciaProjeto}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="input-container">
-                        <label>Empresa</label>
+                    <div>
+                        <label className='texto-label'>Empresa</label>
                         <input
                             type="text"
-                            className="input-projeto"
+                            className="input-padrao"
                             name="empresa"
                             value={formData.empresa}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="input-container">
-                        <label>Objeto</label>
+                    <div>
+                        <label className='texto-label'>Objeto</label>
                         <textarea
-                            className="input-projeto"
+                            className="input-padrao"
                             name="objeto"
                             value={formData.objeto}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="input-container">
-                        <label>Descrição</label>
+                    <div>
+                        <label className='texto-label'>Descrição</label>
                         <textarea
-                            className="input-projeto"
+                            className="input-padrao"
                             name="descricao"
                             value={formData.descricao}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="input-container">
-                        <label>Coordenador</label>
+                    <div>
+                        <label className='texto-label'>Coordenador</label>
                         <input
                             type="text"
-                            className="input-projeto"
+                            className="input-padrao"
                             name="coordenador"
                             value={formData.coordenador}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="input-container">
-                        <label>Valor</label>
+                    <div>
+                        <label className='texto-label'>Valor</label>
                         <input
                             type="number"
-                            className="input-projeto"
+                            className="input-padrao"
                             name="valor"
                             value={formData.valor}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="input-container">
-                        <label>Data de Início</label>
+                    <div>
+                        <label className='texto-label'>Data de Início</label>
                         <input
                             type="date"
-                            className="input-projeto"
+                            className="input-padrao"
                             name="dataInicio"
                             value={formData.dataInicio}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="input-container">
-                        <label>Data de Término</label>
+                    <div>
+                        <label className='texto-label'>Data de Término</label>
                         <input
                             type="date"
-                            className="input-projeto"
+                            className="input-padrao"
                             name="dataTermino"
                             value={formData.dataTermino}
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="input-container">
-                        <label>Situação</label>
-                        <input
-                            type="text"
-                            className="input-projeto"
-                            name="situacao"
-                            value={formData.situacao}
-                            onChange={handleInputChange}
-                        />
+
+                    {arquivosExistentes.length > 0 ? (
+                        <div className="arquivos-container">
+                            <p className='texto-label'>Arquivos Existentes</p>
+                            {arquivosExistentes.map((arquivo) => (
+                                <div className="arquivo-item" key={arquivo.id}>
+                                    <p>{arquivo.nomeArquivo} ({arquivo.tipoDocumento})</p>
+                                    <button
+                                        type="button"
+                                        className="botao-excluir"
+                                        onClick={() => handleExcluirArquivo(arquivo.id)}
+                                    >
+                                        Excluir
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <p className='texto-label'>Ainda não há arquivos existentes</p>
+                    )}
+
+                    <h1 className='texto-titulo'>Adicionar Novo Arquivo</h1>
+                    <div>
+                        <label className='texto-label'>Propostas</label>
+                        <input type="file" name="propostas" className='input-padrao' onChange={handleArquivoChange} />
                     </div>
 
-                    <div className="arquivos-container">
-                        <h2>Arquivos Existentes</h2>
-                        {arquivosExistentes.map((arquivo) => (
-                            <div className="arquivo-item" key={arquivo.id}>
-                                <p>{arquivo.nomeArquivo} ({arquivo.tipoDocumento})</p>
-                                <button
-                                    type="button"
-                                    className="botao-excluir"
-                                    onClick={() => handleExcluirArquivo(arquivo.id)}
-                                >
-                                    Excluir
-                                </button>
-                            </div>
-                        ))}
+                    <div>
+                        <label className='texto-label'>Contratos</label>
+                        <input type="file" name="contratos" className='input-padrao' onChange={handleArquivoChange} />
                     </div>
-
-                    <div className="input-container">
-                        <label>Adicionar Novo Arquivo</label>
-                        <input type="file" name="propostas" onChange={handleArquivoChange} />
-                        <input type="file" name="contratos" onChange={handleArquivoChange} />
-                        <input type="file" name="artigos" onChange={handleArquivoChange} />
+                    
+                    <div>
+                        <label className='texto-label'>Artigos</label>
+                        <input type="file" name="artigos" className='input-padrao' onChange={handleArquivoChange} />
                     </div>
 
                     <div className="botoes-editar">

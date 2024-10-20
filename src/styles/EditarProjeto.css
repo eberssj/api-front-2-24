@@ -66,6 +66,11 @@
     gap: 2rem;
 }
 
+.container-principal-editar {
+    @apply flex justify-start; /* Ocupa a largura total disponível */
+    width: 98%;
+    padding: 2rem;
+}
 
 @media (max-width: 468px) {
     .botoes-editar {
