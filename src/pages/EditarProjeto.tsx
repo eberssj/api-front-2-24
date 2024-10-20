@@ -1,12 +1,17 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import '../styles/EditarProjeto.css';
+import '../styles/EditarProjeto.css'; // Importando o CSS
 import { Sidebar } from '../components/Sidebar/Sidebar';
-import { AuthContext } from '../hook/ContextAuth';
+import { AuthContext } from '../hook/ContextAuth'; // Importando o contexto de autenticação
+
+interface Arquivo {
+    id: number;
+    nomeArquivo: string;
+    tipoDocumento: string;
+}
 
 interface Projeto {
-    id: number;
     referenciaProjeto: string;
     empresa: string;
     objeto: string;
@@ -19,169 +24,216 @@ interface Projeto {
 
 const EditarProjeto = () => {
     const { adm } = useContext(AuthContext);
-    const location = useLocation();
-    const projeto: Projeto = location.state;
+    const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
-    const [formData, setFormData] = useState<Projeto>(projeto);
-    const [files, setFiles] = useState({
-        propostas: null,
-        contratos: null,
-        artigos: null,
-    });
+    const [formData, setFormData] = useState<Projeto | null>(null);
+    const [arquivosExistentes, setArquivosExistentes] = useState<Arquivo[]>([]);
+    const [arquivosNovos, setArquivosNovos] = useState<{
+        propostas: File | null;
+        contratos: File | null;
+        artigos: File | null;
+    }>({ propostas: null, contratos: null, artigos: null });
+    const [arquivosParaExcluir, setArquivosParaExcluir] = useState<number[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    useEffect(() => {
+        const fetchProjeto = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/projeto/${id}`, {
+                    headers: { Authorization: `Bearer ${adm?.token}` },
+                });
+                setFormData(response.data || null);
+            } catch (error) {
+                console.error('Erro ao carregar o projeto:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        const fetchArquivos = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/arquivos/projeto/${id}`, {
+                    headers: { Authorization: `Bearer ${adm?.token}` },
+                });
+                setArquivosExistentes(response.data);
+            } catch (error) {
+                console.error('Erro ao carregar arquivos:', error);
+            }
+        };
+
+        if (adm && id) {
+            fetchProjeto();
+            fetchArquivos();
+        }
+    }, [adm, id]);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => (prevData ? { ...prevData, [name]: value } : prevData));
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, files: selectedFiles } = e.target;
-        if (selectedFiles && selectedFiles.length > 0) {
-            setFiles((prevFiles) => ({
-                ...prevFiles,
-                [name]: selectedFiles[0],
-            }));
+    const handleArquivoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, files } = e.target;
+        if (files && files.length > 0) {
+            setArquivosNovos((prev) => ({ ...prev, [name]: files[0] }));
         }
+    };
+
+    const handleExcluirArquivo = (arquivoId: number) => {
+        setArquivosParaExcluir((prev) => [...prev, arquivoId]);
+        setArquivosExistentes((prev) => prev.filter((arquivo) => arquivo.id !== arquivoId));
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        const formDataToSend = new FormData();
-        formDataToSend.append('projeto', JSON.stringify(formData)); // Adiciona os dados do projeto como JSON
-
-        if (files.propostas) formDataToSend.append('propostas', files.propostas);
-        if (files.contratos) formDataToSend.append('contratos', files.contratos);
-        if (files.artigos) formDataToSend.append('artigos', files.artigos);
-
+    
         try {
-            await axios.put(`http://localhost:8080/projeto/editar/${projeto.id}`, formDataToSend, {
+            const data = new FormData();
+            if (formData) {
+                const projeto = {
+                    ...formData,
+                    adm: adm.id, // Enviar apenas o ID do administrador
+                };
+                data.append('projeto', new Blob([JSON.stringify(projeto)], { type: 'application/json' }));
+            }
+    
+            Object.entries(arquivosNovos).forEach(([tipo, file]) => {
+                if (file) data.append(tipo, file);
+            });
+    
+            arquivosParaExcluir.forEach((id) => data.append('arquivosExcluidos', id.toString()));
+    
+            await axios.put(`http://localhost:8080/projeto/editar/${id}`, data, {
                 headers: {
+                    Authorization: `Bearer ${adm?.token}`,
                     'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${adm?.token}`, // Apenas o token JWT
                 },
             });
-
+    
             alert('Projeto atualizado com sucesso!');
-            navigate(-1);
+            navigate('/adm/projetos');
         } catch (error) {
             console.error('Erro ao atualizar o projeto:', error);
-            alert('Erro ao atualizar o projeto. Tente novamente mais tarde.');
+            alert('Erro ao atualizar o projeto.');
         }
     };
+    
+
+    if (isLoading) return <div>Carregando...</div>;
+
+    if (!formData) return <div>Erro: Projeto não encontrado.</div>;
 
     return (
         <div className="container-principal">
             <Sidebar />
-            <form className="formulario" onSubmit={handleSubmit}>
-                <div className="cabecalho">
-                    <strong onClick={() => navigate(-1)} className="link-voltar">
-                        <i className="bi bi-arrow-left text-3xl text-blue-900"></i>
-                    </strong>
-                    <h1 className="texto-titulo">Editar Projeto</h1>
-                </div>
-                <div className="container-informacoes">
-                    <div>
-                        <label className="titulo">Referência do Projeto</label>
+            <div className="formulario-editar-projeto">
+                <h1 className="texto-titulo">Editar Projeto</h1>
+                <form onSubmit={handleSubmit} className="container-informacoes">
+                    <div className="input-container">
+                        <label>Referência do Projeto</label>
                         <input
-                            className="texto"
                             type="text"
+                            className="input-projeto"
                             name="referenciaProjeto"
                             value={formData.referenciaProjeto}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label className="titulo">Empresa</label>
+                    <div className="input-container">
+                        <label>Empresa</label>
                         <input
-                            className="texto"
                             type="text"
+                            className="input-projeto"
                             name="empresa"
                             value={formData.empresa}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label className="titulo">Objeto</label>
+                    <div className="input-container">
+                        <label>Objeto</label>
                         <textarea
-                            className="texto"
+                            className="input-projeto"
                             name="objeto"
                             value={formData.objeto}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label className="titulo">Descrição</label>
-                        <input
-                            className="texto"
-                            type="text"
+                    <div className="input-container">
+                        <label>Descrição</label>
+                        <textarea
+                            className="input-projeto"
                             name="descricao"
                             value={formData.descricao}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label className="titulo">Coordenador</label>
+                    <div className="input-container">
+                        <label>Coordenador</label>
                         <input
-                            className="texto"
                             type="text"
+                            className="input-projeto"
                             name="coordenador"
                             value={formData.coordenador}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label className="titulo">Valor</label>
+                    <div className="input-container">
+                        <label>Valor</label>
                         <input
-                            className="texto"
                             type="number"
+                            className="input-projeto"
                             name="valor"
                             value={formData.valor}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label className="titulo">Data de Início</label>
+                    <div className="input-container">
+                        <label>Data de Início</label>
                         <input
-                            className="texto"
                             type="date"
+                            className="input-projeto"
                             name="dataInicio"
                             value={formData.dataInicio}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label className="titulo">Data de Término</label>
+                    <div className="input-container">
+                        <label>Data de Término</label>
                         <input
-                            className="texto"
                             type="date"
+                            className="input-projeto"
                             name="dataTermino"
                             value={formData.dataTermino}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                         />
                     </div>
-                    <div>
-                        <label className="titulo">Propostas (Novo arquivo)</label>
-                        <input type="file" name="propostas" onChange={handleFileChange} />
+
+                    <div className="arquivos-container">
+                        <h2>Arquivos Existentes</h2>
+                        {arquivosExistentes.map((arquivo) => (
+                            <div className="arquivo-item" key={arquivo.id}>
+                                <p>{arquivo.nomeArquivo} ({arquivo.tipoDocumento})</p>
+                                <button onClick={() => handleExcluirArquivo(arquivo.id)}>🗑️ Excluir</button>
+                            </div>
+                        ))}
                     </div>
-                    <div>
-                        <label className="titulo">Contratos (Novo arquivo)</label>
-                        <input type="file" name="contratos" onChange={handleFileChange} />
+
+                    <div className="input-container">
+                        <label>Adicionar Novo Arquivo</label>
+                        <input type="file" name="propostas" onChange={handleArquivoChange} />
+                        <input type="file" name="contratos" onChange={handleArquivoChange} />
+                        <input type="file" name="artigos" onChange={handleArquivoChange} />
                     </div>
-                    <div>
-                        <label className="titulo">Artigos (Novo arquivo)</label>
-                        <input type="file" name="artigos" onChange={handleFileChange} />
+
+                    <div className="botoes-editar">
+                        <button type="submit" className="botao-salvar">Salvar Alterações</button>
+                        <button type="button" className="botao-cancelar" onClick={() => navigate(-1)}>
+                            Cancelar
+                        </button>
                     </div>
-                </div>
-                <div className="botoes-editar">
-                    <button type="submit" className="botao-salvar">
-                        Salvar
-                    </button>
-                    <button type="button" className="botao-cancelar" onClick={() => navigate(-1)}>
-                        Cancelar
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     );
 };

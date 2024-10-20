@@ -115,7 +115,7 @@ const InformacoesProjeto = () => {
 
     const editarProjeto = () => {
         // Navegação para a página de edição do projeto
-        navigate(`/projeto/editar/${projeto.id}`, { state: projeto });
+        navigate(`/projeto/editar/${projeto.id}`);
     };
 
     return (
