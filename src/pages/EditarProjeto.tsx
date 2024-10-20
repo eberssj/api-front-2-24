@@ -87,30 +87,30 @@ const EditarProjeto = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-    
+
         try {
             const data = new FormData();
             if (formData) {
                 const projeto = {
                     ...formData,
-                    adm: adm.id, // Enviar apenas o ID do administrador
+                    adm: adm?.id, // Enviando apenas o ID do administrador
                 };
                 data.append('projeto', new Blob([JSON.stringify(projeto)], { type: 'application/json' }));
             }
-    
+
             Object.entries(arquivosNovos).forEach(([tipo, file]) => {
                 if (file) data.append(tipo, file);
             });
-    
+
             arquivosParaExcluir.forEach((id) => data.append('arquivosExcluidos', id.toString()));
-    
+
             await axios.put(`http://localhost:8080/projeto/editar/${id}`, data, {
                 headers: {
                     Authorization: `Bearer ${adm?.token}`,
                     'Content-Type': 'multipart/form-data',
                 },
             });
-    
+
             alert('Projeto atualizado com sucesso!');
             navigate('/adm/projetos');
         } catch (error) {
@@ -118,7 +118,6 @@ const EditarProjeto = () => {
             alert('Erro ao atualizar o projeto.');
         }
     };
-    
 
     if (isLoading) return <div>Carregando...</div>;
 
@@ -168,59 +167,27 @@ const EditarProjeto = () => {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="input-container">
-                        <label>Coordenador</label>
-                        <input
-                            type="text"
-                            className="input-projeto"
-                            name="coordenador"
-                            value={formData.coordenador}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="input-container">
-                        <label>Valor</label>
-                        <input
-                            type="number"
-                            className="input-projeto"
-                            name="valor"
-                            value={formData.valor}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="input-container">
-                        <label>Data de Início</label>
-                        <input
-                            type="date"
-                            className="input-projeto"
-                            name="dataInicio"
-                            value={formData.dataInicio}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="input-container">
-                        <label>Data de Término</label>
-                        <input
-                            type="date"
-                            className="input-projeto"
-                            name="dataTermino"
-                            value={formData.dataTermino}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
                     <div className="arquivos-container">
                         <h2>Arquivos Existentes</h2>
                         {arquivosExistentes.map((arquivo) => (
                             <div className="arquivo-item" key={arquivo.id}>
                                 <p>{arquivo.nomeArquivo} ({arquivo.tipoDocumento})</p>
-                                <button onClick={() => handleExcluirArquivo(arquivo.id)}>🗑️ Excluir</button>
+                                <button
+                                    type="button"
+                                    className="botao-excluir"
+                                    onClick={() => handleExcluirArquivo(arquivo.id)}
+                                >
+                                    Excluir
+                                </button>
                             </div>
                         ))}
                     </div>
-                    <div>
-                        <label className="titulo">Artigos (Novo arquivo)</label>
-                        <input type="file" name="artigos" onChange={handleFileChange} />
+
+                    <div className="input-container">
+                        <label>Adicionar Novo Arquivo</label>
+                        <input type="file" name="propostas" onChange={handleArquivoChange} />
+                        <input type="file" name="contratos" onChange={handleArquivoChange} />
+                        <input type="file" name="artigos" onChange={handleArquivoChange} />
                     </div>
 
                     <div className="botoes-editar">
