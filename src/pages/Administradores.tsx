@@ -1,34 +1,59 @@
+import { useContext, useEffect, useState } from "react";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import "../styles/Administradores.css"
+import { AuthContext } from "../hook/ContextAuth";
+import { AdmProps } from "../Type/Adm";
+import axios from "axios";
 
 export const Administradores = () => {
+    const { adm } = useContext(AuthContext);
+    const [adms, setAdms] = useState<AdmProps[]>([]);
+
+
+    useEffect(() => {
+        const fetchAdms = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/adm/listar`, {
+                    headers: { Authorization: `Bearer ${adm?.token}` },
+                });
+                setAdms(response.data || null);
+            } catch (error) {
+                console.error('Erro ao carregar o projeto:', error);
+            }
+        };
+
+        fetchAdms();
+    }, []);
+
     return (
         <div className="container-principal">
             <Sidebar />
             <div className="container-externo">
-                <div className="container-adm">
-                    <div className="container-info">
-                        <p><strong className="strong">Nome:</strong> Nome Exemplo</p>
-                        <p><strong className="strong">CPF:</strong> 123.456.789-00</p>
-                        <p><strong className="strong">Email:</strong> emailexemplo@gmail.com</p>
-                    </div>
-                    <div className="container-info">
-                        <p><strong className="strong">Status:</strong> Ativo</p>
-                        <p><strong className="strong">Telefone:</strong> (12) 99999-9999</p>
-                        <p><strong className="strong">Data de criação:</strong> 10/10/2022</p>
-                    </div>
-                    <div className="container-detalhes-desativar">
-                        <div className="detalhes">
-                            <i className="bi bi-file-text"></i> 
-                            <p><strong>Detalhes</strong></p>
+                {adms.map((adm) => (
+                    <div className="container-adm" key={adm.id}>
+                        <div className="container-info">
+                            <p><strong className="strong">Nome:</strong> {adm.nome}</p>
+                            <p><strong className="strong">CPF:</strong> {adm.cpf}</p>
+                            <p><strong className="strong">Email:</strong> {adm.email}</p>
                         </div>
-                        <div className="desativar">
-                            <i className="bi bi-person-fill-slash"></i>
-                            <p><strong>Desativar</strong></p>
+                        <div className="container-info">
+                            <p><strong className="strong">Status:</strong> {adm.ativo}</p>
+                            <p><strong className="strong">Telefone:</strong> ({adm.telefone?.ddd}) {adm.telefone?.numero}</p>
+                            <p><strong className="strong">Data de cadastro:</strong> {adm.dataCadastro ? new Date(adm.dataCadastro).toLocaleDateString() : "Não informado"}</p>
+                        </div>
+                        <div className="container-detalhes-desativar">
+                            <div className="detalhes">
+                                <i className="bi bi-file-text"></i> 
+                                <p><strong>Detalhes</strong></p>
+                            </div>
+                            <div className="desativar">
+                                <i className="bi bi-person-fill-slash"></i>
+                                <p><strong>Desativar</strong></p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
+
         </div>
-    );
-};
+    )}

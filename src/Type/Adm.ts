@@ -6,7 +6,7 @@ export interface AdmProps {
     nome?: string,
     email?: string,
     cpf?: string,
-    telefones?: Telefone[],
+    telefone?: Telefone,
     senha?: string,
     tipo?: any,
     dataCadastro?: Date,
