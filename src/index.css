@@ -9,6 +9,50 @@ body {
     margin-left: 240px;
 }
 
+.container-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .container-externo {
+    width: 100%;            /* Equivale a w-full */
+    height: 42rem;           /* Equivale a h-96 (96 * 0.25rem = 24rem) */
+    overflow-y: scroll;      /* Equivale a overflow-y-scroll */
+    padding: 1rem;     /* Mantém o padding */
+    border: 1px solid #2b00a0;  /* Mantém a borda */
+    border-radius: 8px;
+    display: flex;           /* Mantém o flex layout */
+    flex-direction: column;  /* Define a direção dos itens como coluna */
+    gap: 1rem;               /* Espaçamento entre os itens */
+    scrollbar-color: #888 #f1f1f1; /* Cor da barra e do fundo */
+    scrollbar-width: thin; /* Largura da barra */
+  }
+  
+  /* Estilos adicionais para scrollbar em navegadores baseados no WebKit (Chrome, Safari, etc.) */
+  .container-externo::-webkit-scrollbar {
+    width: 8px;              /* Define a largura da barra de rolagem */
+  }
+  
+  .container-externo::-webkit-scrollbar-track {
+    background: #f1f1f1;     /* Cor do fundo da barra de rolagem */
+  }
+  
+  .container-externo::-webkit-scrollbar-thumb {
+    background: #888;        /* Cor do "polegar" da barra de rolagem */
+  }
+  
+  .container-externo::-webkit-scrollbar-thumb:hover {
+    background: #555;        /* Cor ao passar o mouse sobre o "polegar" */
+  }
+
+  .strong {
+    color: darkblue;
+  }
+  
+
 @media (max-width: 760px) {
     body {
         margin-left: 5rem;

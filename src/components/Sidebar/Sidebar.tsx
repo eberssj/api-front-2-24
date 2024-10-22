@@ -69,12 +69,24 @@ export const Sidebar: React.FC = () => {
             <li>
               <a
                 href="/adm/dashboard"
-                onClick={() => setSelected('Projetos')}
+                onClick={() => setSelected('Dashboard')}
                 className={`flex items-center px-4 py-2 ${selected === 'Projetos' ? 'bg-blue-800 text-white rounded-md' : 'rounded-md text-gray-600 hover:bg-gray-200 hover:text-gray-900'} transition-all duration-300`}
               >
                 <span className="mr-4">
                   <i className="bi bi-graph-up mr-2"></i>
                   <p>Dashboard</p>
+                </span>
+              </a>
+            </li>
+            <li>
+            <a
+                href="/adm/administradores"
+                onClick={() => setSelected('Administradores')}
+                className={`flex items-center px-4 py-2 ${selected === 'Projetos' ? 'bg-blue-800 text-white rounded-md' : 'rounded-md text-gray-600 hover:bg-gray-200 hover:text-gray-900'} transition-all duration-300`}
+              >
+                <span className="mr-4">
+                  <i className="bi bi-graph-up mr-2"></i>
+                  <p>Administradores</p>
                 </span>
               </a>
             </li>
