@@ -34,10 +34,10 @@ const Projetos = () => {
     }, []);
 
     return (
-    <div className="container-principal-projetos">
+    <div className="container-principal">
         <Sidebar />
         {projetos.length > 0 ? (
-            <div className="container-projetos-externo">
+            <div className="container-externo">
             <div>
                 {projetos.map((projeto) => (
                 <div className="container-projeto" key={projeto.id}>

@@ -9,6 +9,7 @@ import PortalTransparencia from '../pages/PortalTransparencia';
 import InformacoesProjeto from '../pages/InformacoesProjeto';
 import EditarProjeto from '../pages/EditarProjeto';
 import Dashboard from '../pages/Dashboard';
+import { Administradores } from '../pages/Administradores';
 
 
 export default function Routes() {
@@ -51,7 +52,13 @@ export default function Routes() {
                 <Route path="/projeto/editar/:id" element={
                   <PrivateRoutes tiposAllowed={[1]}>
                     <EditarProjeto />
+                  </PrivateRoutes>
+                } />
 
+
+                <Route path="/adm/administradores" element={
+                  <PrivateRoutes tiposAllowed={[1]}>
+                    <Administradores />
                   </PrivateRoutes>
                 } />
 

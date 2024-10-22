@@ -129,17 +129,17 @@ const PortalTransparencia = () => {
                                 {projetosFiltrados.map((projeto) => (
                                     <div className="container-projeto" key={projeto.id}>
                                         <div className="itens-esquerda">
-                                            <p><strong>Referência do projeto:</strong> {projeto.referenciaProjeto}</p>
-                                            <p><strong>Coordenador:</strong> {projeto.coordenador}</p>
-                                            <p><strong>Situação:</strong> {projeto.situacao}</p>
+                                            <p><strong className="strong">Referência do projeto:</strong> {projeto.referenciaProjeto}</p>
+                                            <p><strong className="strong">Coordenador:</strong> {projeto.coordenador}</p>
+                                            <p><strong className="strong">Situação:</strong> {projeto.situacao}</p>
                                         </div>
                                         <div className="itens-meio">
-                                            <p><strong>Início:</strong> {formatarDataParaVisualizacao(projeto.dataInicio)}</p>
-                                            <p><strong>Término:</strong> {formatarDataParaVisualizacao(projeto.dataTermino)}</p>
+                                            <p><strong className="strong">Início:</strong> {formatarDataParaVisualizacao(projeto.dataInicio)}</p>
+                                            <p><strong className="strong">Término:</strong> {formatarDataParaVisualizacao(projeto.dataTermino)}</p>
                                         </div>
                                         <div className="itens-direita cursor-pointer" onClick={() => navigate(`/projeto/${projeto.id}`, { state: projeto })}>
                                             <i className="bi bi-file-earmark-text"></i>
-                                            <p><strong>Detalhes</strong></p>
+                                            <p><strong className="strong">Detalhes</strong></p>
                                         </div>
                                     </div>
                                 ))}

@@ -1,0 +1,29 @@
+.container-adm {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid darkblue;
+    border-radius: 6px;
+    padding: 2rem 4rem;
+}
+
+.detalhes i, .desativar i {
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.detalhes i, .detalhes p {
+    color: darkblue;
+}
+
+.desativar i, .desativar p {
+    color: red;
+}
+
+.container-detalhes-desativar {
+    display: flex;
+    gap: 2rem;
+}
+
+.container-info {
+    text-align: start;
+}
