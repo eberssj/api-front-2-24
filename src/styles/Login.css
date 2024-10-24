@@ -103,16 +103,17 @@
 
 
 
-@media (min-width: 650px) and (max-width: 760px) {
+@media (max-width: 760px) {
     .login-container {
         flex-direction: column-reverse;
         margin: 0 !important;
+        width: 100%;
     }
 
     .login-left-side {
         width: 100%;
         margin-left: -4rem;
-        padding: 14.5rem 6rem 0 0;
+        padding: 14.5rem 0 0 0;
     }
 
     .login-right-side {
@@ -130,8 +131,7 @@
     }
 
     .login-right-side img {
-        max-width: 32%;
-        margin-right: 5rem;
+        max-width: 38%;
     }
 
     .login-form {
