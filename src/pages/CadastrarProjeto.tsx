@@ -5,6 +5,8 @@ import '../styles/CadastrarProjeto.css';
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import { erroror, Toast } from "../components/Swal/Swal";
 import { AuthContext } from '../hook/ContextAuth';
+import BotaoCTA from '../components/BotaoCTA/BotaoCTA';
+import criarProjeto from '../img/criar_projeto.svg';
 
 const CadastrarProjeto = () => {
   const navigate = useNavigate();
@@ -293,9 +295,8 @@ const CadastrarProjeto = () => {
               className="input-padrao"
             />
           </div>
-
-          <div className="flex justify-center">
-            <button type="submit" className="botao-submit">Cadastrar</button>
+          <div className="cadpro_botao_cadastrar">
+            <BotaoCTA img={criarProjeto} escrito="Cadastrar Projeto" aparencia="primario" type="submit"/>
           </div>
         </form>
       </div>

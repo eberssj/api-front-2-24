@@ -1,0 +1,113 @@
+/* Estilo Botão Primário */
+
+.botao_cta_primario {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #003383;
+    padding: 12px 32px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    /* Impedir o texto de ficar torto no botão */
+    justify-content: center;
+
+}
+
+.botao_cta_primario:hover {
+    background-color: #05265a;
+    color: #C4C4C4;
+}
+
+
+/* Estilo Botão Secundário */
+
+.botao_cta_secundario {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    border: 2px solid #7d7d7d;
+    padding: 12px 32px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    background-color: inherit;
+    color: #7d7d7d;
+    /* Impedir o texto de ficar torto no botão */
+    justify-content: center;
+}
+
+.botao_cta_secundario:hover {
+    border: 2px solid #303030;
+    color: #303030;
+}
+
+
+/* Props de Imagem */
+
+.botao_cta_primario img, .botao_cta_secundario img {
+    width: 24px;
+}
+
+.botao_cta_primario:hover img, .botao_cta_secundario:hover img {
+    filter: brightness(0.8)
+}
+
+
+/* Props de Cor */
+
+.botao_cta_verde {
+    background-color: #0b6e19;
+}
+
+.botao_cta_verde:hover {
+    background-color: #05520f;
+}
+
+.botao_cta_vermelho {
+    background-color: #e33b3b;
+}
+
+.botao_cta_vermelho:hover {
+    background-color: #a81f1f;
+}
+
+.botao_cta_secundario.botao_cta_verde {
+    color: #0b6e19;
+    background-color: white;
+    border: 2px solid #0b6e19;
+}
+
+.botao_cta_secundario.botao_cta_verde:hover {
+    color: #05520f;
+    border: 2px solid #05520f;
+}
+
+.botao_cta_secundario.botao_cta_vermelho {
+    color: #e33b3b;
+    background-color: white;
+    border: 2px solid #e33b3b;
+}
+
+.botao_cta_secundario.botao_cta_vermelho:hover {
+    color: #a81f1f;
+    border: 2px solid #a81f1f;
+}
+
+.botao_cta_primario.botao_cta_cinza {
+    background-color: #a5a5a5;
+    color: white;
+    cursor: auto;
+}
+
+.botao_cta_primario.botao_cta_cinza:hover img {
+    filter: brightness(1)
+}
+
+.botao_cta_cor_primario {
+    color: #003383;
+    border: 2px solid #003383;
+}
