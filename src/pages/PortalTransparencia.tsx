@@ -124,7 +124,7 @@ const PortalTransparencia = () => {
                 {projetosFiltrados.length > 0 ? (
                     <>
                         <br />
-                        <div className="container-projetos-externo">
+                        <div className="container-externo">
                             <div>
                                 {projetosFiltrados.map((projeto) => (
                                     <div className="container-projeto" key={projeto.id}>
