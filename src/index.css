@@ -15,52 +15,129 @@ body {
     align-items: center;
     padding: 2rem;
     text-align: center;
-  }
-
-  .container-externo {
-    width: 100%;            /* Equivale a w-full */
-    height: 42rem;           /* Equivale a h-96 (96 * 0.25rem = 24rem) */
-    overflow-y: scroll;      /* Equivale a overflow-y-scroll */
-    padding: 1rem;     /* Mantém o padding */
-    border: 1px solid #2b00a0;  /* Mantém a borda */
-    border-radius: 8px;
-    display: flex;           /* Mantém o flex layout */
-    flex-direction: column;  /* Define a direção dos itens como coluna */
-    gap: 1rem;               /* Espaçamento entre os itens */
-    scrollbar-color: #888 #f1f1f1; /* Cor da barra e do fundo */
-    scrollbar-width: thin; /* Largura da barra */
-  }
-  
-  /* Estilos adicionais para scrollbar em navegadores baseados no WebKit (Chrome, Safari, etc.) */
-  .container-externo::-webkit-scrollbar {
-    width: 8px;              /* Define a largura da barra de rolagem */
-  }
-  
-  .container-externo::-webkit-scrollbar-track {
-    background: #f1f1f1;     /* Cor do fundo da barra de rolagem */
-  }
-  
-  .container-externo::-webkit-scrollbar-thumb {
-    background: #888;        /* Cor do "polegar" da barra de rolagem */
-  }
-  
-  .container-externo::-webkit-scrollbar-thumb:hover {
-    background: #555;        /* Cor ao passar o mouse sobre o "polegar" */
-  }
-
-  .strong {
-    color: darkblue;
-  }
-  
-
-@media (max-width: 760px) {
-    body {
-        margin-left: 5rem;
-    }
 }
 
-@media (min-width: 761px) and (max-width: 920px) {
-    body {
-        margin-left: 12rem;
-    }
+.container-projeto {
+  @apply shadow-md;
+  justify-content: space-between;
+  border: 1px solid #0F3684;
+  border-radius: 6px;
+  padding: 2rem;
+  display: flex;
+  margin-bottom: 1rem;
+  width: 100%;
+  gap: 1.5rem;
+}
+
+.container-externo {
+  @apply shadow-md;
+  width: 100%;            /* Equivale a w-full */
+  height: 42rem;           /* Equivale a h-96 (96 * 0.25rem = 24rem) */
+  overflow-y: scroll;      /* Equivale a overflow-y-scroll */
+  padding: 1rem;     /* Mantém o padding */
+  border: 1px solid #2b00a0;  /* Mantém a borda */
+  border-radius: 8px;
+  display: flex;           /* Mantém o flex layout */
+  flex-direction: column;  /* Define a direção dos itens como coluna */
+  gap: 1rem;               /* Espaçamento entre os itens */
+  scrollbar-color: #888 #f1f1f1; /* Cor da barra e do fundo */
+  scrollbar-width: thin; /* Largura da barra */
+}
+  
+/* Estilos adicionais para scrollbar em navegadores baseados no WebKit (Chrome, Safari, etc.) */
+.container-externo::-webkit-scrollbar {
+  width: 8px;              /* Define a largura da barra de rolagem */
+}
+  
+.container-externo::-webkit-scrollbar-track {
+  background: #f1f1f1;     /* Cor do fundo da barra de rolagem */
+}
+
+.container-externo::-webkit-scrollbar-thumb {
+  background: #888;        /* Cor do "polegar" da barra de rolagem */
+}
+
+.container-externo::-webkit-scrollbar-thumb:hover {
+  background: #555;        /* Cor ao passar o mouse sobre o "polegar" */
+}
+
+.strong {
+  color: darkblue;
+}
+
+.texto-label {
+  @apply block mb-1 font-medium text-left;
+  color: darkblue;
+}
+
+.texto-titulo {
+  font-size: 24px;
+  text-align: center;
+  color: darkblue;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.botao-projeto {
+  @apply bg-white text-blue-900 border-2 border-blue-900 px-4 py-2 my-5 rounded hover:bg-blue-100 font-bold;
+}
+
+.input-padrao {
+  @apply w-full border p-2 rounded;
+  background-color: transparent;
+  border-color: #1e3a8a;
+}
+
+/* PortalTransparencia & Projetos */
+.itens-direita i {
+  font-size: 3.5vh;
+  color: #0F3684;
+}
+.itens-direita p {
+  color: #0F3684;
+}
+.itens-esquerda, .itens-meio {
+  text-align: start;
+}
+
+@media (max-width: 800px) {
+  .container-projeto {
+    border: 1px solid #0F3684;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .container-projeto p {
+    text-align: center;
+  }
+
+  .container-projetos-externo {
+    padding: 1rem !important;
+  }
+
+  .container-projeto {
+    padding: 1rem !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 920px) {
+  body {
+      margin-left: 12rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    margin-left: 5rem;
+  }
+
+  .itens-esquerda, .itens-meio {
+    text-align: center;
+}
 }
