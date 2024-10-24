@@ -1,9 +1,12 @@
 .container-adm {
-    display: flex;
-    justify-content: space-between;
     border: 1px solid darkblue;
+    justify-content: space-between;
     border-radius: 6px;
-    padding: 2rem 4rem;
+    padding: 2rem;
+    display: flex;
+    margin-bottom: 1rem;
+    width: 100%;
+    gap: 1.5rem;
 }
 
 .detalhes i, .desativar i {
@@ -26,4 +29,30 @@
 
 .container-info {
     text-align: start;
+}
+
+@media (max-width: 800px) {
+    .container-adm {
+        border: 1px solid #0F3684;
+        border-radius: 6px;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .container-adm p {
+        text-align: center;
+    }
+
+}
+
+@media (max-width: 415px) {
+    .container-detalhes-desativar {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
