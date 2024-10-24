@@ -295,7 +295,7 @@ const CadastrarProjeto = () => {
           </div>
 
           <div className="flex justify-center">
-            <button type="submit" className="botao-submit">Cadastrar</button>
+            <button type="submit" className="botao-projeto">Cadastrar</button>
           </div>
         </form>
       </div>

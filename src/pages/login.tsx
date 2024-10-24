@@ -195,7 +195,7 @@ export default function Login() {
                         value={password} 
                         onChange={(e) => setPassword(e.target.value)} 
                     />
-                    <button onClick={handleLogin}>Entrar</button>
+                    <button onClick={handleLogin} className="botao-login">Entrar</button>
                     {mensagemErro && <div className="login-error">{mensagemErro} <br/> {mensagemExemplo}</div>}
                     {erro && <div className="login-error">Verifique suas informações.</div>}
                     <p onClick={handleHome} className="link-home">Ir para a Home</p>
