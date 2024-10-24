@@ -76,6 +76,17 @@ const InformacoesProjeto = () => {
         return 'Data inválida';
     };
 
+    const formatarValor = (valor: number | string) => {
+        const valorNumerico = typeof valor === 'string' ? parseFloat(valor) : valor;
+        return valorNumerico.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).replace(/\s/g, ''); // Remove espaços
+    };    
+
+
     const deletarProjeto = () => {
 
         Swal.fire({
@@ -155,7 +166,7 @@ const InformacoesProjeto = () => {
                     { adm && (
                         <div>
                             <p className="titulo">Valor do Projeto</p>
-                            <p className="texto">R${projeto.valor}</p>
+                            <p className="texto">{formatarValor(projeto.valor)}</p>
                         </div>
                     )}
                     <div>
