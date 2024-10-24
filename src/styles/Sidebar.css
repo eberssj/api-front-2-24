@@ -78,6 +78,11 @@
     display: flex;
 }
 
+.icon_notificacao {
+    width: 16px;
+    margin-right: 8px;
+}
+
 @media (max-width: 768px) {
     .sidebar {
         width: 5rem;
