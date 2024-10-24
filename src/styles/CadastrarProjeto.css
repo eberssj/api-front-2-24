@@ -72,3 +72,7 @@
   .texto-select {
     font-weight: bold;
   }
+
+  .cadpro_botao_cadastrar {
+    margin-top: 48px !important;
+  }

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../hook/ContextAuth';
 import { Toast } from '../Swal/Swal';
 import "../../styles/Sidebar.css"
+import iconeNotificacao from "./notificacao.svg"
 
 export const Sidebar: React.FC = () => {
   const [selected, setSelected] = useState('Projetos');
@@ -87,6 +88,18 @@ export const Sidebar: React.FC = () => {
                 <span className="mr-4">
                   <i className="bi bi-graph-up mr-2"></i>
                   <p>Administradores</p>
+                </span>
+              </a>
+            </li>
+            <li>
+            <a
+                href="/adm/notificacoes"
+                onClick={() => setSelected('Notificacoes')}
+                className={`flex items-center px-4 py-2 ${selected === 'Projetos' ? 'bg-blue-800 text-white rounded-md' : 'rounded-md text-gray-600 hover:bg-gray-200 hover:text-gray-900'} transition-all duration-300`}
+              >
+                <span className="mr-4">
+                  <img className="icon_notificacao" src={iconeNotificacao} />
+                  <p>Notificações</p>
                 </span>
               </a>
             </li>
