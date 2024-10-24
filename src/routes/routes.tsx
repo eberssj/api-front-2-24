@@ -12,6 +12,7 @@ import Dashboard from '../pages/Dashboard';
 import { Administradores } from '../pages/Administradores';
 import GerenciarAdms from '../pages/GerenciarAdms'; // Importando a nova página
 import Footer from '../components/Footer/Footer';
+import Notificacoes from '../pages/Notificacoes';
 
 export default function Routes() {
   return (
@@ -22,6 +23,15 @@ export default function Routes() {
           element={
             <PrivateRoutes tiposAllowed={[1]}>
               <Dashboard />
+            </PrivateRoutes>
+          }
+        />
+
+<Route
+          path="/adm/notificacoes"
+          element={
+            <PrivateRoutes tiposAllowed={[1]}>
+              <Notificacoes />
             </PrivateRoutes>
           }
         />
