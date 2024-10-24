@@ -30,7 +30,7 @@ export const Administradores = () => {
             <Sidebar />
             <div className="container-externo">
                 {adms.map((adm) => (
-                    <div className="container-adm" key={adm.id}>
+                    <div className="container-projeto" key={adm.id}>
                         <div className="container-info">
                             <p><strong className="strong">Nome:</strong> {adm.nome}</p>
                             <p><strong className="strong">CPF:</strong> {adm.cpf}</p>

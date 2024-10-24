@@ -39,7 +39,7 @@
     border-radius: 5px;
 }
 
-.login-form button {
+.botao-login {
     width: 100%;
     padding: 12px;
     background-color: #007BFF;
@@ -51,7 +51,7 @@
     margin-bottom: 8px;
 }
 
-.login-form button:hover {
+.botao-login:hover {
     background-color: #0056b3;
 }
 

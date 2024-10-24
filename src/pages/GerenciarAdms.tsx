@@ -117,7 +117,7 @@ const GerenciarAdms: React.FC = () => {
                     <option value="1">Super Administrador</option>
                     <option value="2">Administrador Comum</option>
                 </select>
-                <button onClick={criarAdm}>Criar Administrador</button>
+                <button onClick={criarAdm} className="botao-projeto">Criar Administrador</button>
             </div>
 
             <h2>Lista de Administradores</h2>

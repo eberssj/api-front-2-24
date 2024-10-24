@@ -295,6 +295,7 @@ const CadastrarProjeto = () => {
               className="input-padrao"
             />
           </div>
+
           <div className="cadpro_botao_cadastrar">
             <BotaoCTA img={criarProjeto} escrito="Cadastrar Projeto" aparencia="primario" type="submit"/>
           </div>

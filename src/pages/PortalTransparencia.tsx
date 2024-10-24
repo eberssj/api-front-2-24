@@ -117,7 +117,7 @@ const PortalTransparencia = () => {
                                 className="input-padrao"
                             />
                         </div>
-                        <button type="submit" className="botao-filtrar-projetos">Buscar</button>
+                        <button type="submit" className="botao-projeto">Buscar</button>
                     </form>
                 </div>
                 <br />

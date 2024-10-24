@@ -6,13 +6,6 @@
     margin: 20px;
 }
 
-.texto-titulo {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #2c3e50;
-}
-
 .formulario-editar-projeto {
     display: flex;
     flex-direction: column;
