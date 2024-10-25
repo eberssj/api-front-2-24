@@ -3,10 +3,13 @@
 @tailwind utilities;
 
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    margin-left: 223px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body:not(.no-margin) {
+  margin-left: 17.5%;
 }
 
 * {
