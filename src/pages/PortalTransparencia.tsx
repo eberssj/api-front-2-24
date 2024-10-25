@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import AutoComplete from '../components/AutoComplete/AutoComplete'
 import IconVer from "../img/ver.svg"
+import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
 
 const PortalTransparencia = () => {
     const navigate = useNavigate();
@@ -76,23 +77,21 @@ const PortalTransparencia = () => {
             <div className="container-texto">
                 <h1>Fundação de Apoio à Pesquisa de Pós-Graduandos (FAPG)</h1>
                 <p>A Fundação vem com o objetivo de trazer transformações importantes para o meio acadêmico, e busca conseguir isso com a obstinação dos seus dirigentes <br /> e funcionários no sentido de torná-la sempre mais ágil e precisa.</p>
-                <br />
-                <div className="filtros">
+                <div className="portal_divisoria">
+                </div>
+                <div className="filtragem">
                     <form onSubmit={(e) => { e.preventDefault(); aplicarFiltro(); }} className="space-y-4">
-                        <div>
-                            <label className="texto-label">Referência do projeto</label>
-                            <input
-                                type="text"
-                                value={referenciaProjeto}
-                                onChange={(e) => setReferenciaProjeto(e.target.value)}
-                                className="input-padrao"
-                            />
+                        <div className="filtragem_linha_item grande">
+                            <label className="texto-label">Busca Geral</label>
+                            <input type="text" value={referenciaProjeto} onChange={(e) => setReferenciaProjeto(e.target.value)} className="input-padrao"/>
                         </div>
-                        <div>
+                        
+                        <div className="filtragem_linha filtragem_baixo_margem">
+                        <div className="filtragem_linha_item maior">
                             <label className="texto-label">Coordenador</label>
                             <AutoComplete prop="coordenador" onValueChange={setCoordenador}/>
                         </div>
-                        <div>
+                        <div className="filtragem_linha_item maior">
                             <label className="texto-label">Situação</label>
                             <select id="situacao" name="situacao" value={situacao} onChange={(e) => setSituacao(e.target.value)} className="custom-select">
                                 <option value="">Escolha uma opção</option>
@@ -100,31 +99,22 @@ const PortalTransparencia = () => {
                                 <option value="Encerrado">Encerrado</option>
                             </select>
                         </div>
-                        <div>
+                        <div className="filtragem_linha_item menor">
                             <label className="texto-label">Data de início</label>
-                            <input
-                                type="date"
-                                value={dataInicio}
-                                onChange={(e) => setDataInicio(e.target.value)}
-                                className="input-padrao"
-                            />
+                            <input type="date" value={dataInicio} onChange={(e) => setDataInicio(e.target.value)} className="input-padrao"/>
                         </div>
-                        <div>
+                        <div className="filtragem_linha_item menor">
                             <label className="texto-label">Data de término</label>
-                            <input
-                                type="date"
-                                value={dataTermino}
-                                onChange={(e) => setDataTermino(e.target.value)}
-                                className="input-padrao"
-                            />
+                            <input type="date" value={dataTermino} onChange={(e) => setDataTermino(e.target.value)} className="input-padrao"/>
                         </div>
-                        <button type="submit" className="botao-projeto">Buscar</button>
+                        </div>
+                        <BotaoCTA escrito="Buscar" aparencia="primario" type="submit"/>
                     </form>
                 </div>
                 <br />
+                <br />
                 {projetosFiltrados.length > 0 ? (
                     <>
-                        <br />
                         <div>
                             <div>
                                 {projetosFiltrados.map((projeto) => (
@@ -132,7 +122,7 @@ const PortalTransparencia = () => {
                                         <div className="itens-esquerda">
                                             <p><span>Referência do projeto:</span> {projeto.referenciaProjeto}</p>
                                             <p><span>Coordenador:</span> {projeto.coordenador}</p>
-                                            <p><span>Situação::</span> {projeto.situacao}</p>
+                                            <p><span>Situação:</span> {projeto.situacao}</p>
                                         </div>
                                         <div className="itens-meio">
                                             <p><span>Início:</span> {formatarDataParaVisualizacao(projeto.dataInicio)}</p>
