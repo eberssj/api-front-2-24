@@ -67,6 +67,14 @@
     background-color: #dddddd;
 }
 
+.sem_projetos {
+    padding: 20px;
+    background-color: #F5F5F5;
+    color: #5a5a5a;
+    font-weight: 500;
+    border-radius: 8px;
+}
+
 @media (max-width: 768px) {
     .container-texto h1 {
         color: #0F3684;

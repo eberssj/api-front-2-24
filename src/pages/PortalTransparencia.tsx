@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import AutoComplete from '../components/AutoComplete/AutoComplete'
 import IconVer from "../img/ver.svg"
+import IconPesquisar from "../img/Pesquisar.svg"
 import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
 
 const PortalTransparencia = () => {
@@ -108,7 +109,7 @@ const PortalTransparencia = () => {
                             <input type="date" value={dataTermino} onChange={(e) => setDataTermino(e.target.value)} className="input-padrao"/>
                         </div>
                         </div>
-                        <BotaoCTA escrito="Buscar" aparencia="primario" type="submit"/>
+                        <BotaoCTA img={IconPesquisar} escrito="Buscar" aparencia="primario" type="submit"/>
                     </form>
                 </div>
                 <br />
@@ -138,7 +139,7 @@ const PortalTransparencia = () => {
                         </div>
                     </>
                 ) : (
-                    <p>No momento ainda não há projetos.</p>
+                    <p className="sem_projetos">Ainda não há nenhum projeto cadastrado.</p>
                 )}
             </div>
         </div>
