@@ -7,6 +7,7 @@
 }
 
 .notif_titulo {
+    width: 100%;
     font-size: 2rem;
     color: #003383;
     font-weight: 700;

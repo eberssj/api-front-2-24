@@ -5,6 +5,7 @@ import { Projeto } from "../Type/Projeto";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import AutoComplete from '../components/AutoComplete/AutoComplete'
+import IconVer from "../img/ver.svg"
 
 const PortalTransparencia = () => {
     const navigate = useNavigate();
@@ -124,22 +125,22 @@ const PortalTransparencia = () => {
                 {projetosFiltrados.length > 0 ? (
                     <>
                         <br />
-                        <div className="container-externo">
+                        <div>
                             <div>
                                 {projetosFiltrados.map((projeto) => (
                                     <div className="container-projeto" key={projeto.id}>
                                         <div className="itens-esquerda">
-                                            <p><strong className="strong">Referência do projeto:</strong> {projeto.referenciaProjeto}</p>
-                                            <p><strong className="strong">Coordenador:</strong> {projeto.coordenador}</p>
-                                            <p><strong className="strong">Situação:</strong> {projeto.situacao}</p>
+                                            <p><span>Referência do projeto:</span> {projeto.referenciaProjeto}</p>
+                                            <p><span>Coordenador:</span> {projeto.coordenador}</p>
+                                            <p><span>Situação::</span> {projeto.situacao}</p>
                                         </div>
                                         <div className="itens-meio">
-                                            <p><strong className="strong">Início:</strong> {formatarDataParaVisualizacao(projeto.dataInicio)}</p>
-                                            <p><strong className="strong">Término:</strong> {formatarDataParaVisualizacao(projeto.dataTermino)}</p>
+                                            <p><span>Início:</span> {formatarDataParaVisualizacao(projeto.dataInicio)}</p>
+                                            <p><span>Término:</span> {formatarDataParaVisualizacao(projeto.dataTermino)}</p>
                                         </div>
-                                        <div className="itens-direita cursor-pointer" onClick={() => navigate(`/projeto/${projeto.id}`, { state: projeto })}>
-                                            <i className="bi bi-file-earmark-text"></i>
-                                            <p><strong className="strong">Detalhes</strong></p>
+                                        <div className="admin_botao_acoes ver " onClick={() => navigate(`/projeto/${projeto.id}`, { state: projeto })}>
+                                            <img src={IconVer} />
+                                            <h2>Ver</h2>
                                         </div>
                                     </div>
                                 ))}

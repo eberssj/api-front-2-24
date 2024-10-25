@@ -4,6 +4,11 @@ import "../styles/Administradores.css"
 import { AuthContext } from "../hook/ContextAuth";
 import { AdmProps } from "../Type/Adm";
 import axios from "axios";
+import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
+import IconEditar from "../img/editar.svg"
+import IconVer from "../img/ver.svg"
+import IconUnplug from "../img/unplug.svg"
+import UserAdd from "../img/user_add.svg"
 
 export const Administradores = () => {
     const { adm } = useContext(AuthContext);
@@ -27,32 +32,44 @@ export const Administradores = () => {
 
     return (
         <div className="container-principal">
+
             <Sidebar />
-            <div className="container-externo">
+            <h1 className="notif_titulo">Administradores</h1>
+
+            <div className="container_admin">
                 {adms.map((adm) => (
                     <div className="container-projeto" key={adm.id}>
                         <div className="container-info">
-                            <p><strong className="strong">Nome:</strong> {adm.nome}</p>
-                            <p><strong className="strong">CPF:</strong> {adm.cpf}</p>
-                            <p><strong className="strong">Email:</strong> {adm.email}</p>
+                            <p><span>Nome:</span> {adm.nome}</p>
+                            <p><span>CPF:</span> {adm.cpf}</p>
+                            <p><span>Email:</span> {adm.email}</p>
                         </div>
                         <div className="container-info">
-                            <p><strong className="strong">Status:</strong> {adm.ativo}</p>
-                            <p><strong className="strong">Telefone:</strong> ({adm.telefone?.ddd}) {adm.telefone?.numero}</p>
-                            <p><strong className="strong">Data de cadastro:</strong> {adm.dataCadastro ? new Date(adm.dataCadastro).toLocaleDateString() : "Não informado"}</p>
+                            <p><span>Ativo:</span> {adm.ativo ? "Sim" : "Não"}</p>
+                            <p><span>Telefone:</span> ({adm.telefone?.ddd}) {adm.telefone?.numero}</p>
+                            <p><span>Data de cadastro:</span> {adm.dataCadastro ? new Date(adm.dataCadastro).toLocaleDateString() : "Não informado"}</p>
                         </div>
                         <div className="container-detalhes-desativar">
-                            <div className="detalhes">
-                                <i className="bi bi-file-text"></i> 
-                                <p><strong>Detalhes</strong></p>
+                            <div className="admin_botao_acoes editar">
+                                <img src={IconEditar} />
+                                <h2>Editar</h2>
                             </div>
-                            <div className="desativar">
-                                <i className="bi bi-person-fill-slash"></i>
-                                <p><strong>Desativar</strong></p>
+                            <div className="admin_botao_acoes ver ">
+                                <img src={IconVer} />
+                                <h2>Ver</h2>
                             </div>
+                            <div className="admin_botao_acoes desativ">
+                                <img src={IconUnplug} />
+                                <h2>Desativ.</h2>
+                            </div>
+                            
                         </div>
                     </div>
                 ))}
+            </div>
+
+            <div className="admin_botao_cadastro">
+                <BotaoCTA img={UserAdd} escrito="Cadastrar Novo Admin" aparencia="primario" link="/adm/cadastrar-administrador"/>
             </div>
 
         </div>

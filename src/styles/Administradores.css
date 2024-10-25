@@ -17,8 +17,67 @@
 }
 
 .container-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     text-align: start;
 }
+
+.container_admin {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+}
+
+.admin_botao_cadastro {
+    display: flex;
+    width: 100%;
+    justify-content: start;
+    margin-top: 20px;
+}
+
+.admin_botao_acoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    border-radius: 4px;
+    gap: 4px;
+    font-weight: 500;
+}
+
+.admin_botao_acoes h2 {
+    color: white !important;
+}
+
+.admin_botao_acoes.editar {
+    background-color:#2d0891;
+}
+
+.admin_botao_acoes.editar:hover {
+    background-color: #200079;
+    cursor: pointer;
+}
+
+.admin_botao_acoes.ver {
+    background-color:#471b81;
+}
+
+.admin_botao_acoes.ver:hover {
+    background-color: #39146a;
+    cursor: pointer;
+}
+
+.admin_botao_acoes.desativ {
+    background-color:#c92251;
+}
+
+.admin_botao_acoes.desativ:hover {
+    background-color: #a1143c;
+    cursor: pointer;
+}
+
 
 @media (max-width: 415px) {
     .container-detalhes-desativar {
