@@ -13,6 +13,7 @@ import { Administradores } from '../pages/Administradores';
 import GerenciarAdms from '../pages/GerenciarAdms'; // Importando a nova página
 import Footer from '../components/Footer/Footer';
 import Notificacoes from '../pages/Notificacoes';
+import CriacaoAdmin from '../pages/CriacaoAdmin';
 
 export default function Routes() {
   return (
@@ -41,6 +42,15 @@ export default function Routes() {
           element={
             <PrivateRoutes tiposAllowed={[1]}>
               <Adm />
+            </PrivateRoutes>
+          }
+        />
+
+<Route
+          path="/adm/cadastrar-administrador"
+          element={
+            <PrivateRoutes tiposAllowed={[1]}>
+              <CriacaoAdmin />
             </PrivateRoutes>
           }
         />
