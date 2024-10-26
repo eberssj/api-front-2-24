@@ -13,7 +13,7 @@ const PortalTransparencia = () => {
     const navigate = useNavigate();
     const [projetos, setProjetos] = useState<Projeto[]>([]);
     const [projetosFiltrados, setProjetosFiltrados] = useState<Projeto[]>([]);
-    const [referenciaProjeto, setReferenciaProjeto] = useState('');
+    const [palavraChave, setPalavraChave] = useState('');
     const [coordenador, setCoordenador] = useState('');
     const [situacao, setSituacao] = useState('');
     const [dataInicio, setDataInicio] = useState('');
@@ -49,9 +49,21 @@ const PortalTransparencia = () => {
         return '';
     };
 
+    const semProjetos = () => {
+        if (projetos.length === 0) {
+            return "Ainda não há nenhum projeto cadastrado.";
+        } else {
+            return "Nenhum projeto encontrado com os filtros aplicados.";
+        }
+    };
+
     const aplicarFiltro = () => {
         const projetosFiltrados = projetos.filter((projeto) => {
-            const referenciaProjetoMatch = referenciaProjeto ? projeto.referenciaProjeto.toLowerCase().includes(referenciaProjeto.toLowerCase()) : true;
+
+            const palavraChaveMatch = 
+            palavraChave ?
+            palavraChave.toLowerCase().includes(projeto.descricao.toLowerCase()) ||
+            palavraChave.toLowerCase().includes(projeto.referenciaProjeto.toLowerCase()) : true
 
             const coordenadorMatch = coordenador ? projeto.coordenador.toLowerCase().includes(coordenador.toLowerCase()) : true;
 
@@ -66,7 +78,7 @@ const PortalTransparencia = () => {
             const dataInicioMatch = dataInicio ? dataInicioFormatada >= dataInicioFiltro : true;
             const dataTerminoMatch = dataTermino ? dataTerminoFormatada <= dataTerminoFiltro : true;
 
-            return referenciaProjetoMatch && coordenadorMatch && situacaoMatch && dataInicioMatch && dataTerminoMatch;
+            return palavraChaveMatch && coordenadorMatch && situacaoMatch && dataInicioMatch && dataTerminoMatch;
         });
 
         setProjetosFiltrados(projetosFiltrados);
@@ -84,7 +96,7 @@ const PortalTransparencia = () => {
                     <form onSubmit={(e) => { e.preventDefault(); aplicarFiltro(); }} className="space-y-4">
                         <div className="filtragem_linha_item grande">
                             <label className="texto-label">Busca Geral</label>
-                            <input type="text" value={referenciaProjeto} onChange={(e) => setReferenciaProjeto(e.target.value)} className="input-padrao"/>
+                            <input type="text" value={palavraChave} onChange={(e) => setPalavraChave(e.target.value)} className="input-padrao"/>
                         </div>
                         
                         <div className="filtragem_linha filtragem_baixo_margem">
@@ -139,7 +151,7 @@ const PortalTransparencia = () => {
                         </div>
                     </>
                 ) : (
-                    <p className="sem_projetos">Ainda não há nenhum projeto cadastrado.</p>
+                    <p className="sem_projetos">{semProjetos()}</p>
                 )}
             </div>
         </div>
