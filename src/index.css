@@ -12,6 +12,12 @@ body:not(.no-margin) {
   margin-left: 17.5%;
 }
 
+@media only screen and (max-width: 1200px) {
+  body:not(.no-margin) {
+    margin-left: 80px;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -151,17 +157,8 @@ body:not(.no-margin) {
 }
 
 @media (min-width: 768px) and (max-width: 920px) {
-  body {
-      margin-left: 12rem;
-  }
-}
-
-@media (max-width: 768px) {
-  body {
-    margin-left: 5rem;
-  }
 
   .itens-esquerda, .itens-meio {
     text-align: center;
-}
+  }
 }

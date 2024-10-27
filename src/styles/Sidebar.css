@@ -10,7 +10,13 @@
     left: 0;
     top: 0;
     bottom: 0;
+    z-index: 100;
 }
+
+.sidebar.transicao {
+    transition: 0.3s;
+}
+
 
 .side_logotipo {
     width: 100%;
@@ -18,10 +24,42 @@
     margin-bottom: 48px;
 }
 
+.side_logotipo.centralizar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+
+.rodar {
+    transform: rotate(180deg);
+    margin-top: 12px !important;
+}
+
+.side_logotipo.aberto {
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar.aberto {
+    width: 300px;
+}
+
 .items {
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.items.fechado {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: hidden;
+}
+
+.items_fechado p, .logout p, .adm-info p {
+    display: none;
 }
 
 .side_info {
@@ -108,20 +146,30 @@
     gap: 16px;
 }
 
-@media (max-width: 768px) {
+.none, .logo-img.none{
+    display: none;
+}
+
+.side_centralizar {
+    justify-content: center;
+    align-items: center;
+}
+
+.side_abrir {
+    margin-top: 40px;
+    width: 32px;
+    height: 32px;
+}
+
+.side_abrir:hover {
+    cursor: pointer;
+    filter: brightness(95%);
+}
+
+@media (max-width: 1200px) {
+
     .sidebar {
-        width: 5rem;
-    }
-
-    .items p, .logout p, .adm-info p {
-        width: 0;
-        height: 0;
-        overflow: hidden;
-    }
-
-    .logo-img {
-        height: 50px;
-        width: 50px;
+        width: 96px;
     }
 
     .logo-container {
