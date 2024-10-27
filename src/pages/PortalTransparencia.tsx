@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import '../styles/PortalTransparencia.css';
 import { Projeto } from "../Type/Projeto";
@@ -8,9 +8,13 @@ import AutoComplete from '../components/AutoComplete/AutoComplete'
 import IconVer from "../img/ver.svg"
 import IconPesquisar from "../img/Pesquisar.svg"
 import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
+import { AuthContext } from './../hook/ContextAuth';
 
 const PortalTransparencia = () => {
+
     const navigate = useNavigate();
+    const { adm } = useContext(AuthContext);
+
     const [projetos, setProjetos] = useState<Projeto[]>([]);
     const [projetosFiltrados, setProjetosFiltrados] = useState<Projeto[]>([]);
     const [palavraChave, setPalavraChave] = useState('');
@@ -87,7 +91,7 @@ const PortalTransparencia = () => {
     return (
         <div className="container-principal-portal">
             <Sidebar />
-            <div className="container-texto">
+            <div className={`container-texto ${adm ? 'menor' : ''}`}>
                 <h1>Fundação de Apoio à Pesquisa de Pós-Graduandos (FAPG)</h1>
                 <p>A Fundação vem com o objetivo de trazer transformações importantes para o meio acadêmico, e busca conseguir isso com a obstinação dos seus dirigentes <br /> e funcionários no sentido de torná-la sempre mais ágil e precisa.</p>
                 <div className="portal_divisoria">

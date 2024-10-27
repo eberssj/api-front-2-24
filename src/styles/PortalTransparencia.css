@@ -46,7 +46,11 @@
 }
 
 .container-texto {
+    margin: 0 10%;
     margin-top: 80px;
+}
+
+.container-texto.menor {
     margin-left: 48px;
     margin-right: 48px;
 }
