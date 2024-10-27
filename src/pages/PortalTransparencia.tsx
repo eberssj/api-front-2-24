@@ -62,8 +62,8 @@ const PortalTransparencia = () => {
 
             const palavraChaveMatch = 
             palavraChave ?
-            palavraChave.toLowerCase().includes(projeto.descricao.toLowerCase()) ||
-            palavraChave.toLowerCase().includes(projeto.referenciaProjeto.toLowerCase()) : true
+            projeto.descricao?.toLowerCase().includes(palavraChave.toLowerCase()) ||
+            projeto.referenciaProjeto?.toLowerCase().includes(palavraChave.toLowerCase()) : true
 
             const coordenadorMatch = coordenador ? projeto.coordenador.toLowerCase().includes(coordenador.toLowerCase()) : true;
 
