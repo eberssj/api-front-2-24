@@ -590,6 +590,11 @@
   dependencies:
     "@babel/types" "^7.20.7"
 
+"@types/bcryptjs@^2.4.6":
+  version "2.4.6"
+  resolved "https://registry.npmjs.org/@types/bcryptjs/-/bcryptjs-2.4.6.tgz"
+  integrity sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==
+
 "@types/estree@1.0.6":
   version "1.0.6"
   resolved "https://registry.npmjs.org/@types/estree/-/estree-1.0.6.tgz"
@@ -1445,7 +1450,7 @@ framesync@6.0.1:
     react-dom "^18.3.1"
     react-input-mask "^2.0.4"
     react-router-dom "^6.26.2"
-    sweetalert2 "^11.14.0"
+    sweetalert2 "^11.6.13"
 
 fs-minipass@^2.0.0:
   version "2.1.0"

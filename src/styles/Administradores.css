@@ -25,6 +25,8 @@
 
 .container_admin {
     display: flex;
+    flex-direction: column;
+    gap: 16px;
     justify-content: start;
     width: 100%;
 }

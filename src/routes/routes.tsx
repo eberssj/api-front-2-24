@@ -28,7 +28,16 @@ export default function Routes() {
           }
         />
 
-<Route
+        <Route
+          path="/editarAdmin/:id"
+          element={
+            <PrivateRoutes tiposAllowed={[1]}>
+              <CriacaoAdmin />
+            </PrivateRoutes>
+          }
+        />
+
+        <Route
           path="/adm/notificacoes"
           element={
             <PrivateRoutes tiposAllowed={[1]}>

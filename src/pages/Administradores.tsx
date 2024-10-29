@@ -9,10 +9,14 @@ import IconEditar from "../img/editar.svg"
 import IconVer from "../img/ver.svg"
 import IconUnplug from "../img/unplug.svg"
 import UserAdd from "../img/user_add.svg"
+import { useNavigate } from "react-router-dom";
 
 export const Administradores = () => {
+
     const { adm } = useContext(AuthContext);
     const [adms, setAdms] = useState<AdmProps[]>([]);
+
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -29,6 +33,11 @@ export const Administradores = () => {
 
         fetchAdms();
     }, []);
+
+    const HandleEdit = (id: any) => {
+        navigate(`/editarAdmin/${id}`);
+    };
+
 
     return (
         <div className="container-principal">
@@ -50,8 +59,8 @@ export const Administradores = () => {
                             <p><span>Data de cadastro:</span> {adm.dataCadastro ? new Date(adm.dataCadastro).toLocaleDateString() : "Não informado"}</p>
                         </div>
                         <div className="container-detalhes-desativar">
-                            <div className="admin_botao_acoes editar">
-                                <img src={IconEditar} />
+                            <div className="admin_botao_acoes editar" onClick={() => HandleEdit(adm.id)}>
+                                <img src={IconEditar} alt="Editar" />
                                 <h2>Editar</h2>
                             </div>
                             <div className="admin_botao_acoes ver ">
