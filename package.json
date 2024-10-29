@@ -18,6 +18,8 @@
     "@heroicons/react": "^2.1.5",
     "@material-tailwind/react": "^2.1.10",
     "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.4",
     "front": "file:",
@@ -29,7 +31,7 @@
     "react-dom": "^18.3.1",
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^6.26.2",
-    "sweetalert2": "^11.14.0"
+    "sweetalert2": "^11.6.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

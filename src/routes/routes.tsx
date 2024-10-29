@@ -40,7 +40,7 @@ export default function Routes() {
         <Route
           path="/adm"
           element={
-            <PrivateRoutes tiposAllowed={[1]}>
+            <PrivateRoutes tiposAllowed={[1, 2]}>
               <Adm />
             </PrivateRoutes>
           }
@@ -73,7 +73,7 @@ export default function Routes() {
         <Route
           path="/adm/cadastrar-projeto"
           element={
-            <PrivateRoutes tiposAllowed={[1]}>
+            <PrivateRoutes tiposAllowed={[1, 2]}>
               <CadastrarProjeto />
             </PrivateRoutes>
           }
@@ -82,7 +82,7 @@ export default function Routes() {
         <Route
           path="/adm/projetos"
           element={
-            <PrivateRoutes tiposAllowed={[1]}>
+            <PrivateRoutes tiposAllowed={[1, 2]}>
               <Projetos />
             </PrivateRoutes>
           }

@@ -1,20 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
-import { AuthContext } from "../hook/ContextAuth"; // Contexto de autenticação
+import { AuthContext } from "../hook/ContextAuth"; 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/GerenciarAdms.css"; // CSS para layout
 
-interface Adm {
-    id: number;
-    nome: string;
-    email: string;
-    cpf: string;
-    telefone: string;
-    senha: string;
-    tipo: string; // '1' para super admin, '2' para admin comum
-    ativo: string;
-    dataCadastro?: string;
-}
+
 
 const GerenciarAdms: React.FC = () => {
     const { adm } = useContext(AuthContext);
@@ -47,21 +37,6 @@ const GerenciarAdms: React.FC = () => {
         }
     };
 
-    const criarAdm = async () => {
-        if (!adm) return; // Verifica se 'adm' não é nulo ou indefinido
-
-        try {
-            await axios.post("http://localhost:8080/adm/criar", novoAdm, {
-                headers: { Authorization: `Bearer ${adm.token}` },
-                params: { idSuperAdm: adm.id },
-            });
-            alert("Administrador criado com sucesso!");
-            listarAdms();
-        } catch (error) {
-            console.error("Erro ao criar administrador:", error);
-            alert("Erro ao criar administrador.");
-        }
-    };
 
     const excluirAdm = async (id: number) => {
         if (!adm) return; // Verifica se 'adm' não é nulo ou indefinido
