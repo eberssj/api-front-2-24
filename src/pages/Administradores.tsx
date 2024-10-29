@@ -56,7 +56,7 @@ export const Administradores = () => {
                         <div className="container-info">
                             <p><span>Ativo:</span> {adm.ativo ? "Sim" : "Não"}</p>
                             <p><span>Telefone:</span> ({adm.telefone?.ddd}) {adm.telefone?.numero}</p>
-                            <p><span>Data de cadastro:</span> {adm.dataCadastro ? new Date(adm.dataCadastro).toLocaleDateString() : "Não informado"}</p>
+                            <p><span>Data de cadastro:</span> {adm.dataCadastro ? (adm.dataCadastro instanceof Date ? adm.dataCadastro.toLocaleDateString("pt-BR") : adm.dataCadastro) : "Não informado"}</p>
                         </div>
                         <div className="container-detalhes-desativar">
                             <div className="admin_botao_acoes editar" onClick={() => HandleEdit(adm.id)}>
