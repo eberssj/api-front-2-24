@@ -14,6 +14,7 @@ import GerenciarAdms from '../pages/GerenciarAdms'; // Importando a nova página
 import Footer from '../components/Footer/Footer';
 import Notificacoes from '../pages/Notificacoes';
 import CriacaoAdmin from '../pages/CriacaoAdmin';
+import VerAdministrador from '../pages/VerAdministrador';
 
 export default function Routes() {
   return (
@@ -36,6 +37,16 @@ export default function Routes() {
             </PrivateRoutes>
           }
         />
+
+<Route
+          path="/adm/informacoes/:id"
+          element={
+            <PrivateRoutes tiposAllowed={[1]}>
+              <VerAdministrador />
+            </PrivateRoutes>
+          }
+        />
+
 
         <Route
           path="/adm/notificacoes"
