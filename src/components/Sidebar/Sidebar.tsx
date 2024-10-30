@@ -7,6 +7,19 @@ import { Toast } from '../Swal/Swal';
 import "../../styles/Sidebar.css";
 import Navbar from '../Navbar/Navbar';
 
+import Logotipo from "/src/img/logotipo_FAPG.svg"
+import AbrirSidebar from "/src/img/abrir_sidebar.svg"
+import Pasta from "/src/img/pasta.svg"
+import PastaActive from "/src/img/pasta_active.svg"
+import Dashboard from "/src/img/dashboard.svg"
+import DashboardActive from "/src/img/dashboard_active.svg"
+import User from "/src/img/user.svg"
+import UserActive from "/src/img/user_active.svg"
+import Notificacoes from "/src/img/notificacao.svg"
+import NotificacoesActive from "/src/img/notificacao_active.svg"
+import LogadoUser from "/src/img/logado_user.svg"
+import Logout from "/src/img/logout.svg"
+
 export const Sidebar: React.FC = () => {
   const { logout } = useAuth();
   const location = useLocation();
@@ -84,8 +97,8 @@ export const Sidebar: React.FC = () => {
       <div className={`sidebar ${isAbriuSidebar ? 'aberto' : ''} ${hasTransition ? 'transicao' : ''}`}>
         <div className="side_cima">
           <div className={`side_logotipo ${isTelaPequena1200 ? 'centralizar' : ''}`} onClick={ToggleAbrirSidebar}>
-            <img src="../src/img/logotipo_Fapg.svg" alt="Logo" className={`logo-img ${!isAbriuSidebar && isTelaPequena1200 ? "none" : ""}`} />
-            <img src="../src/img/abrir_sidebar.svg" className={`${isTelaPequena1200 ? "side_abrir" : "none"} ${isAbriuSidebar ? "rodar" : ""}`} />
+            <img src={Logotipo} alt="Logo" className={`logo-img ${!isAbriuSidebar && isTelaPequena1200 ? "none" : ""}`} />
+            <img src={AbrirSidebar} className={`${isTelaPequena1200 ? "side_abrir" : "none"} ${isAbriuSidebar ? "rodar" : ""}`} />
 
           </div>
 
@@ -93,19 +106,19 @@ export const Sidebar: React.FC = () => {
 
             <div className={`side_botao ${isAtivoProjetos ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`} 
             onClick={() => navigate('/adm/projetos')}>
-              <img src={isAtivoProjetos ? "../src/img/pasta_active.svg" : "../src/img/pasta.svg"} alt="Projetos" />
+              <img src={isAtivoProjetos ? PastaActive: Pasta} alt="Projetos" />
               <p className={isAbriuSidebar || !isTelaPequena1200 ? "" : "none"}>Projetos</p>
             </div>
 
             <div className={`side_botao ${isAtivoDashboard ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`} 
             onClick={() => navigate('/adm/dashboard')}>
-              <img src={isAtivoDashboard ? "../src/img/dashboard_active.svg" : "../src/img/dashboard.svg"} alt="Dashboard" />
+              <img src={isAtivoDashboard ? DashboardActive : Dashboard} alt="Dashboard" />
               <p className={isAbriuSidebar || !isTelaPequena1200 ? "" : "none"}>Dashboard</p>
             </div>
 
             <div className={`side_botao ${isAtivoAdministradores ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`}
             onClick={() => navigate('/adm/administradores')}>
-              <img src={isAtivoAdministradores ? "../src/img/user_active.svg" : "../src/img/user.svg"} alt="Administradores" />
+              <img src={isAtivoAdministradores ? UserActive : User} alt="Administradores" />
               <p className={!isAbriuSidebar && isTelaPequena1200 ? "none" : ""}>
                 {isTelaPequena1400 && !isAbriuSidebar ? 'Admin.' : 'Administradores'}
               </p>
@@ -114,7 +127,7 @@ export const Sidebar: React.FC = () => {
 
             <div className={`side_botao ${isAtivoNotificacoes ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`} 
             onClick={() => navigate('/adm/notificacoes')}>
-              <img src={isAtivoNotificacoes ? "../src/img/notificacao_active.svg" : "../src/img/notificacao.svg"} />
+              <img src={isAtivoNotificacoes ? NotificacoesActive : Notificacoes} />
               <p className={!isAbriuSidebar && isTelaPequena1200 ? "none" : ""}>
                 {isTelaPequena1400 && !isAbriuSidebar ? 'Notif.' : 'Notificações'}
               </p>
@@ -127,7 +140,7 @@ export const Sidebar: React.FC = () => {
 
           <div className="side_baixo">
             <div className={`side_baixo_logout ${!isAbriuSidebar && isTelaPequena1200 ? "none" : ""}`}>
-              <img src="../src/img/logado_user.svg" />
+              <img src={LogadoUser}/>
               <div className="side_info">
                 <p className="side_nome">{adm?.nome}</p>
                 <p className="side_email">{adm?.email}</p>
@@ -137,7 +150,7 @@ export const Sidebar: React.FC = () => {
           {/* Logout */}
 
             <div className="side_logout" onClick={handleSignout}>
-              <img src="../src/img/logout.svg" />
+              <img src={Logout} />
               <p>{isTelaPequena1200 && !isAbriuSidebar ? "" : 'Logout'}</p> 
             </div>
           </div>
