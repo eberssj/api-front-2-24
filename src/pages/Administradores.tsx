@@ -47,23 +47,23 @@ export const Administradores = () => {
 
             <div className="container_admin">
                 {adms.map((adm) => (
-                    <div className="container-projeto" key={adm.id}>
-                        <div className="container-info">
-                            <p><span>Nome:</span> {adm.nome}</p>
-                            <p><span>CPF:</span> {adm.cpf}</p>
-                            <p><span>Email:</span> {adm.email}</p>
-                        </div>
-                        <div className="container-info">
-                            <p><span>Ativo:</span> {adm.ativo ? "Sim" : "Não"}</p>
-                            <p><span>Telefone:</span> ({adm.telefone?.ddd}) {adm.telefone?.numero}</p>
-                            <p><span>Data de cadastro:</span> {adm.dataCadastro ? (adm.dataCadastro instanceof Date ? adm.dataCadastro.toLocaleDateString("pt-BR") : adm.dataCadastro) : "Não informado"}</p>
+                    <div className="admin_card_container" key={adm.id}>
+                        
+                        <div className="admin_card_inicio">
+                            <div className="admin_card_esq">
+                                <img src="../src/img/foto_perfil_admin.svg" />
+                            </div>
+                            <div className="admin_card_dir">
+                                <p>{adm.nome}</p>
+                                <p><span>{adm.email}</span></p>
+                            </div>
                         </div>
                         <div className="container-detalhes-desativar">
                             <div className="admin_botao_acoes editar" onClick={() => HandleEdit(adm.id)}>
                                 <img src={IconEditar} alt="Editar" />
                                 <h2>Editar</h2>
                             </div>
-                            <div className="admin_botao_acoes ver ">
+                            <div className="admin_botao_acoes ver " onClick={() => navigate(`/adm/informacoes/${adm.id}`)}>
                                 <img src={IconVer} />
                                 <h2>Ver</h2>
                             </div>

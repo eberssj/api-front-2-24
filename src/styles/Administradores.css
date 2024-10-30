@@ -46,6 +46,8 @@
     width: 80px;
     border-radius: 4px;
     gap: 4px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     font-weight: 500;
 }
 
@@ -53,21 +55,12 @@
     color: white !important;
 }
 
-.admin_botao_acoes.editar {
+.admin_botao_acoes.editar, .admin_botao_acoes.ver {
     background-color:#2d0891;
 }
 
-.admin_botao_acoes.editar:hover {
+.admin_botao_acoes.editar:hover, .admin_botao_acoes.ver:hover {
     background-color: #200079;
-    cursor: pointer;
-}
-
-.admin_botao_acoes.ver {
-    background-color:#471b81;
-}
-
-.admin_botao_acoes.ver:hover {
-    background-color: #39146a;
     cursor: pointer;
 }
 
@@ -80,6 +73,40 @@
     cursor: pointer;
 }
 
+.admin_card_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-radius: 12px;
+    background-color: #F5F5F5;
+}
+
+.admin_card_inicio {
+    display: flex;
+    gap: 20px;
+}
+
+.admin_card_esq img {
+    width: 64px;
+}
+
+.admin_card_dir {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: start;
+}
+
+.admin_card_dir p {
+    font-weight: 600;
+    color: #404040;
+}
+
+.admin_card_dir span {
+    font-weight: 400;
+    color: #757575;
+}
 
 @media (max-width: 415px) {
     .container-detalhes-desativar {
