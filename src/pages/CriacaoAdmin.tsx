@@ -72,10 +72,11 @@ const CriacaoAdmin: React.FC = () => {
             if (isEditMode) {
                 await axios.put(`http://localhost:8080/adm/${id}`, admData, {
                     headers: { Authorization: `Bearer ${adm.token}` },
+                    params: { idSuperAdm: adm.id }
                 });
+                
                 alert("Administrador atualizado com sucesso!");
             } else {
-                console.log("Token do super admin:", adm.token);
                 await axios.post("http://localhost:8080/adm/criar", admData, {
                     headers: { Authorization: `Bearer ${adm.token}` },
                     params: { idSuperAdm: adm.id },
