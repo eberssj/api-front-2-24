@@ -38,6 +38,29 @@ export const Administradores = () => {
         navigate(`/editarAdmin/${id}`);
     };
 
+    const toggleAtivo = async (id: number, currentStatus: boolean) => {
+        try {
+            const novoStatus = !currentStatus; // Inverte o status atual
+            await axios.patch(
+                `http://localhost:8080/adm/atualizarStatus/${id}`,
+                { ativo: novoStatus },
+                {
+                    headers: { Authorization: `Bearer ${adm?.token}` },
+                }
+            );
+    
+            // Atualiza o estado do administrador individualmente após a resposta
+            setAdms((prevAdms) =>
+                prevAdms.map((adm) =>
+                    adm.id === id ? { ...adm, ativo: novoStatus } : adm
+                )
+            );
+        } catch (error) {
+            console.error("Erro ao atualizar o status do administrador:", error);
+        }
+    };
+    
+    
 
     return (
         <div className="container-principal">
@@ -67,11 +90,10 @@ export const Administradores = () => {
                                 <img src={IconVer} />
                                 <h2>Ver</h2>
                             </div>
-                            <div className="admin_botao_acoes desativ">
-                                <img src={IconUnplug} />
-                                <h2>Desativ.</h2>
+                            <div className={`admin_botao_acoes ${adm.ativo ? "desativo" : "ativo"}`} onClick={() => adm.id && toggleAtivo(adm.id, adm.ativo)}>
+                                <img src={IconUnplug} alt="Toggle Ativo" />
+                                <h2>{adm.ativo ? "Desativ." : "Ativar"}</h2>
                             </div>
-                            
                         </div>
                     </div>
                 ))}

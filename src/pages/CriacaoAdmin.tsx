@@ -15,7 +15,7 @@ interface Adm {
     telefone: string;
     senha: string;
     tipo: number;
-    ativo: string;
+    ativo: boolean;
     dataCadastro?: string;
 }
 
@@ -28,7 +28,7 @@ const CriacaoAdmin: React.FC = () => {
 
     const [novoAdm, setNovoAdm] = useState<Partial<Adm>>({
         tipo: 2, // Valor padrão para administrador comum
-        ativo: "Sim", // Ao criar Admin ele vira ativo por padrão
+        ativo: true, // Ao criar Admin ele vira ativo por padrão
         dataCadastro: new Date().toLocaleDateString("pt-BR")
     });
 

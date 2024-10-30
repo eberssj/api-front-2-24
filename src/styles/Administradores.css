@@ -64,12 +64,21 @@
     cursor: pointer;
 }
 
-.admin_botao_acoes.desativ {
+.admin_botao_acoes.desativo {
     background-color:#c92251;
 }
 
-.admin_botao_acoes.desativ:hover {
+.admin_botao_acoes.desativo:hover {
     background-color: #a1143c;
+    cursor: pointer;
+}
+
+.admin_botao_acoes.ativo {
+    background-color:#1a9d30;
+}
+
+.admin_botao_acoes.ativo:hover {
+    background-color: #137a24;
     cursor: pointer;
 }
 
