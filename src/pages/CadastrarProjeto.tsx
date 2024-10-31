@@ -17,6 +17,8 @@ const CadastrarProjeto = () => {
     objeto: '',
     descricao: '',
     coordenador: '',
+    ocultarValor: false,
+    ocultarEmpresa: false,
     valor: 'R$ 0,00', // Valor inicial formatado
     dataInicio: '',
     dataTermino: '',
@@ -96,6 +98,8 @@ const CadastrarProjeto = () => {
         objeto: project.objeto,
         descricao: project.descricao,
         coordenador: project.coordenador,
+        ocultarValor: project.ocultarValor,
+        ocultarEmpresa: project.ocultarEmpresa,
         valor: parseFloat(project.valor.replace(/\D/g, '')) / 100,  // Remove caracteres e divide por 100 para centavos
         dataInicio: project.dataInicio,
         dataTermino: project.dataTermino,
@@ -119,6 +123,8 @@ const CadastrarProjeto = () => {
         formData.append('artigos', project.artigos);
       }
 
+      console.log(JSON.stringify(projeto))
+
       try {
         const response = await axios.post('http://localhost:8080/projeto/cadastrar', formData, {
           headers: {
@@ -140,6 +146,8 @@ const CadastrarProjeto = () => {
           objeto: '',
           descricao: '',
           coordenador: '',
+          ocultarValor: false,
+          ocultarEmpresa: false,
           valor: 'R$ 0,00', // Reseta o valor para a máscara inicial
           dataInicio: '',
           dataTermino: '',
@@ -195,6 +203,17 @@ const CadastrarProjeto = () => {
             {errors.empresa && <span className="erro-texto">* Este campo é obrigatório.</span>}
           </div>
 
+          <div className="checkbox-container">
+            <input
+              type="checkbox"
+              name="ocultar_empresa"
+              checked={project.ocultarEmpresa}
+              onChange={(e) => setProject((prev) => ({ ...prev, ocultarEmpresa: e.target.checked }))}
+              className="checkbox-input"
+            />
+            <label>Ocultar Empresa Para o Público</label>
+          </div>
+
           <div>
             <label className="texto-label">Objeto</label>
             <input
@@ -240,6 +259,17 @@ const CadastrarProjeto = () => {
               className={`input-padrao ${errors.valor ? 'input-erro' : ''}`}
             />
             {errors.valor && <span className="erro-texto">* Este campo é obrigatório e deve ser um número.</span>}
+          </div>
+
+          <div className="checkbox-container">
+            <input
+              type="checkbox"
+              name="ocultar_valor"
+              checked={project.ocultarValor}
+              onChange={(e) => setProject((prev) => ({ ...prev, ocultarValor: e.target.checked }))}
+              className="checkbox-input"
+            />
+            <label>Ocultar Valor Para o Público</label>
           </div>
 
           <div className="alinhado-esquerda">
