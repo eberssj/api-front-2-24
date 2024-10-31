@@ -17,6 +17,8 @@ interface Projeto {
     objeto: string;
     descricao: string;
     coordenador: string;
+    ocultarValor: boolean;
+    ocultarEmpresa: boolean;
     valor: number;
     dataInicio: string;
     dataTermino: string;
@@ -155,6 +157,18 @@ const EditarProjeto = () => {
                             onChange={handleInputChange}
                         />
                     </div>
+
+                    <div className="checkbox-container">
+                        <input
+                            type="checkbox"
+                            name="ocultarEmpresa"
+                            checked={formData.ocultarEmpresa}
+                            onChange={(e) => setFormData((prevData) => (prevData ? { ...prevData, ocultarEmpresa: e.target.checked } : prevData))}
+                            className="checkbox-input"
+                        />
+                        <label>Ocultar Empresa Para o Público</label>
+                    </div>
+
                     <div>
                         <label className='texto-label'>Objeto</label>
                         <textarea
@@ -193,6 +207,18 @@ const EditarProjeto = () => {
                             onChange={handleInputChange}
                         />
                     </div>
+
+                    <div className="checkbox-container">
+                        <input
+                            type="checkbox"
+                            name="ocultarValor"
+                            checked={formData.ocultarValor}
+                            onChange={(e) => setFormData((prevData) => (prevData ? { ...prevData, ocultarValor: e.target.checked } : prevData))}
+                            className="checkbox-input"
+                        />
+                        <label>Ocultar Valor Para o Público</label>
+                    </div>
+
                     <div>
                         <label className='texto-label'>Data de Início</label>
                         <input
