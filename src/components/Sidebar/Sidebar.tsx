@@ -9,8 +9,8 @@ import Navbar from '../Navbar/Navbar';
 
 import Logotipo from "/src/img/logotipo_FAPG.svg"
 import AbrirSidebar from "/src/img/abrir_sidebar.svg"
-import Pasta from "/src/img/pasta.svg"
-import PastaActive from "/src/img/pasta_active.svg"
+import Casa from "/src/img/casa.svg"
+import CasaActive from "/src/img/casa_active.svg"
 import Dashboard from "/src/img/dashboard.svg"
 import DashboardActive from "/src/img/dashboard_active.svg"
 import User from "/src/img/user.svg"
@@ -40,7 +40,7 @@ export const Sidebar: React.FC = () => {
   };
   
 
-  const isAtivoProjetos = location.pathname === "/adm/projetos";
+  const isAtivoProjetos = location.pathname === "/";
   const isAtivoDashboard = location.pathname === "/adm/dashboard";
   const isAtivoAdministradores = location.pathname === "/adm/administradores";
   const isAtivoNotificacoes = location.pathname === "/adm/notificacoes";
@@ -105,9 +105,9 @@ export const Sidebar: React.FC = () => {
           <div className={`items ${isTelaPequena1200 ? 'fechado' : ''}`}>
 
             <div className={`side_botao ${isAtivoProjetos ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`} 
-            onClick={() => navigate('/adm/projetos')}>
-              <img src={isAtivoProjetos ? PastaActive: Pasta} alt="Projetos" />
-              <p className={isAbriuSidebar || !isTelaPequena1200 ? "" : "none"}>Projetos</p>
+            onClick={() => navigate("/")}>
+              <img src={isAtivoProjetos ? CasaActive: Casa} alt="Home" />
+              <p className={isAbriuSidebar || !isTelaPequena1200 ? "" : "none"}>Home</p>
             </div>
 
             <div className={`side_botao ${isAtivoDashboard ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`} 
