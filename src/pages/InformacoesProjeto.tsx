@@ -116,7 +116,7 @@ const InformacoesProjeto = () => {
                 icon: 'success',
                 title: 'Projeto deletado com sucesso!'
                 });
-                navigate('/adm/projetos');
+                navigate("/");
             })
             .catch(error => console.error('Erro ao deletar o projeto:', error));
             }

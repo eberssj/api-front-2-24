@@ -149,7 +149,7 @@ const CadastrarProjeto = () => {
           adm: adm?.id 
         });
 
-        navigate('/adm/projetos');
+        navigate("/");
 
       } catch (error) {
         console.error('Erro ao cadastrar o projeto:', error);
@@ -165,7 +165,7 @@ const CadastrarProjeto = () => {
       <Sidebar />
       <div className="formulario">
         <div className="cabecalho">
-          <Link to="/adm/projetos" className="link-voltar">
+          <Link to="/" className="link-voltar">
             <strong><i className="bi bi-arrow-left text-3xl text-blue-900"></i></strong>
           </Link>
           <h1 className="texto-titulo">Novo Projeto</h1>

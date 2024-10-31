@@ -4,7 +4,6 @@ import PageNotFounded from '../pages/PageNotFounded';
 import { PrivateRoutes } from './privateRoutes';
 import Login from '../pages/login';
 import CadastrarProjeto from '../pages/CadastrarProjeto';
-import Projetos from '../pages/Projetos';
 import PortalTransparencia from '../pages/PortalTransparencia';
 import InformacoesProjeto from '../pages/InformacoesProjeto';
 import EditarProjeto from '../pages/EditarProjeto';
@@ -23,7 +22,7 @@ export default function Routes() {
         <Route
           path="/adm/dashboard"
           element={
-            <PrivateRoutes tiposAllowed={[1]}>
+            <PrivateRoutes tiposAllowed={[1, 2]}>
               <Dashboard />
             </PrivateRoutes>
           }
@@ -51,7 +50,7 @@ export default function Routes() {
         <Route
           path="/adm/notificacoes"
           element={
-            <PrivateRoutes tiposAllowed={[1]}>
+            <PrivateRoutes tiposAllowed={[1, 2]}>
               <Notificacoes />
             </PrivateRoutes>
           }
@@ -99,21 +98,12 @@ export default function Routes() {
           }
         />
 
-        <Route
-          path="/adm/projetos"
-          element={
-            <PrivateRoutes tiposAllowed={[1, 2]}>
-              <Projetos />
-            </PrivateRoutes>
-          }
-        />
-
         <Route path="/projeto/:id" element={<InformacoesProjeto />} />
 
         <Route
           path="/projeto/editar/:id"
           element={
-            <PrivateRoutes tiposAllowed={[1]}>
+            <PrivateRoutes tiposAllowed={[1, 2]}>
               <EditarProjeto />
                   </PrivateRoutes>
                 } />

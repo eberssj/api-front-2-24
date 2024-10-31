@@ -113,7 +113,7 @@ const EditarProjeto = () => {
             });
 
             alert('Projeto atualizado com sucesso!');
-            navigate('/adm/projetos');
+            navigate("/");
         } catch (error) {
             console.error('Erro ao atualizar o projeto:', error);
             alert('Erro ao atualizar o projeto.');
