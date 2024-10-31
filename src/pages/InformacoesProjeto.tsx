@@ -21,6 +21,8 @@ interface Projeto {
     objeto: string;
     descricao: string;
     coordenador: string;
+    ocultarValor: boolean;
+    ocultarEmpresa: boolean;
     valor: number;
     dataInicio: number[];
     dataTermino: number[];
@@ -153,10 +155,19 @@ const InformacoesProjeto = () => {
                         <p className="infopro_info_titulo">Referência do projeto</p>
                         <p className="infopro_info_texto">{projeto.referenciaProjeto}</p>
                     </div>
-                    <div>
-                        <p className="infopro_info_titulo">Empresa</p>
-                        <p className="infopro_info_texto">{projeto.empresa}</p>
-                    </div>
+
+                    { adm ? (
+                        <div>
+                            <p className="infopro_info_titulo">Empresa</p>
+                            <p className="infopro_info_texto">{projeto.empresa}</p>
+                        </div>
+                    ) : (
+                        <div>
+                            <p className="infopro_info_titulo">Empresa</p>
+                            <p className="infopro_info_texto">{projeto.ocultarEmpresa ? 'EMPRESA OCULTADA PARA O PÚBLICO' : projeto.empresa}</p>
+                        </div>
+                    )}
+
                     <div>
                         <p className="infopro_info_titulo">Objeto</p>
                         <p className="infopro_info_texto">{projeto.objeto}</p>
@@ -171,12 +182,18 @@ const InformacoesProjeto = () => {
                         <p className="infopro_info_texto">{projeto.coordenador}</p>
                     </div>
 
-                    { adm && (
+                    { adm ? (
                         <div>
                             <p className="infopro_info_titulo">Valor do Projeto</p>
                             <p className="infopro_info_texto">{formatarValor(projeto.valor)}</p>
                         </div>
+                    ) : (
+                        <div>
+                            <p className="infopro_info_titulo">Valor do Projeto</p>
+                            <p className="infopro_info_texto">{projeto.ocultarValor ? 'VALOR OCULTADO PARA O PÚBLICO' : formatarValor(projeto.valor)}</p>
+                        </div>
                     )}
+
                     <div>
                         <p className="infopro_info_titulo">Data de início</p>
                         <p className="infopro_info_texto">{formatarData(projeto.dataInicio)}</p>
