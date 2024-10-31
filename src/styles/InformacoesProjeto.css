@@ -55,6 +55,7 @@
 
 .infopro_arquivos_container {
     display: flex;
+    flex-wrap: wrap;
     gap: 32px;
     margin-top: 32px;
 }
@@ -83,4 +84,35 @@
 .infopro_arquivo_item p {
     color: #606060;
     font-weight: 500;
+}
+
+@media only screen and (max-width: 1200px) {
+
+    .infopro_cima {
+        flex-direction: column;
+        justify-content: start;
+        gap: 32px;
+    }
+
+    .infopro_cima_dir {
+        width: 100%;
+        align-items: start;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+    .infopro_cima_dir {
+        flex-direction: column;
+    }
+    
+    .infopro_cima_dir button {
+        width: 100%;
+    }
+    
+    .infopro_arquivo_item {
+        padding: 16px;
+        width: 100%;
+        text-align: center;
+    }
 }

@@ -137,16 +137,14 @@ const InformacoesProjeto = () => {
         <div className="infopro_container">
             <div className="infopro_cima">
                 <h1 className="infopro_titulo">Informações do Projeto</h1>
-                <div>
-                    <div className="infopro_cima_dir">
-                    { adm && (
-                        <>
-                        <BotaoCTA img="/src/img/lixeira.svg" escrito="Deletar" aparencia="secundario" cor="vermelho" onClick={deletarProjeto} />
-                        <BotaoCTA img="/src/img/editar_projeto.svg" escrito="Editar" aparencia="secundario" cor="cor_primario"  onClick={editarProjeto} />
-                        </>
-                    )}
-                    <BotaoCTA img="/src/img/voltar.svg" escrito="Voltar" aparencia="primario" onClick={() => navigate(-1)} />
-                    </div>
+                <div className="infopro_cima_dir">
+                { adm && (
+                    <>
+                    <BotaoCTA img="/src/img/lixeira.svg" escrito="Deletar" aparencia="secundario" cor="vermelho" onClick={deletarProjeto} />
+                    <BotaoCTA img="/src/img/editar_projeto.svg" escrito="Editar" aparencia="secundario" cor="cor_primario"  onClick={editarProjeto} />
+                    </>
+                )}
+                <BotaoCTA img="/src/img/voltar.svg" escrito="Voltar" aparencia="primario" onClick={() => navigate(-1)} />
                 </div>
             </div>
 
