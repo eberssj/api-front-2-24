@@ -1,9 +1,0 @@
-/* Estilos para o conteúdo de projetos */
-.conteudo-projetos {
-  @apply text-center;
-}
-
-/* Estilos para a mensagem de 'sem projetos' */
-.sem-projetos {
-  @apply flex flex-col items-center space-y-4;
-}
