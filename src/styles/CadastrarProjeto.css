@@ -39,6 +39,18 @@
     text-decoration: none;
 }
 
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.checkbox-input {
+  margin-right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
   
 .icone-voltar:hover {
     opacity: 0.8; /* Efeito ao passar o mouse */
