@@ -115,15 +115,16 @@ export const Sidebar: React.FC = () => {
               <img src={isAtivoDashboard ? DashboardActive : Dashboard} alt="Dashboard" />
               <p className={isAbriuSidebar || !isTelaPequena1200 ? "" : "none"}>Dashboard</p>
             </div>
-
-            <div className={`side_botao ${isAtivoAdministradores ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`}
-            onClick={() => navigate('/adm/administradores')}>
-              <img src={isAtivoAdministradores ? UserActive : User} alt="Administradores" />
-              <p className={!isAbriuSidebar && isTelaPequena1200 ? "none" : ""}>
+    
+            {adm?.tipo === 1 && (
+              <div className={`side_botao ${isAtivoAdministradores ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`} onClick={() => navigate('/adm/administradores')}>
+                <img src={isAtivoAdministradores ? UserActive : User} alt="Administradores" />
+                <p className={!isAbriuSidebar && isTelaPequena1200 ? "none" : ""}>
                 {isTelaPequena1400 && !isAbriuSidebar ? 'Admin.' : 'Administradores'}
               </p>
-
             </div>
+            )}
+
 
             <div className={`side_botao ${isAtivoNotificacoes ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`} 
             onClick={() => navigate('/adm/notificacoes')}>
