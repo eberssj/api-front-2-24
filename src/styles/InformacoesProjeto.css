@@ -1,148 +1,86 @@
-.titulo {
-    font-weight: bold;
-    color: #0F3684;
+.infopro_container {
+    margin-top: 80px;
+    margin-left: 48px;
+    margin-right: 48px;
+    color: #303030;
 }
 
-.texto {
-    border: none !important;
-    outline: none !important;
-    border-bottom: 1px solid #0F3684 !important;
+.infopro_cima {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    background-color: #F5F5F5;
+    border-radius: 12px;
+    margin-bottom: 64px;
+}
+
+.infopro_cima_dir {
+    display: flex;
+    gap: 16px;
+}
+
+.infopro_titulo {
     width: 100%;
+    font-size: 2rem;
+    color: #003383;
+    font-weight: 700;
+    text-align: start !important;
 }
 
-.container-informacoes div {
-    margin-bottom: 1rem;
+.infopro_info_titulo.cima {
+    margin-top: 64px;
 }
 
-.arquivos-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.arquivo-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 5px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 100%;
-}
-
-.arquivo-tipo {
-    font-size: 14px;
-    font-weight: normal;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.arquivo-botao {
-    background-color: #0F3684;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    width: fit-content;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-.arquivo-botao:hover {
-    background-color: #0d2d6b;
-}
-
-.botoes-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.botao-editar {
-    border: 2px solid orange;
-    padding: 10px 12px;
-    border-radius: 8px;
-    color: #f59c02;
-    font-weight: bold;
-}
-
-.botao-deletar {
-    border: 2px solid red;
-    padding: 10px 12px;
-    border-radius: 8px;
-    color: red;
-    font-weight: bold;
-}
-
-.botoes-editar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4rem;
-    margin-top: 2rem;
-}
-
-.botao-salvar {
-    border: 2px solid green;
-    padding: 10px 20px;
-    border-radius: 8px;
-    color: green;
-    font-weight: bold;
-}
-
-.botao-cancelar {
-    border: 2px solid #0F3684;
-    padding: 10px 20px;
-    border-radius: 8px;
-    color: #0F3684;
-    font-weight: bold;
-}
-
-.cabecalho {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.infopro_info_titulo {
+    font-size: 1.25rem;
+    color: #003383;
+    font-weight: 700;
     margin-bottom: 16px;
-    position: relative;
-  }
-  
-.icone-voltar:hover {
-    opacity: 0.8;
-  }
-
-@media (max-width: 320px) {
-    .botoes-container {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .botao-deletar, .botao-editar {
-        height: auto;
-        width: auto;
-        padding: auto;
-    }
 }
 
-@media (max-width: 568px) and (min-width: 321px) {
-    .botoes-container {
-        gap: 1rem;
-    }
-
-    .botao-deletar, .botao-editar {
-        height: auto;
-        width: auto;
-        padding: auto;
-    }
+.infopro_info_texto {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid #dadada;
 }
 
-@media (max-width: 768px) and (min-width: 569px) {
-    .botoes-container {
-        gap: 2rem;
-    }
+.infopro_nenhum {
+    background-color: #F5F5F5;
+    border-radius: 12px;
+    padding: 16px;
+    color: #606060;
+    max-width: 50%;
+}
+
+.infopro_arquivos_container {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+}
+
+.infopro_arquivo_item {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    background-color: #F5F5F5;
+    padding: 32px;
+    border-radius: 8px;
+}
+
+.infopro_arquivo_item:hover {
+    cursor: pointer;
+    filter: brightness(95%);
+}
+
+.infopro_arquivo_item h2 {
+    font-size: 1.3rem;
+    color:#003383;
+    font-weight: 600;
+}
+
+.infopro_arquivo_item p {
+    color: #606060;
+    font-weight: 500;
 }
