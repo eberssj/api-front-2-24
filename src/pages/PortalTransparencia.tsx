@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import AutoComplete from '../components/AutoComplete/AutoComplete'
 import IconVer from "../img/ver.svg"
-import IconPesquisar from "../img/Pesquisar.svg"
+import IconPesquisar from "../img/pesquisar.svg"
 import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
 import { AuthContext } from './../hook/ContextAuth';
 

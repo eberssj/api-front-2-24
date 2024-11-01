@@ -15,6 +15,7 @@ import Notificacoes from '../pages/Notificacoes';
 import CriacaoAdmin from '../pages/CriacaoAdmin';
 import VerAdministrador from '../pages/VerAdministrador';
 import SolicitarCadastro from '../pages/SolicitarCadastro';
+import { RedefinirSenha } from '../pages/RedefinirSenha';
 
 export default function Routes() {
   return (
@@ -109,6 +110,7 @@ export default function Routes() {
         />
 
         <Route path="/projeto/:id" element={<InformacoesProjeto />} />
+        <Route path="/redefinir-senha" element={<RedefinirSenha />} />
 
         <Route
           path="/projeto/editar/:id"
