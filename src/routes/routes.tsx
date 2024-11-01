@@ -14,6 +14,7 @@ import Footer from '../components/Footer/Footer';
 import Notificacoes from '../pages/Notificacoes';
 import CriacaoAdmin from '../pages/CriacaoAdmin';
 import VerAdministrador from '../pages/VerAdministrador';
+import SolicitarCadastro from '../pages/SolicitarCadastro';
 
 export default function Routes() {
   return (
@@ -52,6 +53,15 @@ export default function Routes() {
           element={
             <PrivateRoutes tiposAllowed={[1, 2]}>
               <Notificacoes />
+            </PrivateRoutes>
+          }
+        />
+
+<Route
+          path="/adm/SolicitaCadastro"
+          element={
+            <PrivateRoutes tiposAllowed={[2]}>
+              <SolicitarCadastro />
             </PrivateRoutes>
           }
         />
