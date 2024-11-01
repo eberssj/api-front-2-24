@@ -80,15 +80,15 @@ const SolicitarCadastro = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     if (validateForm()) {
       const situacao = new Date(project.dataTermino) >= new Date() ? "Em Andamento" : "Encerrado";
-
+  
       const permissao = {
         adminSolicitanteId: adm?.id,
         statusSolicitado: "Pendente",
-        data_solicitacao: new Date().toISOString(),
-        informacao_projeto: {
+        dataSolicitacao: new Date().toISOString().split('T')[0], // Corrigido aqui
+        informacaoProjeto: {
           referenciaProjeto: project.referencia,
           empresa: project.empresa,
           objeto: project.objeto,
@@ -102,24 +102,24 @@ const SolicitarCadastro = () => {
           situacao: situacao,
         }
       };
-
+  
       // Exibindo o JSON no console antes de enviar
       console.log("JSON da Permissão a ser enviado:", JSON.stringify(permissao, null, 2));
-
+  
       try {
-        const response = await axios.post('http://localhost:8080/solicitarCriacao', permissao, {
+        const response = await axios.post('http://localhost:8080/permissao/solicitarCriacao', permissao, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${adm?.token}`,
           },
         });
-
+  
         console.log('Permissão solicitada com sucesso:', response.data);
         Toast.fire({
           icon: 'success',
           title: 'Solicitação de criação enviada com sucesso!',
         });
-
+  
         // Reseta os campos do formulário
         setProject({
           referencia: '',
@@ -136,9 +136,9 @@ const SolicitarCadastro = () => {
           contratos: null,
           artigos: null,
         });
-
+  
         navigate("/");
-
+  
       } catch (error) {
         console.error('Erro ao solicitar criação de permissão:', error);
         erroror('Não foi possível solicitar a criação da permissão.');
@@ -147,6 +147,7 @@ const SolicitarCadastro = () => {
       erroror('Não foi possível solicitar a criação da permissão.');
     }
   };
+  
   
 
   return (

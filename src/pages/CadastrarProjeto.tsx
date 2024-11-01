@@ -86,12 +86,12 @@ const CadastrarProjeto = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     if (validateForm()) {
       const formData = new FormData();
-
+  
       const situacao = new Date(project.dataTermino) >= new Date() ? "Em Andamento" : "Encerrado";
-
+  
       const projeto = {
         referenciaProjeto: project.referencia,
         empresa: project.empresa,
@@ -100,18 +100,21 @@ const CadastrarProjeto = () => {
         coordenador: project.coordenador,
         ocultarValor: project.ocultarValor,
         ocultarEmpresa: project.ocultarEmpresa,
-        valor: parseFloat(project.valor.replace(/\D/g, '')) / 100,  // Remove caracteres e divide por 100 para centavos
+        valor: parseFloat(project.valor.replace(/\D/g, '')) / 100,
         dataInicio: project.dataInicio,
         dataTermino: project.dataTermino,
         situacao: situacao,
-        adm: adm?.id
+        adminSolicitanteId: adm?.id,  // Adicionando adminSolicitanteId
+        statusSolicitado: "Pendente",    // Definindo statusSolicitado
+        data_solicitacao: new Date().toISOString(), // Adicionando data_solicitacao
+        // Adicionar aqui data_aprovado e tipoAcao conforme a necessidade
       };
-
+  
       // Adiciona os dados do projeto no FormData
       formData.append('projeto', new Blob([JSON.stringify(projeto)], {
         type: 'application/json',
       }));
-
+  
       // Adiciona arquivos se existirem
       if (project.propostas) {
         formData.append('propostas', project.propostas);
@@ -122,9 +125,7 @@ const CadastrarProjeto = () => {
       if (project.artigos) {
         formData.append('artigos', project.artigos);
       }
-
-      console.log(JSON.stringify(projeto))
-
+  
       try {
         const response = await axios.post('http://localhost:8080/projeto/cadastrar', formData, {
           headers: {
@@ -132,13 +133,13 @@ const CadastrarProjeto = () => {
             Authorization: `Bearer ${adm?.token}`,
           },
         });
-
+  
         console.log('Projeto cadastrado com sucesso:', response.data);
         Toast.fire({
           icon: 'success',
           title: 'Projeto cadastrado com sucesso!',
         });
-
+  
         // Reseta os campos do formulário
         setProject({
           referencia: '',
@@ -148,7 +149,7 @@ const CadastrarProjeto = () => {
           coordenador: '',
           ocultarValor: false,
           ocultarEmpresa: false,
-          valor: 'R$ 0,00', // Reseta o valor para a máscara inicial
+          valor: 'R$ 0,00',
           dataInicio: '',
           dataTermino: '',
           propostas: null,
@@ -156,9 +157,9 @@ const CadastrarProjeto = () => {
           artigos: null,
           adm: adm?.id 
         });
-
+  
         navigate("/");
-
+  
       } catch (error) {
         console.error('Erro ao cadastrar o projeto:', error);
         erroror('Não foi possível cadastrar o projeto.');
@@ -167,6 +168,7 @@ const CadastrarProjeto = () => {
       erroror('Não foi possível cadastrar o projeto.');
     }
   };
+  
 
   return (
     <div className="container-principal-cadastrar">
