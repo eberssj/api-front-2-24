@@ -87,8 +87,8 @@ const SolicitarCadastro = () => {
       const permissao = {
         adminSolicitanteId: adm?.id,
         statusSolicitado: "Pendente",
-        dataSolicitacao: new Date().toISOString().split('T')[0], // Corrigido aqui
-        informacaoProjeto: {
+        dataSolicitacao: new Date().toISOString().split('T')[0],
+        informacaoProjeto: JSON.stringify({
           referenciaProjeto: project.referencia,
           empresa: project.empresa,
           objeto: project.objeto,
@@ -100,10 +100,10 @@ const SolicitarCadastro = () => {
           dataInicio: project.dataInicio,
           dataTermino: project.dataTermino,
           situacao: situacao,
-        }
+        }),
+        tipoAcao: "Criacao"
       };
   
-      // Exibindo o JSON no console antes de enviar
       console.log("JSON da Permissão a ser enviado:", JSON.stringify(permissao, null, 2));
   
       try {
@@ -120,7 +120,6 @@ const SolicitarCadastro = () => {
           title: 'Solicitação de criação enviada com sucesso!',
         });
   
-        // Reseta os campos do formulário
         setProject({
           referencia: '',
           empresa: '',
@@ -148,8 +147,6 @@ const SolicitarCadastro = () => {
     }
   };
   
-  
-
   return (
     <div className="container-principal-cadastrar">
       <Sidebar />
