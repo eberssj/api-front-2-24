@@ -32,6 +32,8 @@ const CriacaoAdmin: React.FC = () => {
         dataCadastro: new Date().toLocaleDateString("pt-BR")
     });
 
+    const [senhaAntiga, setSenhaAntiga] = useState<string>('');
+
     useEffect(() => {
         if (!adm || adm.tipo !== 1) {
             alert("Acesso negado! Apenas super administradores podem acessar esta área.");
@@ -45,6 +47,7 @@ const CriacaoAdmin: React.FC = () => {
             })
             .then((response) => {
                 setNovoAdm(response.data); // Preenche o estado com os dados do admin
+                setSenhaAntiga(response.data.senha); // Salva a senha antiga para comparação
             })
             .catch((error) => console.error("Erro ao carregar administrador:", error));
         }
@@ -69,8 +72,13 @@ const CriacaoAdmin: React.FC = () => {
 
             const admData = { ...novoAdm, senha: senhaCriptografada };
 
+            if (isEditMode && senhaAntiga !== novoAdm.senha) {
+                const senhaCriptografada = bcrypt.hashSync(novoAdm.senha || '', salt);
+                novoAdm.senha = senhaCriptografada;
+            }
+
             if (isEditMode) {
-                await axios.put(`http://localhost:8080/adm/${id}`, admData, {
+                await axios.put(`http://localhost:8080/adm/${id}`, novoAdm, {
                     headers: { Authorization: `Bearer ${adm.token}` },
                     params: { idSuperAdm: adm.id }
                 });
@@ -154,22 +162,21 @@ const CriacaoAdmin: React.FC = () => {
                         </div>
                     </div>
 
-                    {!isEditMode && (
-                        <div className="criad_form_linha baixo">
-                            <div className="criad_form_linha_input">
-                                <label htmlFor="senha">Senha:</label>
-                                <input
-                                    type="password"
-                                    id="senha"
-                                    name="senha"
-                                    placeholder="Digite aqui..."
-                                    required
-                                    onChange={handleChange}
-                                />
-                            </div>
+                    <div className="criad_form_linha baixo">
+                        <div className="criad_form_linha_input">
+                            <label htmlFor="senha">Senha:</label>
+                            <input
+                                type="password"
+                                id="senha"
+                                name="senha"
+                                placeholder={isEditMode ? "Digite a nova senha..." : "Digite aqui..."}
+                                onChange={handleChange}
+                                minLength={8}
+                                required={!isEditMode}
+                            />
                         </div>
-                    )}
-
+                    </div>
+                    
                     {!isEditMode && (
                         <>
                             <p>Tipo de Administrador:</p>
