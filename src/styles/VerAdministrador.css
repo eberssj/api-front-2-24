@@ -1,0 +1,28 @@
+.verad_container {
+    margin-top: 80px;
+    margin-left: 48px;
+    margin-right: 48px;
+    margin-bottom: 300px;
+}
+
+.verad_container h1 {
+    width: 100%;
+    font-size: 2rem;
+    color: #003383;
+    font-weight: 700;
+    text-align: start !important;
+    margin-bottom: 48px;
+}
+
+.verad_info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.verad_info p {
+    background-color: #F5F5F5;
+    padding: 16px;
+    border-radius: 8px;
+    width: 400px;
+}

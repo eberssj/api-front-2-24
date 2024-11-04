@@ -141,7 +141,7 @@ export default function Login() {
                     icon: 'success',
                     title: 'Login efetuado com sucesso!',
                 });
-                navigate("/adm/projetos", { replace: true });
+                navigate("/", { replace: true });
 
                 localStorage.setItem("loginAttempts", "0");
                 setAttempt(0);

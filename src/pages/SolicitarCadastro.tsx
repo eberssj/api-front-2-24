@@ -8,7 +8,7 @@ import { AuthContext } from '../hook/ContextAuth';
 import BotaoCTA from '../components/BotaoCTA/BotaoCTA';
 import criarProjeto from '../img/criar_projeto.svg';
 
-const CadastrarProjeto = () => {
+const SolicitarCadastro = () => {
   const navigate = useNavigate();
   const { adm } = useContext(AuthContext);
   const [project, setProject] = useState({
@@ -19,13 +19,12 @@ const CadastrarProjeto = () => {
     coordenador: '',
     ocultarValor: false,
     ocultarEmpresa: false,
-    valor: 'R$ 0,00', // Valor inicial formatado
+    valor: 'R$ 0,00',
     dataInicio: '',
     dataTermino: '',
     propostas: null,
     contratos: null,
     artigos: null,
-    adm: adm?.id
   });
 
   const [errors, setErrors] = useState({
@@ -39,7 +38,6 @@ const CadastrarProjeto = () => {
     descricao: false,
   });
 
-  // Formata o valor com máscara de dinheiro
   const formatCurrency = (value: string) => {
     const numericValue = value.replace(/\D/g, '');
     const formatter = new Intl.NumberFormat('pt-BR', {
@@ -51,15 +49,12 @@ const CadastrarProjeto = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-
-    // Formata o valor para a máscara de dinheiro se for o campo de valor
     if (name === 'valor') {
       const formattedValue = formatCurrency(value);
       setProject((prev) => ({ ...prev, [name]: formattedValue }));
     } else {
       setProject((prev) => ({ ...prev, [name]: value }));
     }
-
     setErrors((prev) => ({ ...prev, [name]: false }));
   };
 
@@ -79,7 +74,6 @@ const CadastrarProjeto = () => {
       objeto: project.objeto.trim() === '',
       descricao: project.descricao.trim() === '',
     };
-
     setErrors(newErrors);
     return !Object.values(newErrors).includes(true);
   };
@@ -88,59 +82,44 @@ const CadastrarProjeto = () => {
     e.preventDefault();
   
     if (validateForm()) {
-      const formData = new FormData();
-  
       const situacao = new Date(project.dataTermino) >= new Date() ? "Em Andamento" : "Encerrado";
   
-      const projeto = {
-        referenciaProjeto: project.referencia,
-        empresa: project.empresa,
-        objeto: project.objeto,
-        descricao: project.descricao,
-        coordenador: project.coordenador,
-        ocultarValor: project.ocultarValor,
-        ocultarEmpresa: project.ocultarEmpresa,
-        valor: parseFloat(project.valor.replace(/\D/g, '')) / 100,
-        dataInicio: project.dataInicio,
-        dataTermino: project.dataTermino,
-        situacao: situacao,
-        adminSolicitanteId: adm?.id,  // Adicionando adminSolicitanteId
-        statusSolicitado: "Pendente",    // Definindo statusSolicitado
-        data_solicitacao: new Date().toISOString(), // Adicionando data_solicitacao
-        // Adicionar aqui data_aprovado e tipoAcao conforme a necessidade
+      const permissao = {
+        adminSolicitanteId: adm?.id,
+        statusSolicitado: "Pendente",
+        dataSolicitacao: new Date().toISOString().split('T')[0],
+        informacaoProjeto: JSON.stringify({
+          referenciaProjeto: project.referencia,
+          empresa: project.empresa,
+          objeto: project.objeto,
+          descricao: project.descricao,
+          coordenador: project.coordenador,
+          ocultarValor: project.ocultarValor,
+          ocultarEmpresa: project.ocultarEmpresa,
+          valor: parseFloat(project.valor.replace(/\D/g, '')) / 100,
+          dataInicio: project.dataInicio,
+          dataTermino: project.dataTermino,
+          situacao: situacao,
+        }),
+        tipoAcao: "Criacao"
       };
   
-      // Adiciona os dados do projeto no FormData
-      formData.append('projeto', new Blob([JSON.stringify(projeto)], {
-        type: 'application/json',
-      }));
-  
-      // Adiciona arquivos se existirem
-      if (project.propostas) {
-        formData.append('propostas', project.propostas);
-      }
-      if (project.contratos) {
-        formData.append('contratos', project.contratos);
-      }
-      if (project.artigos) {
-        formData.append('artigos', project.artigos);
-      }
+      console.log("JSON da Permissão a ser enviado:", JSON.stringify(permissao, null, 2));
   
       try {
-        const response = await axios.post('http://localhost:8080/projeto/cadastrar', formData, {
+        const response = await axios.post('http://localhost:8080/permissao/solicitarCriacao', permissao, {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${adm?.token}`,
           },
         });
   
-        console.log('Projeto cadastrado com sucesso:', response.data);
+        console.log('Permissão solicitada com sucesso:', response.data);
         Toast.fire({
           icon: 'success',
-          title: 'Projeto cadastrado com sucesso!',
+          title: 'Solicitação de criação enviada com sucesso!',
         });
   
-        // Reseta os campos do formulário
         setProject({
           referencia: '',
           empresa: '',
@@ -155,21 +134,19 @@ const CadastrarProjeto = () => {
           propostas: null,
           contratos: null,
           artigos: null,
-          adm: adm?.id 
         });
   
         navigate("/");
   
       } catch (error) {
-        console.error('Erro ao cadastrar o projeto:', error);
-        erroror('Não foi possível cadastrar o projeto.');
+        console.error('Erro ao solicitar criação de permissão:', error);
+        erroror('Não foi possível solicitar a criação da permissão.');
       }
     } else {
-      erroror('Não foi possível cadastrar o projeto.');
+      erroror('Não foi possível solicitar a criação da permissão.');
     }
   };
   
-
   return (
     <div className="container-principal-cadastrar">
       <Sidebar />
@@ -337,4 +314,4 @@ const CadastrarProjeto = () => {
   );
 };
 
-export default CadastrarProjeto;
+export default SolicitarCadastro;

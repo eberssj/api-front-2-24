@@ -2,7 +2,7 @@
 import { Telefone } from "./Telefone";
 
 export interface AdmProps {
-    id?: number,
+    id: number,
     nome?: string,
     email?: string,
     cpf?: string,
@@ -11,6 +11,6 @@ export interface AdmProps {
     tipo?: any,
     dataCadastro?: Date,
     sub?: string,
-    ativo?: boolean,
+    ativo: boolean,
     token?: string,
 }

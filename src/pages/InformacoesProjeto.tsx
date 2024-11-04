@@ -6,6 +6,7 @@ import '../styles/InformacoesProjeto.css';
 import { AuthContext } from '../hook/ContextAuth'; // Importando o contexto de autenticação
 import { Toast } from '../components/Swal/Swal';
 import Swal from 'sweetalert2';
+import BotaoCTA from '../components/BotaoCTA/BotaoCTA';
 
 interface Arquivo {
     id: number;
@@ -20,6 +21,8 @@ interface Projeto {
     objeto: string;
     descricao: string;
     coordenador: string;
+    ocultarValor: boolean;
+    ocultarEmpresa: boolean;
     valor: number;
     dataInicio: number[];
     dataTermino: number[];
@@ -115,7 +118,7 @@ const InformacoesProjeto = () => {
                 icon: 'success',
                 title: 'Projeto deletado com sucesso!'
                 });
-                navigate('/adm/projetos');
+                navigate("/");
             })
             .catch(error => console.error('Erro ao deletar o projeto:', error));
             }
@@ -130,87 +133,95 @@ const InformacoesProjeto = () => {
     };
 
     return (
-        <div className="container-principal">
-            <Sidebar />
-            <div className="formulario">
-                <div className="cabecalho">
-                    <strong onClick={() => navigate(-1)} className="link-voltar">
-                        <i className="bi bi-arrow-left text-3xl text-blue-900"></i>
-                    </strong>
-                    <h1 className="texto-titulo">Informações do Projeto</h1>
+        <>
+        <Sidebar />
+
+        <div className="infopro_container">
+            <div className="infopro_cima">
+                <h1 className="infopro_titulo">Informações do Projeto</h1>
+                <div className="infopro_cima_dir">
+                { adm && (
+                    <>
+                    <BotaoCTA img="/src/img/lixeira.svg" escrito="Deletar" aparencia="secundario" cor="vermelho" onClick={deletarProjeto} />
+                    <BotaoCTA img="/src/img/editar_projeto.svg" escrito="Editar" aparencia="secundario" cor="cor_primario"  onClick={editarProjeto} />
+                    </>
+                )}
+                <BotaoCTA img="/src/img/voltar.svg" escrito="Voltar" aparencia="primario" onClick={() => navigate(-1)} />
                 </div>
-                <div className="container-informacoes">
-                    {/* Informações do projeto */}
+            </div>
+
+                <div className="infopro_info">
                     <div>
-                        <p className="titulo">Referência do projeto</p>
-                        <p className="texto">{projeto.referenciaProjeto}</p>
-                    </div>
-                    <div>
-                        <p className="titulo">Empresa</p>
-                        <p className="texto">{projeto.empresa}</p>
-                    </div>
-                    <div>
-                        <p className="titulo">Objeto</p>
-                        <p className="texto">{projeto.objeto}</p>
-                    </div>
-                    <div>
-                        <p className="titulo">Descrição</p>
-                        <p className="texto">{projeto.descricao}</p>
+                        <p className="infopro_info_titulo">Referência do projeto</p>
+                        <p className="infopro_info_texto">{projeto.referenciaProjeto}</p>
                     </div>
 
-                    <div>
-                        <p className="titulo">Coordenador</p>
-                        <p className="texto">{projeto.coordenador}</p>
-                    </div>
-
-                    { adm && (
+                    { adm ? (
                         <div>
-                            <p className="titulo">Valor do Projeto</p>
-                            <p className="texto">{formatarValor(projeto.valor)}</p>
+                            <p className="infopro_info_titulo">Empresa</p>
+                            <p className="infopro_info_texto">{projeto.empresa}</p>
+                        </div>
+                    ) : (
+                        <div>
+                            <p className="infopro_info_titulo">Empresa</p>
+                            <p className="infopro_info_texto">{projeto.ocultarEmpresa ? 'EMPRESA OCULTADA PARA O PÚBLICO' : projeto.empresa}</p>
                         </div>
                     )}
+
                     <div>
-                        <p className="titulo">Data de início</p>
-                        <p className="texto">{formatarData(projeto.dataInicio)}</p>
+                        <p className="infopro_info_titulo">Objeto</p>
+                        <p className="infopro_info_texto">{projeto.objeto}</p>
                     </div>
                     <div>
-                        <p className="titulo">Data de término</p>
-                        <p className="texto">{formatarData(projeto.dataTermino)}</p>
+                        <p className="infopro_info_titulo">Descrição</p>
+                        <p className="infopro_info_texto">{projeto.descricao}</p>
+                    </div>
+
+                    <div>
+                        <p className="infopro_info_titulo">Coordenador</p>
+                        <p className="infopro_info_texto">{projeto.coordenador}</p>
+                    </div>
+
+                    { adm ? (
+                        <div>
+                            <p className="infopro_info_titulo">Valor do Projeto</p>
+                            <p className="infopro_info_texto">{formatarValor(projeto.valor)}</p>
+                        </div>
+                    ) : (
+                        <div>
+                            <p className="infopro_info_titulo">Valor do Projeto</p>
+                            <p className="infopro_info_texto">{projeto.ocultarValor ? 'VALOR OCULTADO PARA O PÚBLICO' : formatarValor(projeto.valor)}</p>
+                        </div>
+                    )}
+
+                    <div>
+                        <p className="infopro_info_titulo">Data de início</p>
+                        <p className="infopro_info_texto">{formatarData(projeto.dataInicio)}</p>
+                    </div>
+                    <div>
+                        <p className="infopro_info_titulo">Data de término</p>
+                        <p className="infopro_info_texto">{formatarData(projeto.dataTermino)}</p>
                     </div>
 
                     {/* Lista de arquivos */}
                     <div>
-                        <p className="titulo">Arquivos do projeto</p>
+                        <p className="infopro_info_titulo cima">Arquivos do projeto</p>
                         {arquivos.length > 0 ? (
-                            <div className="arquivos-container">
+                            <div className="infopro_arquivos_container">
                                 {arquivos.map(arquivo => (
-                                    <div className="arquivo-item" key={arquivo.id}>
-                                        <p className="arquivo-tipo">{arquivo.tipoDocumento}</p>
-                                        <button className="arquivo-botao" onClick={() => downloadArquivo(arquivo.id, arquivo.nomeArquivo)}>
-                                            {arquivo.nomeArquivo}
-                                        </button>
+                                    <div className="infopro_arquivo_item" key={arquivo.id} onClick={() => downloadArquivo(arquivo.id, arquivo.nomeArquivo)}>
+                                        <h2>{arquivo.tipoDocumento}</h2>
+                                        <p>{arquivo.nomeArquivo}</p>
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <p>Nenhum arquivo disponível.</p>
+                            <p className="infopro_nenhum">Nenhum arquivo disponível.</p>
                         )}
                     </div>
-
-                    {/* Botões de Ação */}
-                    { adm && (
-                    <div className="botoes-container">
-                        <button className="botao-editar" onClick={editarProjeto}>
-                            <p>Editar Projeto</p>    
-                        </button>
-                        <button className="botao-deletar" onClick={deletarProjeto}>
-                            <p>Deletar Projeto</p>    
-                        </button>
-                    </div>
-                )}
-                </div>
             </div>
         </div>
+        </>
     );
 };
 
