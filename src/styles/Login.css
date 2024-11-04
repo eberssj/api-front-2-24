@@ -1,26 +1,26 @@
 /* Container principal que divide a página */
 .login-container {
     display: flex;
-    justify-content: space-between; /* Espaço entre os dois lados */
-    align-items: center; /* Alinha verticalmente ao centro */
-    height: 100vh; /* Altura de 100% da tela */
-    width: 100vw;  /* Largura de 100% da tela */
-    margin-left: -240px !important;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+
 }
 
-/* Lado esquerdo (formulário) - fundo branco */
+/* Lado esquerdo (formulário) */
 .login-left-side {
-    background-color: #ffffff; /* Fundo branco */
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%; /* Define 50% da largura */
-    height: 100%; /* Ocupa 100% da altura */
+    width: 50%; /* Ocupa metade da tela */
+    height: 100%;
+    transition: width 0.3s ease;
 }
 
 /* Centralização do formulário de login */
 .login-form {
-    width: 60%;
+    width: 70%;
     text-align: center;
 }
 
@@ -30,17 +30,19 @@
     color: #000f2e;
 }
 
+/* Inputs responsivos e sem borda */
 .login-form input {
     width: 100%;
     padding: 12px;
-    margin: 10px 0;
+    margin: 10px auto;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .botao-login {
-    width: 100%;
+    width: 80%;
     padding: 12px;
     background-color: #007BFF;
     color: white;
@@ -67,41 +69,31 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%; /* Define 50% da largura */
-    height: 100%; /* Ocupa 100% da altura */
-    position: fixed;
-    right: 0;
+    width: 50%; /* Ocupa metade da tela */
+    height: 100%;
+    transition: width 0.3s ease;
 }
 
 .login-right-side img {
-    max-width: 70%;
+    max-width: 80%;
     height: auto;
 }
 
-.link-home {
-    border-bottom: 1px solid blue;
-    color: blue;
-    cursor: pointer;
-    display: inline; 
-    padding: 2px;
-}
-
-
+/* Responsividade dos inputs e ajustes gerais */
 @media (max-width: 440px) {
     .login-right-side img {
         max-width: 60%;
     }
+    .login-form input {
+        max-width: 80%;
+    }
 }
-
-
 
 @media (min-width: 440px) and (max-width: 650px) {
     .login-right-side img {
         max-width: 42%;
     }
 }
-
-
 
 @media (max-width: 760px) {
     .login-container {
@@ -129,6 +121,7 @@
         color: #004186;
         font-weight: bold;
     }
+    
 
     .login-right-side img {
         max-width: 38%;
@@ -136,6 +129,10 @@
 
     .login-form {
         width: 100%;
+    }
+
+    .login-form input {
+        max-width: 90%;
     }
 }
 

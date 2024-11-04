@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes as Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Routes as Switch, useLocation } from 'react-router-dom';
 import Adm from '../pages/Adm';
 import PageNotFounded from '../pages/PageNotFounded';
 import { PrivateRoutes } from './privateRoutes';
@@ -10,104 +10,117 @@ import InformacoesProjeto from '../pages/InformacoesProjeto';
 import EditarProjeto from '../pages/EditarProjeto';
 import Dashboard from '../pages/Dashboard';
 import { Administradores } from '../pages/Administradores';
-import GerenciarAdms from '../pages/GerenciarAdms'; // Importando a nova página
+import GerenciarAdms from '../pages/GerenciarAdms';
 import Footer from '../components/Footer/Footer';
 import Notificacoes from '../pages/Notificacoes';
 import CriacaoAdmin from '../pages/CriacaoAdmin';
 
-export default function Routes() {
+function Layout({ children }) {
+  const location = useLocation();
+
+  return (
+    <>
+      {children}
+      {location.pathname !== "/login" && <Footer />}
+    </>
+  );
+}
+
+export default function AppRoutes() {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route
-          path="/adm/dashboard"
-          element={
-            <PrivateRoutes tiposAllowed={[1]}>
-              <Dashboard />
-            </PrivateRoutes>
-          }
-        />
+      <Layout>
+        <Switch>
+          <Route
+            path="/adm/dashboard"
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <Dashboard />
+              </PrivateRoutes>
+            }
+          />
 
-<Route
-          path="/adm/notificacoes"
-          element={
-            <PrivateRoutes tiposAllowed={[1]}>
-              <Notificacoes />
-            </PrivateRoutes>
-          }
-        />
+          <Route
+            path="/adm/notificacoes"
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <Notificacoes />
+              </PrivateRoutes>
+            }
+          />
 
-        <Route
-          path="/adm"
-          element={
-            <PrivateRoutes tiposAllowed={[1]}>
-              <Adm />
-            </PrivateRoutes>
-          }
-        />
+          <Route
+            path="/adm"
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <Adm />
+              </PrivateRoutes>
+            }
+          />
 
-<Route
-          path="/adm/cadastrar-administrador"
-          element={
-            <PrivateRoutes tiposAllowed={[1]}>
-              <CriacaoAdmin />
-            </PrivateRoutes>
-          }
-        />
+          <Route
+            path="/adm/cadastrar-administrador"
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <CriacaoAdmin />
+              </PrivateRoutes>
+            }
+          />
 
-        <Route
-          path="/adm/gerenciar-adms"
-          element={
-            <PrivateRoutes tiposAllowed={[1]}>
-              <GerenciarAdms />
-            </PrivateRoutes>
-          }
-        />
+          <Route
+            path="/adm/gerenciar-adms"
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <GerenciarAdms />
+              </PrivateRoutes>
+            }
+          />
 
-        <Route path="*" element={<PageNotFounded />} />
+          <Route path="*" element={<PageNotFounded />} />
 
-        <Route path="/" element={<PortalTransparencia />} />
+          <Route path="/" element={<PortalTransparencia />} />
 
-        <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/adm/cadastrar-projeto"
-          element={
-            <PrivateRoutes tiposAllowed={[1]}>
-              <CadastrarProjeto />
-            </PrivateRoutes>
-          }
-        />
+          <Route
+            path="/adm/cadastrar-projeto"
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <CadastrarProjeto />
+              </PrivateRoutes>
+            }
+          />
 
-        <Route
-          path="/adm/projetos"
-          element={
-            <PrivateRoutes tiposAllowed={[1]}>
-              <Projetos />
-            </PrivateRoutes>
-          }
-        />
+          <Route
+            path="/adm/projetos"
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <Projetos />
+              </PrivateRoutes>
+            }
+          />
 
-        <Route path="/projeto/:id" element={<InformacoesProjeto />} />
+          <Route path="/projeto/:id" element={<InformacoesProjeto />} />
 
-        <Route
-          path="/projeto/editar/:id"
-          element={
-            <PrivateRoutes tiposAllowed={[1]}>
-              <EditarProjeto />
-                  </PrivateRoutes>
-                } />
+          <Route
+            path="/projeto/editar/:id"
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <EditarProjeto />
+              </PrivateRoutes>
+            }
+          />
 
-                <Route path="/adm/administradores" element={
-                  <PrivateRoutes tiposAllowed={[1]}>
-                    <Administradores />
-            </PrivateRoutes>
-          }
-        />
-      </Switch>
-
-      <Footer />
-
+          <Route
+            path="/adm/administradores"
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <Administradores />
+              </PrivateRoutes>
+            }
+          />
+        </Switch>
+      </Layout>
     </BrowserRouter>
   );
 }
