@@ -1,48 +1,37 @@
-/* Estilos para inputs de data e arquivo */
-.input-flexivel {
-    @apply border p-2 rounded;
-    border-color: #1e3a8a; /* Azul escuro */
-    display: inline-block;
+.cadpro_form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-/* Estilos para o contêiner principal */
-.container-principal-cadastrar {
-    @apply flex justify-start; /* Ocupa a largura total disponível */
-    width: 98%;
-    margin: 5vh 0;
-    padding: 2rem;
+.cadpro_label {
+  color: darkblue;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 12px;
 }
 
-/* Estilos para o formulário */
-.formulario {
-    @apply w-full; /* Ocupa 100% da largura disponível */
+.cadpro_container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 48px;
+  margin-right: 48px;
+  margin-top: 80px;
 }
 
-/* Estilos para alinhar inputs flexíveis à esquerda */
-.alinhado-esquerda {
-    @apply text-left;
-}
-
-/* Container que segura a seta e o título */
-.cabecalho {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centraliza o conteúdo */
-    margin-bottom: 16px;
-    position: relative;
-  }
-  
-.link-voltar {
-    position: absolute;
-    left: 0; /* Mantém a seta à esquerda */
-    top: 0;
-    text-decoration: none;
-}
+.cadpro_titulo {
+  width: 100%;
+  font-size: 2rem;
+  color: #003383;
+  font-weight: 700;
+  text-align: start !important;
+  margin-bottom: 48px;
+} 
 
 .checkbox-container {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-top: 12px;
 }
 
 .checkbox-input {
@@ -51,39 +40,51 @@
   height: 20px;
   cursor: pointer;
 }
-  
-.icone-voltar:hover {
-    opacity: 0.8; /* Efeito ao passar o mouse */
-  }
 
-/* Estilo para os campos de input com erro */
-.input-erro {
-    border: 1px solid red;
-    color: red;
-  }
+.cadpro_secao_dois {
+  display: flex;
+  gap: 40px;
+}
 
-  .erro-texto {
-    color: red;
-    font-size: 0.875rem;
-    margin-top: 4px;
-  }
-  
-  .custom-select {
-    width: 100%;
-    background-color: transparent;
-    border: 1px solid #C4C4C4;
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 4px;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-  }
-  
-  .texto-select {
-    font-weight: bold;
-  }
+.cadpro_secao_esq, .cadpro_secao_dir {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
 
-  .cadpro_botao_cadastrar {
-    margin-top: 48px !important;
-  }
+.cadpro_descricao {
+  border: 1px solid #303030;
+}
+
+.cadpro_parte_tres {
+  width: 33%;
+}
+
+.cadpro_parte_tres button {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.cadpro_correcao {
+  margin-top: 12px;
+}
+
+.cadpro_file_baixo {
+  background-color: #F5F5F5;
+  padding: 20px;
+  border-radius: 12px;
+  border: none;
+  margin-top: 16px;
+  color: #606060;
+  font-weight: 500;
+}
+
+.cadpro_botao_cadastrar {
+  margin-top: 32px;
+}
+
+.erro-texto {
+  color: #c21d4c;
+  font-weight: 500;
+  margin-top: 8px;
+}

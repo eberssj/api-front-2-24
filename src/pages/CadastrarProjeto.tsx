@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/CadastrarProjeto.css';
 import { Sidebar } from '../components/Sidebar/Sidebar';
@@ -19,13 +19,19 @@ const CadastrarProjeto = () => {
     coordenador: '',
     ocultarValor: false,
     ocultarEmpresa: false,
-    valor: 'R$ 0,00', // Valor inicial formatado
+    valor: 'R$ 0,00',
     dataInicio: '',
     dataTermino: '',
     propostas: null,
     contratos: null,
     artigos: null,
     adm: adm?.id
+  });
+
+  const [fileName, setFileName] = useState({
+    propostas: 'Nenhum arquivo foi subido ainda.',
+    contratos: 'Nenhum arquivo foi subido ainda.',
+    artigos: 'Nenhum arquivo foi subido ainda.',
   });
 
   const [errors, setErrors] = useState({
@@ -65,7 +71,9 @@ const CadastrarProjeto = () => {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
-    setProject((prev) => ({ ...prev, [name]: files ? files[0] : null }));
+    const file = files ? files[0] : null;
+    setProject((prev) => ({ ...prev, [name]: file }));
+    setFileName((prev) => ({ ...prev, [name]: file ? file.name : 'Nenhum arquivo foi subido ainda.' }));
   };
 
   const validateForm = () => {
@@ -104,10 +112,7 @@ const CadastrarProjeto = () => {
         dataInicio: project.dataInicio,
         dataTermino: project.dataTermino,
         situacao: situacao,
-        adminSolicitanteId: adm?.id,  // Adicionando adminSolicitanteId
-        statusSolicitado: "Pendente",    // Definindo statusSolicitado
-        data_solicitacao: new Date().toISOString(), // Adicionando data_solicitacao
-        // Adicionar aqui data_aprovado e tipoAcao conforme a necessidade
+        adm: adm?.id
       };
   
       // Adiciona os dados do projeto no FormData
@@ -171,76 +176,91 @@ const CadastrarProjeto = () => {
   
 
   return (
-    <div className="container-principal-cadastrar">
+    <div className="cadpro_container">
       <Sidebar />
       <div className="formulario">
         <div className="cabecalho">
-          <Link to="/" className="link-voltar">
-            <strong><i className="bi bi-arrow-left text-3xl text-blue-900"></i></strong>
-          </Link>
-          <h1 className="texto-titulo">Novo Projeto</h1>
+          <h1 className="cadpro_titulo">Novo Projeto</h1>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="cadpro_form">
           <div>
-            <label className="texto-label">Referência do projeto</label>
+            <label className="cadpro_label">Referência do projeto</label>
             <input
               type="text"
               name="referencia"
               value={project.referencia}
               onChange={handleChange}
-              className={`input-padrao ${errors.referencia ? 'input-erro' : ''}`}
+              className={`input-padrao cadpro_correcao ${errors.referencia ? 'input-erro' : ''}`}
             />
-            {errors.referencia && <span className="erro-texto">* Este campo é obrigatório.</span>}
+            {errors.referencia && <span className="erro-texto">Este campo é obrigatório.</span>}
+          </div>
+
+          <div className="cadpro_secao_dois">
+            <div className="cadpro_secao_esq">
+              <label className="cadpro_label">Empresa</label>
+              <input
+                type="text"
+                name="empresa"
+                value={project.empresa}
+                onChange={handleChange}
+                className={`input-padrao ${errors.empresa ? 'input-erro' : ''}`}
+              />
+              {errors.empresa && <span className="erro-texto">Este campo é obrigatório.</span>}
+              <div className="checkbox-container">
+                <input
+                  type="checkbox"
+                  name="ocultar_empresa"
+                  checked={project.ocultarEmpresa}
+                  onChange={(e) =>
+                    setProject((prev) => ({ ...prev, ocultarEmpresa: e.target.checked }))
+                  }
+                  className="checkbox-input"
+                />
+                <label>Ocultar Empresa Para o Público</label>
+              </div>
+            </div>
+
+            <div className="cadpro_secao_dir">
+              <label className="cadpro_label">Valor do projeto</label>
+              <input
+                type="text"
+                name="valor"
+                value={project.valor}
+                onChange={handleChange}
+                className={`input-padrao ${errors.valor ? 'input-erro' : ''}`}
+              />
+              {errors.valor && (
+                <span className="erro-texto"> Este campo é obrigatório e deve ser um número. </span>
+              )}
+              <div className="checkbox-container">
+                <input
+                  type="checkbox"
+                  name="ocultar_valor"
+                  checked={project.ocultarValor}
+                  onChange={(e) =>
+                    setProject((prev) => ({ ...prev, ocultarValor: e.target.checked }))
+                  }
+                  className="checkbox-input"
+                />
+                <label>Ocultar Valor Para o Público</label>
+              </div>
+            </div>
           </div>
 
           <div>
-            <label className="texto-label">Empresa</label>
-            <input
-              type="text"
-              name="empresa"
-              value={project.empresa}
-              onChange={handleChange}
-              className={`input-padrao ${errors.empresa ? 'input-erro' : ''}`}
-            />
-            {errors.empresa && <span className="erro-texto">* Este campo é obrigatório.</span>}
-          </div>
-
-          <div className="checkbox-container">
-            <input
-              type="checkbox"
-              name="ocultar_empresa"
-              checked={project.ocultarEmpresa}
-              onChange={(e) => setProject((prev) => ({ ...prev, ocultarEmpresa: e.target.checked }))}
-              className="checkbox-input"
-            />
-            <label>Ocultar Empresa Para o Público</label>
-          </div>
-
-          <div>
-            <label className="texto-label">Objeto</label>
-            <input
-              type="text"
-              name="objeto"
-              value={project.objeto}
-              onChange={handleChange}
-              className="input-padrao"
-            />
-            {errors.objeto && <span className="erro-texto">* Este campo é obrigatório.</span>}
-          </div>
-
-          <div>
-            <label className="texto-label">Descrição</label>
+            <label className="cadpro_label">Descrição</label>
             <textarea
               name="descricao"
               value={project.descricao}
               onChange={handleChange}
-              className="input-padrao"
+              className="input-padrao cadpro_descricao cadpro_correcao"
             />
-            {errors.descricao && <span className="erro-texto">* Este campo é obrigatório.</span>}
+            {errors.descricao && <span className="erro-texto">Este campo é obrigatório.</span>}
           </div>
-
-          <div>
-            <label className="texto-label">Coordenador</label>
+          
+          <div className="cadpro_secao_dois">
+          <div className="cadpro_secao_esq">
+            <label className="cadpro_label">Coordenador</label>
             <input
               type="text"
               name="coordenador"
@@ -248,34 +268,24 @@ const CadastrarProjeto = () => {
               onChange={handleChange}
               className={`input-padrao ${errors.coordenador ? 'input-erro' : ''}`}
             />
-            {errors.coordenador && <span className="erro-texto">* Este campo é obrigatório.</span>}
+            {errors.coordenador && <span className="erro-texto">Este campo é obrigatório.</span>}
           </div>
-
-          <div>
-            <label className="texto-label">Valor do projeto</label>
+          <div className="cadpro_secao_dir">
+            <label className="cadpro_label">Objeto</label>
             <input
               type="text"
-              name="valor"
-              value={project.valor}
+              name="objeto"
+              value={project.objeto}
               onChange={handleChange}
-              className={`input-padrao ${errors.valor ? 'input-erro' : ''}`}
+              className="input-padrao"
             />
-            {errors.valor && <span className="erro-texto">* Este campo é obrigatório e deve ser um número.</span>}
+            {errors.objeto && <span className="erro-texto">Este campo é obrigatório.</span>}
+          </div>
           </div>
 
-          <div className="checkbox-container">
-            <input
-              type="checkbox"
-              name="ocultar_valor"
-              checked={project.ocultarValor}
-              onChange={(e) => setProject((prev) => ({ ...prev, ocultarValor: e.target.checked }))}
-              className="checkbox-input"
-            />
-            <label>Ocultar Valor Para o Público</label>
-          </div>
-
-          <div className="alinhado-esquerda">
-            <label className="texto-label">Data de início</label>
+          <div className="cadpro_secao_dois">
+          <div className="alinhado-esquerda cadpro_secao_esq">
+            <label className="cadpro_label">Data de início</label>
             <input
               type="date"
               name="dataInicio"
@@ -283,11 +293,10 @@ const CadastrarProjeto = () => {
               onChange={handleChange}
               className={`input-padrao ${errors.dataInicio ? 'input-erro' : ''}`}
             />
-            {errors.dataInicio && <span className="erro-texto">* Este campo é obrigatório, verifique suas informações.</span>}
+            {errors.dataInicio && <span className="erro-texto">Este campo é obrigatório, verifique suas informações.</span>}
           </div>
-
-          <div className="alinhado-esquerda">
-            <label className="texto-label">Data de término</label>
+          <div className="alinhado-esquerda cadpro_secao_dir">
+            <label className="cadpro_label">Data de término</label>
             <input
               type="date"
               name="dataTermino"
@@ -295,37 +304,67 @@ const CadastrarProjeto = () => {
               onChange={handleChange}
               className={`input-padrao ${errors.dataTermino ? 'input-erro' : ''}`}
             />
-            {errors.dataTermino && <span className="erro-texto">* Este campo é obrigatório e deve ser posterior à data de início.</span>}
+            {errors.dataTermino && <span className="erro-texto">Este campo é obrigatório e deve ser posterior à data de início.</span>}
           </div>
-
-          <div>
-            <label className="texto-label">Propostas</label>
-            <input
-              type="file"
-              name="propostas"
-              onChange={handleFileChange}
-              className="input-padrao"
-            />
           </div>
+          
+          <div className="cadpro_secao_dois">
+            <div className="cadpro_parte_tres">
+              <label className="cadpro_label">Propostas</label>
+              <input
+                type="file"
+                name="propostas"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+                id="filePropostas"
+              />
+              <BotaoCTA
+                escrito="Selecionar Propostas"
+                aparencia="primario"
+                onClick={() => document.getElementById('filePropostas')?.click()}
+              />
+               <div className="cadpro_file_baixo">
+                <p>{fileName.propostas}</p>
+              </div>
+            </div>
 
-          <div>
-            <label className="texto-label">Contratos</label>
-            <input
-              type="file"
-              name="contratos"
-              onChange={handleFileChange}
-              className="input-padrao"
-            />
-          </div>
+            <div className="cadpro_parte_tres">
+              <label className="cadpro_label">Contratos</label>
+              <input
+                type="file"
+                name="contratos"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+                id="fileContratos"
+              />
+              <BotaoCTA
+                escrito="Selecionar Contratos"
+                aparencia="primario"
+                onClick={() => document.getElementById('fileContratos')?.click()}
+              />
+               <div className="cadpro_file_baixo">
+                <p>{fileName.contratos}</p>
+              </div>
+            </div>
 
-          <div>
-            <label className="texto-label">Artigos</label>
-            <input
-              type="file"
-              name="artigos"
-              onChange={handleFileChange}
-              className="input-padrao"
-            />
+            <div className="cadpro_parte_tres">
+              <label className="cadpro_label">Artigos</label>
+              <input
+                type="file"
+                name="artigos"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+                id="fileArtigos"
+              />
+              <BotaoCTA
+                escrito="Selecionar Artigos"
+                aparencia="primario"
+                onClick={() => document.getElementById('fileArtigos')?.click()}
+              />
+              <div className="cadpro_file_baixo">
+                <p>{fileName.artigos}</p>
+              </div>
+            </div>
           </div>
 
           <div className="cadpro_botao_cadastrar">
