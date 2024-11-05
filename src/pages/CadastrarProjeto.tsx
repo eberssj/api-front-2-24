@@ -104,10 +104,7 @@ const CadastrarProjeto = () => {
         dataInicio: project.dataInicio,
         dataTermino: project.dataTermino,
         situacao: situacao,
-        adminSolicitanteId: adm?.id,  // Adicionando adminSolicitanteId
-        statusSolicitado: "Pendente",    // Definindo statusSolicitado
-        data_solicitacao: new Date().toISOString(), // Adicionando data_solicitacao
-        // Adicionar aqui data_aprovado e tipoAcao conforme a necessidade
+        adm: adm?.id,  
       };
   
       // Adiciona os dados do projeto no FormData
