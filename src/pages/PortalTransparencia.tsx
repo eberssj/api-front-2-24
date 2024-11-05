@@ -129,7 +129,7 @@ const PortalTransparencia = () => {
                         <div className="filtragem_botoes_baixo">
                             <BotaoCTA img={IconPesquisar} escrito="Buscar" aparencia="primario" type="submit" />
                         {adm && (
-                            <BotaoCTA img={IconCriarProjeto} escrito="Criar Projeto" aparencia="primario" link="/adm/cadastrar-projeto"/>
+                            <BotaoCTA img={IconCriarProjeto} escrito="Criar Projeto" aparencia="primario"  link={adm.tipo === 1 ? "/adm/cadastrar-projeto" : "/adm/solicitaCadastro"} />
                         )}
                         </div>
                     </form>

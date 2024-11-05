@@ -76,8 +76,6 @@ const Notificacoes = () => {
                 <div className="notif_meio_esq">
                     <h2 className="notif_subtitulo">Pedidos de Alteração</h2>
                     <NotificacaoPedido />
-                    <NotificacaoPedido />
-                    <NotificacaoPedido />
                 </div>
                 <div className="notif_divisoria"></div>
                 <div className="notif_meio_dir">

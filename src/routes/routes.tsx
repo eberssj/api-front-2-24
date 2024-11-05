@@ -17,6 +17,7 @@ import CriacaoAdmin from '../pages/CriacaoAdmin';
 import VerAdministrador from '../pages/VerAdministrador';
 import SolicitarCadastro from '../pages/SolicitarCadastro';
 import { RedefinirSenha } from '../pages/RedefinirSenha';
+import InformacoesProjetoPendente from '../pages/InformacoesProjetoPendente.';
 
 function Layout({ children }) {
   const location = useLocation();
@@ -110,6 +111,7 @@ export default function AppRoutes() {
             }
           />
           <Route path="/projeto/:id" element={<InformacoesProjeto />} />
+          <Route path="/projeto/aceitar" element={<InformacoesProjetoPendente />} />
           <Route path="/redefinir-senha" element={<RedefinirSenha />} />
           <Route
             path="/projeto/editar/:id"

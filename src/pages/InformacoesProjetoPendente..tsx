@@ -4,8 +4,6 @@ import { Sidebar } from '../components/Sidebar/Sidebar';
 import axios from 'axios';
 import '../styles/InformacoesProjeto.css';
 import { AuthContext } from '../hook/ContextAuth';
-import { Toast } from '../components/Swal/Swal';
-import Swal from 'sweetalert2';
 import BotaoCTA from '../components/BotaoCTA/BotaoCTA';
 
 interface Arquivo {
@@ -15,7 +13,6 @@ interface Arquivo {
 }
 
 interface Projeto {
-    id: number;
     referenciaProjeto: string;
     empresa: string;
     objeto: string;
@@ -28,23 +25,15 @@ interface Projeto {
     dataTermino: number[];
 }
 
-const InformacoesProjeto = () => {
+const InformacoesProjetoPendente = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const projeto: Projeto = location.state; // Obtem o projeto da navegação
-    const [arquivos, setArquivos] = useState<Arquivo[]>([]);
+    const projeto: Projeto = location.state; // Obtem as informações de projeto da navegação
+    const [arquivos] = useState<Arquivo[]>([]);
     const { adm } = useContext(AuthContext);
 
     useEffect(() => {
-        if (projeto?.id) {
-            axios.get(`http://localhost:8080/arquivos/projeto/${projeto.id}`, {
-                headers: {
-                    Authorization: `Bearer ${adm?.token}`
-                }
-            })
-            .then(response => setArquivos(response.data))
-            .catch(error => console.error(error));
-        }
+        // Caso o projeto tenha arquivos associados, você pode buscar usando outro endpoint, se necessário
     }, [projeto, adm]);
 
     const downloadArquivo = (arquivoId: number, nomeArquivo: string) => {
@@ -84,44 +73,6 @@ const InformacoesProjeto = () => {
         }).replace(/\s/g, '');
     };
 
-    const deletarProjeto = () => {
-        Swal.fire({
-            title: 'Deseja deletar o projeto?',
-            showDenyButton: true,
-            confirmButtonText: 'Sim',
-            denyButtonText: 'Não',
-            width: 410,
-            confirmButtonColor: 'rgb(255, 0, 53)',
-            denyButtonColor: 'rgb(0,114,187)',
-            heightAuto: false,
-            backdrop: true,
-            customClass: {
-                confirmButton: 'cButton',
-                denyButton: 'dButton',
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.delete(`http://localhost:8080/projeto/excluir/${projeto.id}`, {
-                    headers: {
-                        Authorization: `Bearer ${adm?.token}`
-                    }
-                })
-                .then(() => {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Projeto deletado com sucesso!'
-                    });
-                    navigate("/");
-                })
-                .catch(error => console.error('Erro ao deletar o projeto:', error));
-            }
-        });
-    };
-
-    const editarProjeto = () => {
-        navigate(`/projeto/editar/${projeto.id}`);
-    };
-
     return (
         <>
             <Sidebar />
@@ -129,12 +80,6 @@ const InformacoesProjeto = () => {
                 <div className="infopro_cima">
                     <h1 className="infopro_titulo">Informações do Projeto</h1>
                     <div className="infopro_cima_dir">
-                        { adm && (
-                            <>
-                                <BotaoCTA img="/src/img/lixeira.svg" escrito="Deletar" aparencia="secundario" cor="vermelho" onClick={deletarProjeto} />
-                                <BotaoCTA img="/src/img/editar_projeto.svg" escrito="Editar" aparencia="secundario" cor="cor_primario"  onClick={editarProjeto} />
-                            </>
-                        )}
                         <BotaoCTA img="/src/img/voltar.svg" escrito="Voltar" aparencia="primario" onClick={() => navigate(-1)} />
                     </div>
                 </div>
@@ -145,17 +90,10 @@ const InformacoesProjeto = () => {
                         <p className="infopro_info_texto">{projeto.referenciaProjeto}</p>
                     </div>
 
-                    { adm ? (
-                        <div>
-                            <p className="infopro_info_titulo">Empresa</p>
-                            <p className="infopro_info_texto">{projeto.empresa}</p>
-                        </div>
-                    ) : (
-                        <div>
-                            <p className="infopro_info_titulo">Empresa</p>
-                            <p className="infopro_info_texto">{projeto.ocultarEmpresa ? 'EMPRESA OCULTADA PARA O PÚBLICO' : projeto.empresa}</p>
-                        </div>
-                    )}
+                    <div>
+                        <p className="infopro_info_titulo">Empresa</p>
+                        <p className="infopro_info_texto">{projeto.ocultarEmpresa ? 'EMPRESA OCULTADA PARA O PÚBLICO' : projeto.empresa}</p>
+                    </div>
 
                     <div>
                         <p className="infopro_info_titulo">Objeto</p>
@@ -170,17 +108,10 @@ const InformacoesProjeto = () => {
                         <p className="infopro_info_texto">{projeto.coordenador}</p>
                     </div>
 
-                    { adm ? (
-                        <div>
-                            <p className="infopro_info_titulo">Valor do Projeto</p>
-                            <p className="infopro_info_texto">{formatarValor(projeto.valor)}</p>
-                        </div>
-                    ) : (
-                        <div>
-                            <p className="infopro_info_titulo">Valor do Projeto</p>
-                            <p className="infopro_info_texto">{projeto.ocultarValor ? 'VALOR OCULTADO PARA O PÚBLICO' : formatarValor(projeto.valor)}</p>
-                        </div>
-                    )}
+                    <div>
+                        <p className="infopro_info_titulo">Valor do Projeto</p>
+                        <p className="infopro_info_texto">{projeto.ocultarValor ? 'VALOR OCULTADO PARA O PÚBLICO' : formatarValor(projeto.valor)}</p>
+                    </div>
 
                     <div>
                         <p className="infopro_info_titulo">Data de início</p>
@@ -212,4 +143,4 @@ const InformacoesProjeto = () => {
     );
 };
 
-export default InformacoesProjeto;
+export default InformacoesProjetoPendente;
