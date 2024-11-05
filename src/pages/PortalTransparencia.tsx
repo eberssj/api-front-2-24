@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import AutoComplete from '../components/AutoComplete/AutoComplete'
 import IconVer from "../img/ver.svg"
 import IconPesquisar from "../img/pesquisar.svg"
+import IconCriarProjeto from "../img/criar_projeto.svg"
 import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
 import { AuthContext } from './../hook/ContextAuth';
 
@@ -99,7 +100,7 @@ const PortalTransparencia = () => {
                 <div className="filtragem">
                     <form onSubmit={(e) => { e.preventDefault(); aplicarFiltro(); }} className="space-y-4">
                         <div className="filtragem_linha_item grande">
-                            <label className="texto-label">Busca Geral</label>
+                            <label className="texto-label">Busca por Palavra Chave</label>
                             <input type="text" value={palavraChave} onChange={(e) => setPalavraChave(e.target.value)} className="input-padrao"/>
                         </div>
                         
@@ -110,7 +111,7 @@ const PortalTransparencia = () => {
                         </div>
                         <div className="filtragem_linha_item maior">
                             <label className="texto-label">Situação</label>
-                            <select id="situacao" name="situacao" value={situacao} onChange={(e) => setSituacao(e.target.value)} className="custom-select">
+                            <select id="situacao" name="situacao" value={situacao} onChange={(e) => setSituacao(e.target.value)} className="custom-select input-padrao">
                                 <option value="">Escolha uma opção</option>
                                 <option value="Em Andamento">Em andamento</option>
                                 <option value="Encerrado">Encerrado</option>
@@ -125,7 +126,12 @@ const PortalTransparencia = () => {
                             <input type="date" value={dataTermino} onChange={(e) => setDataTermino(e.target.value)} className="input-padrao"/>
                         </div>
                         </div>
-                        <BotaoCTA img={IconPesquisar} escrito="Buscar" aparencia="primario" type="submit"/>
+                        <div className="filtragem_botoes_baixo">
+                            <BotaoCTA img={IconPesquisar} escrito="Buscar" aparencia="primario" type="submit" />
+                        {adm && (
+                            <BotaoCTA img={IconCriarProjeto} escrito="Criar Projeto" aparencia="primario" link="/adm/cadastrar-projeto"/>
+                        )}
+                        </div>
                     </form>
                 </div>
                 <br />

@@ -33,12 +33,6 @@
     margin-bottom: 20px !important;
 }
 
-
-
-
-
-
-
 .container-principal-portal {
     display: flex;
     flex-direction: column;
@@ -77,6 +71,11 @@
     color: #5a5a5a;
     font-weight: 500;
     border-radius: 8px;
+}
+
+.filtragem_botoes_baixo {
+    display: flex;
+    justify-content: space-between;
 }
 
 @media (max-width: 768px) {
