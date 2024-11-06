@@ -1,9 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import '../styles/EditarProjeto.css'; // Importando o CSS
+import '../styles/EditarProjeto.css';
 import { Sidebar } from '../components/Sidebar/Sidebar';
-import { AuthContext } from '../hook/ContextAuth'; // Importando o contexto de autenticação
+import { AuthContext } from '../hook/ContextAuth';
+import BotaoCTA from '../components/BotaoCTA/BotaoCTA';
+import criarProjeto from '../img/criar_projeto.svg';
+import Lixeira from "../img/lixeira.svg";
 
 interface Arquivo {
     id: number;
@@ -71,6 +74,12 @@ const EditarProjeto = () => {
         }
     }, [adm, id]);
 
+    const [fileName, setFileName] = useState({
+        propostas: 'Nenhum arquivo foi subido ainda.',
+        contratos: 'Nenhum arquivo foi subido ainda.',
+        artigos: 'Nenhum arquivo foi subido ainda.',
+    });
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prevData) => (prevData ? { ...prevData, [name]: value } : prevData));
@@ -81,6 +90,7 @@ const EditarProjeto = () => {
         if (files && files.length > 0) {
             setArquivosNovos((prev) => ({ ...prev, [name]: files[0] }));
         }
+        setFileName((prev) => ({ ...prev, [name]: files ? files[0].name : 'Nenhum arquivo foi subido ainda.' }));
     };
 
     const handleExcluirArquivo = (arquivoId: number) => {
@@ -96,7 +106,7 @@ const EditarProjeto = () => {
             if (formData) {
                 const projeto = {
                     ...formData,
-                    adm: adm?.id, // Enviando o ID do administrador
+                    adm: adm?.id,
                 };
                 data.append('projeto', new Blob([JSON.stringify(projeto)], { type: 'application/json' }));
             }
@@ -127,165 +137,228 @@ const EditarProjeto = () => {
     if (!formData) return <div>Erro: Projeto não encontrado.</div>;
 
     return (
-        <div className="container-principal-editar">
-            <Sidebar />
-            <div className="formulario">
-                <div className="cabecalho">
-                    <div className="link-voltar" onClick={() => navigate(-1)}>
-                        <strong><i className="bi bi-arrow-left text-3xl text-blue-900"></i></strong>
-                    </div>
-                    <h1 className="texto-titulo">Editar Projeto</h1>
-                 </div>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className='texto-label'>Referência do Projeto</label>
-                        <input
-                            type="text"
-                            className="input-padrao"
-                            name="referenciaProjeto"
-                            value={formData.referenciaProjeto}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <label className='texto-label'>Empresa</label>
-                        <input
-                            type="text"
-                            className="input-padrao"
-                            name="empresa"
-                            value={formData.empresa}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="checkbox-container">
-                        <input
-                            type="checkbox"
-                            name="ocultarEmpresa"
-                            checked={formData.ocultarEmpresa}
-                            onChange={(e) => setFormData((prevData) => (prevData ? { ...prevData, ocultarEmpresa: e.target.checked } : prevData))}
-                            className="checkbox-input"
-                        />
-                        <label>Ocultar Empresa Para o Público</label>
-                    </div>
-
-                    <div>
-                        <label className='texto-label'>Objeto</label>
-                        <textarea
-                            className="input-padrao"
-                            name="objeto"
-                            value={formData.objeto}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <label className='texto-label'>Descrição</label>
-                        <textarea
-                            className="input-padrao"
-                            name="descricao"
-                            value={formData.descricao}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <label className='texto-label'>Coordenador</label>
-                        <input
-                            type="text"
-                            className="input-padrao"
-                            name="coordenador"
-                            value={formData.coordenador}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <label className='texto-label'>Valor</label>
-                        <input
-                            type="number"
-                            className="input-padrao"
-                            name="valor"
-                            value={formData.valor}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="checkbox-container">
-                        <input
-                            type="checkbox"
-                            name="ocultarValor"
-                            checked={formData.ocultarValor}
-                            onChange={(e) => setFormData((prevData) => (prevData ? { ...prevData, ocultarValor: e.target.checked } : prevData))}
-                            className="checkbox-input"
-                        />
-                        <label>Ocultar Valor Para o Público</label>
-                    </div>
-
-                    <div>
-                        <label className='texto-label'>Data de Início</label>
-                        <input
-                            type="date"
-                            className="input-padrao"
-                            name="dataInicio"
-                            value={formData.dataInicio}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <label className='texto-label'>Data de Término</label>
-                        <input
-                            type="date"
-                            className="input-padrao"
-                            name="dataTermino"
-                            value={formData.dataTermino}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    {arquivosExistentes.length > 0 ? (
-                        <div className="arquivos-container">
-                            <p className='texto-label'>Arquivos Existentes</p>
-                            {arquivosExistentes.map((arquivo) => (
-                                <div className="arquivo-item" key={arquivo.id}>
-                                    <p>{arquivo.nomeArquivo} ({arquivo.tipoDocumento})</p>
-                                    <button
-                                        type="button"
-                                        className="botao-excluir"
-                                        onClick={() => handleExcluirArquivo(arquivo.id)}
-                                    >
-                                        Excluir
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <p className='texto-label'>Ainda não há arquivos existentes</p>
-                    )}
-
-                    <h1 className='texto-titulo'>Adicionar Novo Arquivo</h1>
-                    <div>
-                        <label className='texto-label'>Propostas</label>
-                        <input type="file" name="propostas" className='input-padrao' onChange={handleArquivoChange} />
-                    </div>
-
-                    <div>
-                        <label className='texto-label'>Contratos</label>
-                        <input type="file" name="contratos" className='input-padrao' onChange={handleArquivoChange} />
-                    </div>
-                    
-                    <div>
-                        <label className='texto-label'>Artigos</label>
-                        <input type="file" name="artigos" className='input-padrao' onChange={handleArquivoChange} />
-                    </div>
-
-                    <div className="botoes-editar">
-                        <button type="submit" className="botao-salvar">Salvar Alterações</button>
-                        <button type="button" className="botao-cancelar" onClick={() => navigate(-1)}>
-                            Cancelar
-                        </button>
-                    </div>
-                </form>
+        <div className="cadpro_container">
+          <Sidebar />
+          <div className="formulario">
+            <div className="cabecalho">
+              <h1 className="cadpro_titulo">Editar Projeto</h1>
             </div>
+            <form onSubmit={handleSubmit} className="cadpro_form">
+              <div>
+                <label className="cadpro_label">Referência do Projeto</label>
+                <input
+                  type="text"
+                  className="input-padrao cadpro_correcao"
+                  name="referenciaProjeto"
+                  value={formData.referenciaProjeto}
+                  onChange={handleInputChange}
+                />
+              </div>
+      
+              <div className="cadpro_secao_dois">
+                <div className="cadpro_secao_esq">
+                  <label className="cadpro_label">Empresa</label>
+                  <input
+                    type="text"
+                    className="input-padrao"
+                    name="empresa"
+                    value={formData.empresa}
+                    onChange={handleInputChange}
+                  />
+                  <div className="checkbox-container">
+                    <input
+                      type="checkbox"
+                      name="ocultarEmpresa"
+                      checked={formData.ocultarEmpresa}
+                      onChange={(e) =>
+                        setFormData((prevData) =>
+                          prevData ? { ...prevData, ocultarEmpresa: e.target.checked } : prevData
+                        )
+                      }
+                      className="checkbox-input"
+                    />
+                    <label>Ocultar Empresa Para o Público</label>
+                  </div>
+                </div>
+      
+                <div className="cadpro_secao_dir">
+                  <label className="cadpro_label">Valor</label>
+                  <input
+                    type="number"
+                    className="input-padrao"
+                    name="valor"
+                    value={formData.valor}
+                    onChange={handleInputChange}
+                  />
+                  <div className="checkbox-container">
+                    <input
+                      type="checkbox"
+                      name="ocultarValor"
+                      checked={formData.ocultarValor}
+                      onChange={(e) =>
+                        setFormData((prevData) =>
+                          prevData ? { ...prevData, ocultarValor: e.target.checked } : prevData
+                        )
+                      }
+                      className="checkbox-input"
+                    />
+                    <label>Ocultar Valor Para o Público</label>
+                  </div>
+                </div>
+              </div>
+      
+              <div>
+                <label className="cadpro_label">Descrição</label>
+                <textarea
+                  className="input-padrao cadpro_descricao cadpro_correcao"
+                  name="descricao"
+                  value={formData.descricao}
+                  onChange={handleInputChange}
+                />
+              </div>
+      
+              <div className="cadpro_secao_dois">
+                <div className="cadpro_secao_dir">
+                  <label className="cadpro_label">Coordenador</label>
+                  <input
+                    type="text"
+                    className="input-padrao"
+                    name="coordenador"
+                    value={formData.coordenador}
+                    onChange={handleInputChange}
+                  />
+                </div>
+      
+                <div className="cadpro_secao_dir">
+                  <label className="cadpro_label">Objeto</label>
+                  <input
+                    type="text"
+                    className="input-padrao"
+                    name="objeto"
+                    value={formData.objeto}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+      
+              <div className="cadpro_secao_dois">
+                <div className="cadpro_secao_esq">
+                  <label className="cadpro_label">Data de Início</label>
+                  <input
+                    type="date"
+                    className="input-padrao"
+                    name="dataInicio"
+                    value={formData.dataInicio}
+                    onChange={handleInputChange}
+                  />
+                </div>
+      
+                <div className="cadpro_secao_dir">
+                  <label className="cadpro_label">Data de Término</label>
+                  <input
+                    type="date"
+                    className="input-padrao"
+                    name="dataTermino"
+                    value={formData.dataTermino}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              
+              <p className="cadpro_label">Arquivos Existentes</p>
+              {arquivosExistentes.length > 0 ? (
+                <div className="edipro_arquivos_existentes_container">
+                  {arquivosExistentes.map((arquivo) => (
+                    <div className="edipro_arquivo_existente" key={arquivo.id}>
+                      <p className="edipro_arquivo_existente_titulo">{arquivo.tipoDocumento}</p>
+                      <p className="edipro_arquivo_existente_nome">{arquivo.nomeArquivo}</p>
+                      <BotaoCTA img={Lixeira} escrito="Excluir" aparencia="secundario" cor="vermelho" onClick={() => handleExcluirArquivo(arquivo.id)}/>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="cadpro_label">Ainda não há arquivos existentes</p>
+              )}
+      
+            <h3 className="cadpro_label">Adicionar Novo Arquivo</h3>
+
+            <div className="cadpro_secao_dois">
+            <div className="cadpro_parte_tres">
+              <label className="cadpro_label">Propostas</label>
+              <input
+                type="file"
+                name="propostas"
+                onChange={handleArquivoChange}
+                style={{ display: 'none' }}
+                id="filePropostas"
+              />
+              <BotaoCTA
+                escrito="Selecionar Propostas"
+                aparencia="primario"
+                onClick={() => document.getElementById('filePropostas')?.click()}
+              />
+               <div className="cadpro_file_baixo">
+                <p>{fileName.propostas}</p>
+              </div>
+            </div>
+
+            <div className="cadpro_parte_tres">
+              <label className="cadpro_label">Contratos</label>
+              <input
+                type="file"
+                name="contratos"
+                onChange={handleArquivoChange}
+                style={{ display: 'none' }}
+                id="fileContratos"
+              />
+              <BotaoCTA
+                escrito="Selecionar Contratos"
+                aparencia="primario"
+                onClick={() => document.getElementById('fileContratos')?.click()}
+              />
+               <div className="cadpro_file_baixo">
+                <p>{fileName.contratos}</p>
+              </div>
+            </div>
+
+            <div className="cadpro_parte_tres">
+              <label className="cadpro_label">Artigos</label>
+              <input
+                type="file"
+                name="artigos"
+                onChange={handleArquivoChange}
+                style={{ display: 'none' }}
+                id="fileArtigos"
+              />
+              <BotaoCTA
+                escrito="Selecionar Artigos"
+                aparencia="primario"
+                onClick={() => document.getElementById('fileArtigos')?.click()}
+              />
+              <div className="cadpro_file_baixo">
+                <p>{fileName.artigos}</p>
+              </div>
+            </div>
+          </div>
+      
+              <div className="edipro_botoes">
+                <BotaoCTA
+                  img={criarProjeto}
+                  escrito="Salvar Alterações"
+                  aparencia="primario"
+                  type="submit"
+                />
+                <BotaoCTA
+                  escrito="Cancelar"
+                  aparencia="secundario"
+                  cor="cor_primario"
+                  onClick={() => navigate(-1)}
+                />
+              </div>
+            </form>
+          </div>
         </div>
-    );
-};
+      );
+    };
 
 export default EditarProjeto;

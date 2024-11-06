@@ -1,78 +1,30 @@
-.container-principal {
+.edipro_botoes {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.edipro_arquivos_existentes_container {
+    display: flex;
+    gap: 16px;
+}
+
+.edipro_arquivo_existente {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 20px;
+    gap: 16px;
+    background-color: #F5F5F5;
+    padding: 16px;
+    border-radius: 12px;
 }
 
-.formulario-editar-projeto {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    padding: 20px;
-    background-color: #ecf0f1;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+.edipro_arquivo_existente_titulo {
+    color: #606060;
+    font-weight: 500;
+    font-size: 1.125rem;
 }
 
-.input-container {
-    margin-bottom: 15px;
-}
-
-.input-container label {
-    font-size: 16px;
-    color: #34495e;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.input-projeto {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 4px;
-    border: 1px solid #bdc3c7;
-    background-color: #ffffff;
-}
-
-.btn-salvar {
-    padding: 10px 20px;
-    background-color: #2980b9;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 16px;
-}
-
-.btn-salvar:hover {
-    background-color: #3498db;
-}
-
-.botao-salvar, .botao-cancelar {
-    width: 20%;
-}
-
-.botoes-editar {
-    gap: 2rem;
-}
-
-.container-principal-editar {
-    @apply flex justify-start; /* Ocupa a largura total disponível */
-    width: 98%;
-    padding: 2rem;
-}
-
-@media (max-width: 468px) {
-    .botoes-editar {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .botao-salvar, .botao-cancelar {
-        width: 80%;
-    }
+.edipro_arquivo_existente_nome {
+    color: #404040;
+    margin-bottom: 16px;
 }
