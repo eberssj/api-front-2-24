@@ -61,7 +61,7 @@ export default function AppRoutes() {
           <Route
             path="/adm/notificacoes"
             element={
-              <PrivateRoutes tiposAllowed={[1, 2]}>
+              <PrivateRoutes tiposAllowed={[1]}>
                 <Notificacoes />
               </PrivateRoutes>
             }
@@ -101,8 +101,23 @@ export default function AppRoutes() {
               </PrivateRoutes>
             }
           />
-          <Route path="/projeto/:id" element={<InformacoesProjeto />} />
-          <Route path="/projeto/aceitar" element={<InformacoesProjetoPendente />} />
+          <Route 
+            path="/projeto/:id" 
+            element={
+              <PrivateRoutes tiposAllowed={[1, 2]}>
+                <InformacoesProjeto />
+              </PrivateRoutes>
+            }
+          />
+          <Route 
+            path="/projeto/aceitar" 
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <InformacoesProjetoPendente />
+              </PrivateRoutes>
+            
+            } 
+          />
           <Route path="/redefinir-senha" element={<RedefinirSenha />} />
           <Route
             path="/projeto/editar/:id"
