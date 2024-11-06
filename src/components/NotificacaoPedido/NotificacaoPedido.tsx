@@ -92,7 +92,7 @@ function NotificacaoPedido() {
           <div key={pedido.id} className="noped_item">
             <h1>{tipoAcaoFormatado}</h1>
             <div className="noped_hr"></div>
-            <p>O administrador {pedido.adminNome} (ID {pedido.adminSolicitanteId}) quer {tipoAcaoFormatado.toLowerCase()} um novo projeto.</p>
+            <p>O administrador {pedido.adminNome} ID {pedido.adminSolicitanteId} quer fazer a {tipoAcaoFormatado.toLowerCase()} de um novo projeto.</p>
             <div className="noped_baixo">
               <BotaoCTA img={Visualizar} escrito="Ver" aparencia="primario" onClick={() => handleVisualizar(pedido.informacaoProjeto)}  />
               <div className="noped_baixo_dir">
