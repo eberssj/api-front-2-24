@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import AutoComplete from '../components/AutoComplete/AutoComplete'
 import IconVer from "../img/ver.svg"
 import IconPesquisar from "../img/pesquisar.svg"
+import IconInfo from "../img/info.svg"
 import IconCriarProjeto from "../img/criar_projeto.svg"
 import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
 import { AuthContext } from './../hook/ContextAuth';
@@ -129,7 +130,13 @@ const PortalTransparencia = () => {
                         <div className="filtragem_botoes_baixo">
                             <BotaoCTA img={IconPesquisar} escrito="Buscar" aparencia="primario" type="submit" />
                         {adm && (
-                            <BotaoCTA img={IconCriarProjeto} escrito="Criar Projeto" aparencia="primario"  link={adm.tipo === 1 ? "/adm/cadastrar-projeto" : "/adm/solicitaCadastro"} />
+                            <div className="filtragem_botao_admin">
+                                <div className="filtragem_botao_admin_mensagem">
+                                    <p>Somente administradores podem ver isso</p>
+                                    <img src={IconInfo} />
+                                </div>
+                                <BotaoCTA img={IconCriarProjeto} escrito="Criar Projeto" aparencia="primario"  link="/adm/cadastrar-projeto" />
+                            </div>
                         )}
                         </div>
                     </form>

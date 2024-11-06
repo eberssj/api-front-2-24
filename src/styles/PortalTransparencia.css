@@ -76,6 +76,26 @@
 .filtragem_botoes_baixo {
     display: flex;
     justify-content: space-between;
+    gap: 16px;
+    margin-top: 40px !important;
+}
+
+.filtragem_botao_admin {
+    display: flex;
+    gap: 16px;
+}
+
+.filtragem_botao_admin_mensagem {
+    display: flex;
+    gap: 8px;
+    color: #909090;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.filtragem_botao_admin_mensagem p {
+    text-align: end;
+    width: 200px;
 }
 
 @media (max-width: 768px) {
