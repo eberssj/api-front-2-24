@@ -99,6 +99,11 @@ const Notificacoes = () => {
         filtrarProjetos();
     }, [projetos, filtrarProjetos]);
 
+    const fecharNotifAlerta = (id: number) => {
+        setProjetosFiltrados((prevProjetos) => prevProjetos.filter((projeto) => projeto.id !== id));
+    };
+    
+
     return (
         <div className="notif_container">
             <Sidebar />
@@ -111,25 +116,31 @@ const Notificacoes = () => {
                                 <NotificacaoPedido key={pedido.id} pedido={pedido} onAprovar={handleAprovar} />
                             ))
                         ) : (
-                            <p>No momento ainda não há pedidos de alteração</p>
+                            <p className="notif_nenhum">Não há pedidos de alteração no momento.</p>
                         )}
                 </div>
                 <div className="notif_divisoria"></div>
                 <div className="notif_meio_dir">
                     <h2 className="notif_subtitulo">Alertas de Vencimento</h2>
-                    {projetosFiltrados.map((projeto) => {
-                        const diasParaVencer = calcularDiasParaVencer(projeto.dataTermino);
-                        return (
-                            <NotificacaoAlerta
-                                key={projeto.id}
-                                id={projeto.id}
-                                dataInicio={projeto.dataInicio}
-                                dataTermino={projeto.dataTermino}
-                                diasParaVencer={diasParaVencer}
-                            />
-                        );
-                    })}
-                </div>
+                    {projetosFiltrados.length > 0 ? (
+                        projetosFiltrados.map((projeto) => {
+                            const diasParaVencer = calcularDiasParaVencer(projeto.dataTermino);
+                            return (
+                                <NotificacaoAlerta
+                                    key={projeto.id}
+                                    id={projeto.id}
+                                    dataInicio={projeto.dataInicio}
+                                    dataTermino={projeto.dataTermino}
+                                    diasParaVencer={diasParaVencer}
+                                    fechar={() => fecharNotifAlerta(projeto.id)}
+                                />
+                            );
+                        })
+                    ) : (
+                        <p className="notif_nenhum">Não há alertas de vencimento no momento.</p>
+                    )}
+</div>
+
             </div>
         </div>
     );

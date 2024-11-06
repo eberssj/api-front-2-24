@@ -24,6 +24,11 @@
     justify-content: space-between;
 }
 
+.noale_cima img:hover {
+    cursor: pointer;
+    filter: brightness(90%);
+}
+
 .noale_aviso {
     margin-bottom: 16px;
 }
