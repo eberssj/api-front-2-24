@@ -88,3 +88,19 @@
   font-weight: 500;
   margin-top: 8px;
 }
+
+@media only screen and (max-width: 768px) {
+
+  .cadpro_secao_dois {
+    flex-wrap: wrap;
+  }
+
+  .cadpro_parte_tres {
+    width: 100%;
+  }
+  
+  .cadpro_secao_esq, .cadpro_secao_dir {
+    width: 100%;
+  }
+
+}
