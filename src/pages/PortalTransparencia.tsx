@@ -94,7 +94,7 @@ const PortalTransparencia = () => {
         <div className="container-principal-portal">
             <Sidebar />
             <div className={`container-texto ${adm ? 'menor' : ''}`}>
-                <h1>Fundação de Apoio à Pesquisa de Pós-Graduandos (FAPG)</h1>
+                <h1 className="portal_titulo">Fundação de Apoio à Pesquisa de Pós-Graduandos (FAPG)</h1>
                 <p>A Fundação vem com o objetivo de trazer transformações importantes para o meio acadêmico, e busca conseguir isso com a obstinação dos seus dirigentes <br /> e funcionários no sentido de torná-la sempre mais ágil e precisa.</p>
                 <div className="portal_divisoria">
                 </div>
