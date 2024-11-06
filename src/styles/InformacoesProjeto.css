@@ -92,6 +92,16 @@
     font-weight: 500;
 }
 
+.infopro_info_oculto {
+    background-color: #F5F5F5;
+    padding: 12px;
+    border-radius: 8px;
+    width: 33%;
+    font-weight: 500px;
+    color: #606060;
+    min-width: 300px;
+}
+
 @media only screen and (max-width: 1200px) {
 
     .infopro_cima {

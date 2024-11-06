@@ -153,8 +153,12 @@ const InformacoesProjeto = () => {
                     ) : (
                         <div>
                             <p className="infopro_info_titulo">Empresa</p>
-                            <p className="infopro_info_texto">{projeto.ocultarEmpresa ? 'EMPRESA OCULTADA PARA O PÚBLICO' : projeto.empresa}</p>
+                            {projeto.ocultarEmpresa && (
+                                <p className="infopro_info_oculto">Informação indisponível ao público.</p>
+                            )}
+                            <p className={`infopro_info_texto ${projeto.ocultarEmpresa ? "infopro_ocultado" : ""}`}> {projeto.ocultarEmpresa ? "" : projeto.empresa} </p>
                         </div>
+
                     )}
 
                     <div>
@@ -170,17 +174,21 @@ const InformacoesProjeto = () => {
                         <p className="infopro_info_texto">{projeto.coordenador}</p>
                     </div>
 
-                    { adm ? (
+                    {adm ? (
                         <div>
                             <p className="infopro_info_titulo">Valor do Projeto</p>
                             <p className="infopro_info_texto">{formatarValor(projeto.valor)}</p>
                         </div>
-                    ) : (
+                        ) : (
                         <div>
                             <p className="infopro_info_titulo">Valor do Projeto</p>
-                            <p className="infopro_info_texto">{projeto.ocultarValor ? 'VALOR OCULTADO PARA O PÚBLICO' : formatarValor(projeto.valor)}</p>
+                            {projeto.ocultarValor && (
+                            <p className="infopro_info_oculto">Informação indisponível ao público.</p>
+                            )}
+                            <p className="infopro_info_texto"> {projeto.ocultarValor ? '' : formatarValor(projeto.valor)} </p>
                         </div>
                     )}
+
 
                     <div>
                         <p className="infopro_info_titulo">Data de início</p>
