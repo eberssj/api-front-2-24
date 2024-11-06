@@ -29,3 +29,27 @@
     display: flex;
     gap: 16px;
 }
+
+@media only screen and (max-width: 1400px) and (min-width: 768px) {
+
+    .noped_baixo {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .noped_baixo_dir button {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+
+    .noped_baixo {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .noped_baixo_dir button {
+        width: 100%;
+    }
+}

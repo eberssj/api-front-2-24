@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./NotificacaoAlerta.css";
+import BotaoCTA from "../BotaoCTA/BotaoCTA";
+import Visualizar from "../NotificacaoPedido/visualizar.svg";
 
 interface NotificacaoAlertaProps {
   id: number;
@@ -23,12 +25,17 @@ const NotificacaoAlerta: React.FC<NotificacaoAlertaProps> = ({ id, dataInicio, d
   return (
     <div className="noale_container">
       <div className="noale_cima">
-        <h1 onClick={() => navigate(`/projeto/editar/${id}`)}>PROJETO ID {id}</h1>
+        <h1>PROJETO ID {id}</h1>
       </div>
       <div className="noale_hr"></div>
       <p className="noale_aviso">{diasParaVencer === 0 ? "Este projeto vencerá HOJE." : `Este projeto vencerá em ${diasParaVencer} dia(s).`} </p>
-      <p>Data de Início: {formatarDataParaVisualizacao(dataInicio)}</p>
-      <p>Data de Término: {formatarDataParaVisualizacao(dataTermino)}</p>
+      <div className="noale_aviso_baixo">
+        <div>
+          <p>Data de Início: {formatarDataParaVisualizacao(dataInicio)}</p>
+          <p>Data de Término: {formatarDataParaVisualizacao(dataTermino)}</p>
+        </div>
+        <BotaoCTA img={Visualizar} escrito="Editar" aparencia="primario" onClick={() => navigate(`/projeto/editar/${id}`)}  />
+      </div>
     </div>
   );
 };

@@ -40,3 +40,14 @@
     margin-left: 32px;
     margin-right: 32px;
 }
+
+@media only screen and (max-width: 768px) {
+
+    .notif_meio {
+        flex-direction: column;
+    }
+
+    .notif_meio_esq, .notif_meio_dir {
+        width: 100%;
+    }
+}
