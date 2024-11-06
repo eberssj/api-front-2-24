@@ -15,7 +15,6 @@ import Footer from '../components/Footer/Footer';
 import Notificacoes from '../pages/Notificacoes';
 import CriacaoAdmin from '../pages/CriacaoAdmin';
 import VerAdministrador from '../pages/VerAdministrador';
-import SolicitarCadastro from '../pages/SolicitarCadastro';
 import { RedefinirSenha } from '../pages/RedefinirSenha';
 import InformacoesProjetoPendente from '../pages/InformacoesProjetoPendente';
 
@@ -64,14 +63,6 @@ export default function AppRoutes() {
             element={
               <PrivateRoutes tiposAllowed={[1, 2]}>
                 <Notificacoes />
-              </PrivateRoutes>
-            }
-          />
-          <Route
-            path="/adm/solicitaCadastro"
-            element={
-              <PrivateRoutes tiposAllowed={[2]}>
-                <SolicitarCadastro />
               </PrivateRoutes>
             }
           />

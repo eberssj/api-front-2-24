@@ -85,38 +85,77 @@ const InformacoesProjeto = () => {
     };
 
     const deletarProjeto = () => {
-        Swal.fire({
-            title: 'Deseja deletar o projeto?',
-            showDenyButton: true,
-            confirmButtonText: 'Sim',
-            denyButtonText: 'Não',
-            width: 410,
-            confirmButtonColor: 'rgb(255, 0, 53)',
-            denyButtonColor: 'rgb(0,114,187)',
-            heightAuto: false,
-            backdrop: true,
-            customClass: {
-                confirmButton: 'cButton',
-                denyButton: 'dButton',
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios.delete(`http://localhost:8080/projeto/excluir/${projeto.id}`, {
-                    headers: {
-                        Authorization: `Bearer ${adm?.token}`
-                    }
-                })
-                .then(() => {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Projeto deletado com sucesso!'
-                    });
-                    navigate("/");
-                })
-                .catch(error => console.error('Erro ao deletar o projeto:', error));
-            }
-        });
-    };
+        if (adm?.tipo === 2) {
+            // Se o administrador for do tipo 2, faz a solicitação de exclusão
+            Swal.fire({
+                title: 'Deseja solicitar a exclusão do projeto?',
+                showDenyButton: true,
+                confirmButtonText: 'Sim',
+                denyButtonText: 'Não',
+                width: 410,
+                confirmButtonColor: 'rgb(255, 0, 53)',
+                denyButtonColor: 'rgb(0,114,187)',
+                heightAuto: false,
+                backdrop: true,
+                customClass: {
+                    confirmButton: 'cButton',
+                    denyButton: 'dButton',
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post(`http://localhost:8080/permissao/solicitarExclusao`, {
+                        adminSolicitanteId: adm.id,
+                        informacaoProjeto: projeto.id
+                    }, {
+                        headers: {
+                            Authorization: `Bearer ${adm.token}`
+                        }
+                    })
+                    .then(() => {
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Solicitação de exclusão enviada com sucesso!'
+                        });
+                        navigate("/");
+                    })
+                    .catch(error => console.error('Erro ao solicitar exclusão do projeto:', error));
+                }
+            });
+        } else {
+            // Se o administrador não for do tipo 2, deleta o projeto diretamente
+            Swal.fire({
+                title: 'Deseja deletar o projeto?',
+                showDenyButton: true,
+                confirmButtonText: 'Sim',
+                denyButtonText: 'Não',
+                width: 410,
+                confirmButtonColor: 'rgb(255, 0, 53)',
+                denyButtonColor: 'rgb(0,114,187)',
+                heightAuto: false,
+                backdrop: true,
+                customClass: {
+                    confirmButton: 'cButton',
+                    denyButton: 'dButton',
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`http://localhost:8080/projeto/excluir/${projeto.id}`, {
+                        headers: {
+                            Authorization: `Bearer ${adm?.token}`
+                        }
+                    })
+                    .then(() => {
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Projeto deletado com sucesso!'
+                        });
+                        navigate("/");
+                    })
+                    .catch(error => console.error('Erro ao deletar o projeto:', error));
+                }
+            });
+        }
+    };    
 
     const editarProjeto = () => {
         navigate(`/projeto/editar/${projeto.id}`);
