@@ -1,4 +1,10 @@
 .infopro_container {
+    margin: 0 10%;
+    margin-top: 80px;
+    color: #303030;
+}
+
+.infopro_container.menor {
     margin-top: 80px;
     margin-left: 48px;
     margin-right: 48px;

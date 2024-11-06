@@ -125,7 +125,7 @@ const InformacoesProjeto = () => {
     return (
         <>
             <Sidebar />
-            <div className="infopro_container">
+            <div className={`infopro_container ${adm ? 'menor' : ''}`}>
                 <div className="infopro_cima">
                     <h1 className="infopro_titulo">Informações do Projeto</h1>
                     <div className="infopro_cima_dir">
