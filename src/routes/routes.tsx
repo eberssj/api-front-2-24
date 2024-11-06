@@ -17,7 +17,7 @@ import CriacaoAdmin from '../pages/CriacaoAdmin';
 import VerAdministrador from '../pages/VerAdministrador';
 import SolicitarCadastro from '../pages/SolicitarCadastro';
 import { RedefinirSenha } from '../pages/RedefinirSenha';
-import InformacoesProjetoPendente from '../pages/InformacoesProjetoPendente.';
+import InformacoesProjetoPendente from '../pages/InformacoesProjetoPendente';
 
 function Layout({ children }) {
   const location = useLocation();
