@@ -7,6 +7,7 @@
 .edipro_arquivos_existentes_container {
     display: flex;
     gap: 16px;
+    margin-bottom: 48px;
 }
 
 .edipro_arquivo_existente {
@@ -27,4 +28,24 @@
 .edipro_arquivo_existente_nome {
     color: #404040;
     margin-bottom: 16px;
+}
+
+.cadpro_label.correcao {
+    margin-bottom: -8px;
+}
+
+.cadpro_label.cima {
+    margin-top: 48px;
+}
+
+
+@media only screen and (max-width: 768px) {
+    
+    .edipro_arquivos_existentes_container {
+        flex-wrap: wrap;
+    }
+
+    .edipro_arquivo_existente {
+        width: 100%;
+    }
 }

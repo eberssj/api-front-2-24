@@ -140,9 +140,12 @@ const EditarProjeto = () => {
         <div className="cadpro_container">
           <Sidebar />
           <div className="formulario">
-            <div className="cabecalho">
-              <h1 className="cadpro_titulo">Editar Projeto</h1>
-            </div>
+            <div className="infopro_cima">
+                    <h1 className="infopro_titulo">Editar Projeto</h1>
+                    <div className="infopro_cima_dir">
+                        <BotaoCTA img="/src/img/voltar.svg" escrito="Voltar" aparencia="primario" onClick={() => navigate(-1)} />
+                    </div>
+                </div>
             <form onSubmit={handleSubmit} className="cadpro_form">
               <div>
                 <label className="cadpro_label">Referência do Projeto</label>
@@ -265,7 +268,7 @@ const EditarProjeto = () => {
                 </div>
               </div>
               
-              <p className="cadpro_label">Arquivos Existentes</p>
+              <p className="cadpro_label correcao cima">Arquivos Existentes</p>
               {arquivosExistentes.length > 0 ? (
                 <div className="edipro_arquivos_existentes_container">
                   {arquivosExistentes.map((arquivo) => (
@@ -347,12 +350,6 @@ const EditarProjeto = () => {
                   escrito="Salvar Alterações"
                   aparencia="primario"
                   type="submit"
-                />
-                <BotaoCTA
-                  escrito="Cancelar"
-                  aparencia="secundario"
-                  cor="cor_primario"
-                  onClick={() => navigate(-1)}
                 />
               </div>
             </form>
