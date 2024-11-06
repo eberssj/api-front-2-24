@@ -1,14 +1,17 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
 import axios from 'axios';
 import { Projeto } from '../Type/Projeto';
 import NotificacaoPedido from '../components/NotificacaoPedido/NotificacaoPedido';
 import NotificacaoAlerta from '../components/NotificacaoAlerta/NotificacaoAlerta';
 import { Sidebar } from '../components/Sidebar/Sidebar';
+import { AuthContext } from '../hook/ContextAuth';
 import '../styles/Notificacoes.css';
 
 const Notificacoes = () => {
     const [projetos, setProjetos] = useState<Projeto[]>([]);
     const [projetosFiltrados, setProjetosFiltrados] = useState<Projeto[]>([]);
+    const [pedidos, setPedidos] = useState<any[]>([]); // Estado para pedidos
+    const { adm } = useContext(AuthContext);
 
     const fetchProjetos = async () => {
         try {
@@ -16,6 +19,36 @@ const Notificacoes = () => {
             setProjetos(response.data);
         } catch (error) {
             console.error('Erro ao buscar projetos:', error);
+        }
+    };
+
+    const fetchPedidos = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/permissao/pedidos", {
+                headers: {
+                    'Authorization': `Bearer ${adm?.token}`,
+                },
+            });
+            setPedidos(response.data);
+        } catch (error) {
+            console.error("Erro ao buscar dados dos pedidos:", error);
+        }
+    };
+
+    const handleAprovar = async (id: number) => {
+        try {
+            await axios.post(`http://localhost:8080/permissao/aceitar/${id}`, null, {
+                headers: {
+                    'Authorization': `Bearer ${adm?.token}`,
+                },
+                params: {
+                    adminAprovadorId: adm?.id,
+                },
+            });
+            alert("Pedido aprovado com sucesso!");
+            setPedidos((prevPedidos) => prevPedidos.filter((pedido) => pedido.id !== id));
+        } catch (error) {
+            console.error("Erro ao aprovar o pedido:", error);
         }
     };
 
@@ -33,7 +66,6 @@ const Notificacoes = () => {
         return `${ano}-${mes}-${dia}`;
     };
 
-
     const filtrarProjetos = useCallback(() => {
         const hoje = new Date();
         const seteDias = new Date();
@@ -45,7 +77,7 @@ const Notificacoes = () => {
         const projetosFiltrados = projetos
             .filter((projeto) => {
                 const dataTermino = new Date(projeto.dataTermino[0], projeto.dataTermino[1] - 1, projeto.dataTermino[2]);
-                const dataTerminoFormatada = formatarData(dataTermino)
+                const dataTerminoFormatada = formatarData(dataTermino);
                 
                 return dataTerminoFormatada >= hojeFormatado && dataTerminoFormatada <= seteDiasFormatado;
             })
@@ -58,15 +90,14 @@ const Notificacoes = () => {
         setProjetosFiltrados(projetosFiltrados);
     }, [projetos]);
 
-    
     useEffect(() => {
         fetchProjetos();
+        fetchPedidos(); // Buscar pedidos ao carregar a página
     }, []);
 
     useEffect(() => {
         filtrarProjetos();
     }, [projetos, filtrarProjetos]);
-    
 
     return (
         <div className="notif_container">
@@ -75,7 +106,13 @@ const Notificacoes = () => {
             <div className="notif_meio">
                 <div className="notif_meio_esq">
                     <h2 className="notif_subtitulo">Pedidos de Alteração</h2>
-                    <NotificacaoPedido />
+                        {pedidos.length > 0 ? (
+                            pedidos.map((pedido) => (
+                                <NotificacaoPedido key={pedido.id} pedido={pedido} onAprovar={handleAprovar} />
+                            ))
+                        ) : (
+                            <p>No momento ainda não há pedidos de alteração</p>
+                        )}
                 </div>
                 <div className="notif_divisoria"></div>
                 <div className="notif_meio_dir">

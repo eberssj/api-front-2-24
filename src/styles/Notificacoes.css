@@ -30,7 +30,7 @@
 .notif_meio_esq, .notif_meio_dir {
     display: flex;
     flex-direction: column;
-    width: 59%;
+    width: 49%;
 }
 
 .notif_divisoria {
