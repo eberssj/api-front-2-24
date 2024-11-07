@@ -7,6 +7,9 @@ import axios from "axios";
 import { AuthContext } from "../hook/ContextAuth";
 import '../styles/Login.css';
 import { erroror, Toast} from "../components/Swal/Swal";
+import Navbar from "../components/Navbar/Navbar";
+import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
+import IconeChave from "../img/chave.svg"
 
 interface JwtPayLoad {
     tipo: string;
@@ -49,6 +52,16 @@ export default function Login() {
                 setIsBlocked(false);
             }
         }
+    }, []);
+
+    useEffect(() => {
+        // Adiciona a classe no-margin ao body quando o componente é montado
+        document.body.classList.add("no-margin");
+        
+        // Remove a classe quando o componente é desmontado
+        return () => {
+            document.body.classList.remove("no-margin");
+        };
     }, []);
 
     const validateSenha = (senha: string): boolean => {
@@ -177,10 +190,12 @@ export default function Login() {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-left-side">
-                <div className="login-form">
-                    <h1>Entre como administrador</h1>
+        <>
+        <Navbar />
+        <div className="login_container">
+            <div className="login_card">
+                <div className="login_card_esq">
+                    <h1>Entrar como administrador</h1>
                     <input
                         aria-placeholder="Email"
                         type="text" 
@@ -195,16 +210,16 @@ export default function Login() {
                         value={password} 
                         onChange={(e) => setPassword(e.target.value)} 
                     />
-                    <button onClick={handleLogin} className="botao-login">Entrar</button>
-                    {mensagemErro && <div className="login-error">{mensagemErro} <br/> {mensagemExemplo}</div>}
-                    {erro && <div className="login-error">Verifique suas informações.</div>}
-                    <p onClick={handleHome} className="link-home">Ir para a Home</p>
+
+                    {mensagemErro && <div className="login_erro">{mensagemErro} <br/> {mensagemExemplo}</div>}
+                    {erro && <div className="login_erro">Credenciais inválidas. Verifique suas informações.</div>}
+                    <BotaoCTA img={IconeChave} escrito="Entrar" onClick={handleLogin} aparencia="primario" />
+                    <p onClick={handleHome} className="login_link">Ir para a página inicial</p>
+                </div>
+                <div className="login_card_dir">
                 </div>
             </div>
-
-            <div className="login-right-side">
-                <img src="../src/img/login.png" alt="" />
-            </div>
         </div>
+        </>
     );
 }
