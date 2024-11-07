@@ -45,6 +45,7 @@
     font-size: 32px;
     font-weight: 700;
     margin-bottom: 16px;
+    text-align: start;
 }
 
 .login_card_esq button {
@@ -65,4 +66,33 @@
 .login_erro {
     font-weight: 500;
     color: #bd2347;
+}
+
+@media only screen and (max-width: 1020px) {
+
+    .login_card {
+        flex-direction: column;
+    }
+
+    .login_card_esq, .login_card_dir {
+        width: 100%;
+    }
+
+    .login_card_dir {
+        height: 400px;
+        border-radius: 0 0 24px 24px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+    .login_container {
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+
+    .login_card_esq {
+        padding: 64px 32px;
+    }
+
 }
