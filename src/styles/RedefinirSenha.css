@@ -1,0 +1,49 @@
+.resen_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 89vh;
+}
+
+.resen_card {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    padding: 64px 128px;
+    background-color: #F8F8F8;
+    border-radius: 24px;
+}
+
+.resen_card form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.resen_card h2 {
+    color: #003383;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.resen_card p {
+    color: #606060;
+    font-weight: 500;
+    margin-bottom: 32px;
+}
+
+.resen_card input {
+    padding: 8px;
+    border: 1px solid #e4e4e4;
+    outline: none;
+}
+
+.resen_card input:focus {
+    border: 2px solid #003383 !important;
+}
+
+.resen_card button {
+    margin-top: 32px;
+}
