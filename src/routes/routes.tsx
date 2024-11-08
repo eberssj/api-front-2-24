@@ -110,9 +110,7 @@ export default function AppRoutes() {
           <Route 
             path="/projeto/:id" 
             element={
-              <PrivateRoutes tiposAllowed={[1, 2]}>
                 <InformacoesProjeto />
-              </PrivateRoutes>
             }
           />
           <Route 
