@@ -125,7 +125,7 @@ export const Sidebar: React.FC = () => {
             </div>
             )}
 
-
+            {adm?.tipo === 1 && (
             <div className={`side_botao ${isAtivoNotificacoes ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`} 
             onClick={() => navigate('/adm/notificacoes')}>
               <img src={isAtivoNotificacoes ? NotificacoesActive : Notificacoes} />
@@ -133,6 +133,7 @@ export const Sidebar: React.FC = () => {
                 {isTelaPequena1400 && !isAbriuSidebar ? 'Notif.' : 'Notificações'}
               </p>
             </div>
+            )}
 
           </div>
           </div>
