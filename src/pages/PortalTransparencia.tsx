@@ -37,6 +37,7 @@ const PortalTransparencia = () => {
         };
 
         fetchProjetos();
+        
     }, []);
 
     const formatarDataParaComparacao = (dataArray: number[]) => {
@@ -148,15 +149,22 @@ const PortalTransparencia = () => {
                         <div>
                             <div>
                                 {projetosFiltrados.map((projeto) => (
-                                    <div className="container-projeto" key={projeto.id}>
-                                        <div className="itens-esquerda">
+                                    <div className="portal_projeto_container" key={projeto.id}>
+                                        <div className="portal_projeto_esq">
                                             <p><span>Referência do projeto:</span> {projeto.referenciaProjeto}</p>
                                             <p><span>Coordenador:</span> {projeto.coordenador}</p>
-                                            <p><span>Situação:</span> {projeto.situacao}</p>
                                         </div>
-                                        <div className="itens-meio">
+                                        <div className="portal_projeto_meio">
                                             <p><span>Início:</span> {formatarDataParaVisualizacao(projeto.dataInicio)}</p>
                                             <p><span>Término:</span> {formatarDataParaVisualizacao(projeto.dataTermino)}</p>
+                                        </div>
+                                        <div className="portal_projeto_dir">
+                                            <p><span>Situação:</span></p>
+                                            <div className="portal_projeto_dir_baixo">
+                                                <div className={`portal_projeto_bolinha ${projeto.situacao !== "Em Andamento" ? "desativado" : ""}`}>
+                                                </div>
+                                                <p className={`portal_projeto_dir_badge ${projeto.situacao !== "Em Andamento" ? "desativado" : ""}`}>{projeto.situacao}</p>
+                                            </div>
                                         </div>
                                         <div className="admin_botao_acoes ver " onClick={() => navigate(`/projeto/${projeto.id}`, { state: projeto })}>
                                             <img src={IconVer} />
