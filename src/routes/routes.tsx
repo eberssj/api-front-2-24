@@ -17,14 +17,20 @@ import CriacaoAdmin from '../pages/CriacaoAdmin';
 import VerAdministrador from '../pages/VerAdministrador';
 import { RedefinirSenha } from '../pages/RedefinirSenha';
 import InformacoesProjetoPendente from '../pages/InformacoesProjetoPendente';
+import { ReactNode } from 'react';
 
-function Layout({ children }) {
+
+interface LayoutProps {
+  children: ReactNode;
+}
+
+function Layout({ children }: LayoutProps) {
   const location = useLocation();
 
   return (
     <>
       {children}
-      {location.pathname !== "/login" && <Footer />}
+      {location.pathname !== "/login" && location.pathname !== "/redefinir-senha" && <Footer />}
     </>
   );
 }

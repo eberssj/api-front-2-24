@@ -32,6 +32,7 @@
     color: #606060;
     font-weight: 500;
     margin-bottom: 32px;
+    text-align: center;
 }
 
 .resen_card input {
@@ -46,4 +47,13 @@
 
 .resen_card button {
     margin-top: 32px;
+}
+
+@media only screen and (max-width: 950px) {
+
+    .resen_card {
+        width: 80%;
+        padding: 32px;
+    }
+
 }
