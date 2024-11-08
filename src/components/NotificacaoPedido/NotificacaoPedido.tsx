@@ -21,9 +21,10 @@ interface PermissaoDto {
 interface NotificacaoPedidoProps {
   pedido: PermissaoDto;
   onAprovar: (id: number) => void;
+  onRejeitar: (id: number) => void;
 }
 
-function NotificacaoPedido({ pedido, onAprovar }: NotificacaoPedidoProps) {
+function NotificacaoPedido({ pedido, onAprovar, onRejeitar }: NotificacaoPedidoProps) {
   const navigate = useNavigate();
 
   const handleVisualizar = (informacoesProjeto: string) => {
@@ -40,14 +41,8 @@ function NotificacaoPedido({ pedido, onAprovar }: NotificacaoPedidoProps) {
       <div className="noped_baixo">
         <BotaoCTA img={Visualizar} escrito="Ver" aparencia="primario" onClick={() => handleVisualizar(pedido.informacaoProjeto)} />
         <div className="noped_baixo_dir">
-          <BotaoCTA
-            img={Aprovar}
-            escrito=""
-            aparencia="primario"
-            cor="verde"
-            onClick={() => onAprovar(pedido.id)}
-          />
-          <BotaoCTA img={Lixeira} escrito="" aparencia="primario" cor="vermelho" />
+          <BotaoCTA img={Aprovar} escrito="" aparencia="primario" cor="verde" onClick={() => onAprovar(pedido.id)} />
+          <BotaoCTA img={Lixeira} escrito="" aparencia="primario" cor="vermelho" onClick={() => onRejeitar(pedido.id)} />
         </div>
       </div>
     </div>
