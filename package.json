@@ -31,13 +31,17 @@
     "react-dom": "^18.3.1",
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^6.26.2",
-    "sweetalert2": "^11.14.4"
+    "react-text-mask": "^5.5.0",
+    "sweetalert2": "^11.14.4",
+    "text-mask-addons": "^3.8.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.0",
+    "@types/react-input-mask": "^3.0.6",
+    "@types/react-text-mask": "^5.4.14",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.9.0",

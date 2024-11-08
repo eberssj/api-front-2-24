@@ -26,6 +26,14 @@ const VerAdministrador = () => {
     fetchAdmin();
   }, [id, adm]);
 
+  const formatCPF = (cpf: string) => {
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  };
+
+  const formatTelefone = (telefone: string) => {
+    return telefone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+  };
+
   if (!admin) {
     return <p>Carregando...</p>;
   }
@@ -37,9 +45,9 @@ const VerAdministrador = () => {
         <h1>Informações do Administrador</h1>
         <div className="verad_info">
           <p><strong>Nome:</strong> {admin.nome}</p>
-          <p><strong>CPF:</strong> {admin.cpf}</p>
+          <p><strong>CPF:</strong> {admin.cpf ? formatCPF(admin.cpf) : "Não informado"}</p>
           <p><strong>Email:</strong> {admin.email}</p>
-          <p><strong>Telefone:</strong> ({admin.telefone?.ddd}) {admin.telefone?.numero}</p>
+          <p><strong>Telefone:</strong> {typeof admin.telefone === 'string' ? formatTelefone(admin.telefone) : "Não informado"}</p>
           <p><strong>Ativo:</strong> {admin.ativo ? "Sim" : "Não"}</p>
           <p><strong>Tipo:</strong> {Number(admin.tipo) === 1 ? "Super Admin" : Number(admin.tipo) === 2 ? "Admin" : "Tipo Desconhecido"}</p>
           <p className="verad_cad"><strong>Data de Cadastro:</strong> {admin.dataCadastro ? (admin.dataCadastro instanceof Date ? admin.dataCadastro.toLocaleDateString("pt-BR") : admin.dataCadastro) : "Não informado"}</p>
