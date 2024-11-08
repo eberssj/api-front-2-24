@@ -159,14 +159,20 @@ const PortalTransparencia = () => {
                                             <p><span>Término:</span> {formatarDataParaVisualizacao(projeto.dataTermino)}</p>
                                         </div>
                                         <div className="portal_projeto_dir">
-                                            <p><span>Situação:</span></p>
-                                            <div className="portal_projeto_dir_baixo">
-                                                <div className={`portal_projeto_bolinha ${projeto.situacao !== "Em Andamento" ? "desativado" : ""}`}>
+                                            <div>
+                                                <p><span>Situação:</span></p>
+                                                <div className="portal_projeto_dir_baixo">
+                                                    <div className={`portal_projeto_bolinha ${projeto.situacao !== "Em Andamento" ? "desativado" : ""}`}>
+                                                    </div>
+                                                    <p className={`portal_projeto_dir_badge ${projeto.situacao !== "Em Andamento" ? "desativado" : ""}`}>{projeto.situacao}</p>
                                                 </div>
-                                                <p className={`portal_projeto_dir_badge ${projeto.situacao !== "Em Andamento" ? "desativado" : ""}`}>{projeto.situacao}</p>
                                             </div>
+                                            <div className="admin_botao_acoes ver mobile" onClick={() => navigate(`/projeto/${projeto.id}`, { state: projeto })}>
+                                            <img src={IconVer} />
+                                            <h2>Ver</h2>
                                         </div>
-                                        <div className="admin_botao_acoes ver " onClick={() => navigate(`/projeto/${projeto.id}`, { state: projeto })}>
+                                        </div>
+                                        <div className="admin_botao_acoes ver desktop" onClick={() => navigate(`/projeto/${projeto.id}`, { state: projeto })}>
                                             <img src={IconVer} />
                                             <h2>Ver</h2>
                                         </div>
