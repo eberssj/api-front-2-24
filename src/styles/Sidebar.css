@@ -166,6 +166,32 @@
     filter: brightness(95%);
 }
 
+.confirmButton, .denyButton {
+    box-shadow: none !important;
+}
+
+.confirmButton:hover {
+    filter: brightness(90%);
+}
+
+.denyButton {
+    background-color: white !important;
+    border: 2px solid #003383 !important;
+    color: #003383 !important;
+    margin-left: 32px;
+}
+
+.denyButton:hover {
+    background-color: white !important;
+    filter: none !important;
+    border: 2px solid #05214d !important;
+    color: #05214d !important;
+}
+
+.swal2-actions:not(.swal2-loading) .swal2-styled:hover {
+    background-image: none;
+}
+
 @media (max-width: 1200px) {
 
     .sidebar {

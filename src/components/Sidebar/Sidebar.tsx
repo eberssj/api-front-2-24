@@ -68,24 +68,34 @@ export const Sidebar: React.FC = () => {
   const handleSignout = () => {
     Swal.fire({
       title: "Deseja realmente sair?",
+      text: "Será necessário fazer login novamente.",
       showDenyButton: true,
       confirmButtonText: "Sim",
       denyButtonText: "Não",
-      width: 410,
-      confirmButtonColor: 'rgb(255, 0, 53)',
-      denyButtonColor: 'rgb(0,114,187)',
+      confirmButtonColor: 'rgb(0,51,131)',
+      denyButtonColor: 'rgb(0,51,131)',
       heightAuto: false,
-      backdrop: false, 
+      backdrop: true, 
       customClass: { 
-        confirmButton: 'cButton',
-        denyButton: 'dButton',
+        confirmButton: 'confirmButton',
+        denyButton: 'denyButton',
       }
     }).then((result) => {
       if (result.isConfirmed) {
         Toast.fire({
           icon: 'success',
-          title: 'Logout realizado com sucesso!'
-        });
+          title: 'Logout realizado com sucesso!',
+          position: 'top',
+          background: '#ffffff',
+          timerProgressBar: true,
+          didOpen: (toast) => {
+              toast.style.marginTop = '32px';
+              const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+              if (progressBar) {
+                  progressBar.style.backgroundColor = '#28a745'; // Define a cor verde para a barra de progresso
+              }
+          }
+      });      
         logout();
         navigate("/login");
       }
