@@ -38,6 +38,10 @@
     margin-top: 48px;
 }
 
+.cadpro_file_baixo.bottom {
+    margin-bottom: 16px;
+}
+
 
 @media only screen and (max-width: 768px) {
     

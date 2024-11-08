@@ -280,7 +280,7 @@ const EditarProjeto = () => {
                   ))}
                 </div>
               ) : (
-                <p className="cadpro_label">Ainda não há arquivos existentes</p>
+                <p className="cadpro_file_baixo bottom">Ainda não há arquivos existentes</p>
               )}
       
             <h3 className="cadpro_label">Adicionar Novo Arquivo</h3>
