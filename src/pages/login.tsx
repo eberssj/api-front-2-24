@@ -152,8 +152,18 @@ export default function Login() {
                 setAdm(admData);
                 Toast.fire({
                     icon: 'success',
-                    title: 'Login efetuado com sucesso!',
-                });
+                    title: 'Login realizado com sucesso!',
+                    position: 'top',
+                    background: '#ffffff',
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.style.marginTop = '32px';
+                        const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                        if (progressBar) {
+                            progressBar.style.backgroundColor = '#28a745'; // Define a cor verde para a barra de progresso
+                        }
+                    }
+                });   
                 navigate("/", { replace: true });
 
                 localStorage.setItem("loginAttempts", "0");

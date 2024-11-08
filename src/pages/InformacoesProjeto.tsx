@@ -89,17 +89,18 @@ const InformacoesProjeto = () => {
             // Se o administrador for do tipo 2, faz a solicitação de exclusão
             Swal.fire({
                 title: 'Deseja solicitar a exclusão do projeto?',
+                text: 'Esta ação não pode ser desfeita.',
                 showDenyButton: true,
                 confirmButtonText: 'Sim',
                 denyButtonText: 'Não',
-                width: 410,
-                confirmButtonColor: 'rgb(255, 0, 53)',
+                width: 620,
+                confirmButtonColor: 'rgb(224, 40, 86)',
                 denyButtonColor: 'rgb(0,114,187)',
                 heightAuto: false,
                 backdrop: true,
                 customClass: {
-                    confirmButton: 'cButton',
-                    denyButton: 'dButton',
+                    confirmButton: 'confirmButton',
+                    denyButton: 'denyButton',
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -114,28 +115,40 @@ const InformacoesProjeto = () => {
                     .then(() => {
                         Toast.fire({
                             icon: 'success',
-                            title: 'Solicitação de exclusão enviada com sucesso!'
+                            title: "Solicitação de exclusão enviada com sucesso!",
+                            position: 'top',
+                            background: '#ffffff',
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.style.marginTop = '32px';
+                                const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                                if (progressBar) {
+                                    progressBar.style.backgroundColor = '#28a745';
+                                }
+                            }
                         });
                         navigate("/");
                     })
                     .catch(error => console.error('Erro ao solicitar exclusão do projeto:', error));
                 }
             });
+            
         } else {
             // Se o administrador não for do tipo 2, deleta o projeto diretamente
             Swal.fire({
                 title: 'Deseja deletar o projeto?',
+                text: 'Esta ação não pode ser desfeita.',
                 showDenyButton: true,
                 confirmButtonText: 'Sim',
                 denyButtonText: 'Não',
-                width: 410,
-                confirmButtonColor: 'rgb(255, 0, 53)',
+                width: 420,
+                confirmButtonColor: 'rgb(224, 40, 86)',
                 denyButtonColor: 'rgb(0,114,187)',
                 heightAuto: false,
                 backdrop: true,
                 customClass: {
-                    confirmButton: 'cButton',
-                    denyButton: 'dButton',
+                    confirmButton: 'confirmButton',
+                    denyButton: 'denyButton',
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -147,7 +160,17 @@ const InformacoesProjeto = () => {
                     .then(() => {
                         Toast.fire({
                             icon: 'success',
-                            title: 'Projeto deletado com sucesso!'
+                            title: "Projeto deletado com sucesso!",
+                            position: 'top',
+                            background: '#ffffff',
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.style.marginTop = '32px';
+                                const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                                if (progressBar) {
+                                    progressBar.style.backgroundColor = '#28a745';
+                                }
+                            }
                         });
                         navigate("/");
                     })
