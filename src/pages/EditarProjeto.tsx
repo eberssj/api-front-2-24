@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import '../styles/EditarProjeto.css';
 import { Sidebar } from '../components/Sidebar/Sidebar';
@@ -15,6 +15,7 @@ interface Arquivo {
 }
 
 interface Projeto {
+    id: number;
     referenciaProjeto: string;
     empresa: string;
     objeto: string;
@@ -40,6 +41,7 @@ const EditarProjeto = () => {
         contratos: File | null;
         artigos: File | null;
     }>({ propostas: null, contratos: null, artigos: null });
+    const [valorFormatado, setValorFormatado] = useState<string>('');
     const [arquivosParaExcluir, setArquivosParaExcluir] = useState<number[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -49,7 +51,11 @@ const EditarProjeto = () => {
                 const response = await axios.get(`http://localhost:8080/projeto/${id}`, {
                     headers: { Authorization: `Bearer ${adm?.token}` },
                 });
-                setFormData(response.data || null);
+                const projeto = response.data;
+                projeto.dataInicio = formatarDataParaInput(projeto.dataInicio);
+                projeto.dataTermino = formatarDataParaInput(projeto.dataTermino);
+                setFormData(projeto);
+                setValorFormatado(formatarValor(projeto.valor));
             } catch (error) {
                 console.error('Erro ao carregar o projeto:', error);
             } finally {
@@ -80,9 +86,33 @@ const EditarProjeto = () => {
         artigos: 'Nenhum arquivo foi subido ainda.',
     });
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const formatarValor = (valor: number | string) => {
+        const valorNumerico = typeof valor === 'string' ? parseFloat(valor) : valor;
+        return valorNumerico.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).replace(/\s/g, '');
+    };
+
+    const formatarDataParaInput = (dataArray: number[]): string => {
+        if (Array.isArray(dataArray) && dataArray.length === 3) {
+            const [ano, mes, dia] = dataArray;
+            return `${ano}-${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+        }
+        return '';
+    };
+
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData((prevData) => (prevData ? { ...prevData, [name]: value } : prevData));
+        if (name === 'valor') {
+            const numericValue = parseFloat(value.replace(/\D/g, '')) / 100;
+            setFormData((prevData) => (prevData ? { ...prevData, [name]: numericValue } : prevData));
+            setValorFormatado(formatarValor(numericValue));
+        } else {
+            setFormData((prevData) => (prevData ? { ...prevData, [name]: value } : prevData));
+        }
     };
 
     const handleArquivoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,6 +136,7 @@ const EditarProjeto = () => {
             if (formData) {
                 const projeto = {
                     ...formData,
+                    valor: parseFloat(formData.valor.toString().replace(/\D/g, '')) / 100,
                     adm: adm?.id,
                 };
                 data.append('projeto', new Blob([JSON.stringify(projeto)], { type: 'application/json' }));
@@ -187,11 +218,11 @@ const EditarProjeto = () => {
                 <div className="cadpro_secao_dir">
                   <label className="cadpro_label">Valor</label>
                   <input
-                    type="number"
-                    className="input-padrao"
-                    name="valor"
-                    value={formData.valor}
-                    onChange={handleInputChange}
+                      type="text"
+                      className="input-padrao"
+                      name="valor"
+                      value={valorFormatado}
+                      onChange={handleInputChange}
                   />
                   <div className="checkbox-container">
                     <input
