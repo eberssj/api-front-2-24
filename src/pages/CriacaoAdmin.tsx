@@ -7,7 +7,7 @@ import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
 import { AuthContext } from "../hook/ContextAuth";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import "../styles/CriacaoAdmin.css";
-import { Toast } from '../components/Swal/Swal'
+import { Toast } from '../components/Swal/Swal';
 
 interface Adm {
     id: number;
@@ -29,9 +29,9 @@ const CriacaoAdmin: React.FC = () => {
     const isEditMode = Boolean(id);
 
     const [novoAdm, setNovoAdm] = useState<Partial<Adm>>({
-        tipo: 2, // Valor padrão para administrador comum
-        ativo: true, // Ao criar Admin ele vira ativo por padrão
-        dataCadastro: new Date().toLocaleDateString("pt-BR")
+        tipo: 2,
+        ativo: true,
+        dataCadastro: new Date().toLocaleDateString("pt-BR"),
     });
 
     const [senhaAntiga, setSenhaAntiga] = useState<string>('');
@@ -50,8 +50,8 @@ const CriacaoAdmin: React.FC = () => {
             .then((response) => {
                 response.data.cpf = formatCPF(response.data.cpf);
                 response.data.telefone = formatTelefone(response.data.telefone);
-                setNovoAdm(response.data); // Preenche o estado com os dados do admin
-                setSenhaAntiga(response.data.senha); // Salva a senha antiga para comparação
+                setNovoAdm(response.data);
+                setSenhaAntiga(response.data.senha);
             })
             .catch((error) => console.error("Erro ao carregar administrador:", error));
         }
@@ -60,10 +60,6 @@ const CriacaoAdmin: React.FC = () => {
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setNovoAdm((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleTipoChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setNovoAdm((prev) => ({ ...prev, tipo: parseInt(e.target.value) }));
     };
 
     const salvarAdm = async (e: FormEvent) => {
@@ -82,51 +78,37 @@ const CriacaoAdmin: React.FC = () => {
 
         try {
             const salt = bcrypt.genSaltSync(10);
-            const senhaCriptografada = bcrypt.hashSync(novoAdm.senha || '', salt);
+            let senhaCriptografada = '';
+
+            if (isEditMode && novoAdm.senha && senhaAntiga !== novoAdm.senha) {
+                senhaCriptografada = bcrypt.hashSync(novoAdm.senha, salt);
+            }
 
             const admData = {
                 ...novoAdm,
-                senha: senhaCriptografada,
-                cpf: novoAdm.cpf?.replace(/\D/g, ''), // Remove caracteres de máscara
-                telefone: novoAdm.telefone?.replace(/\D/g, '') // Remove caracteres de máscara
+                senha: senhaCriptografada || novoAdm.senha,
+                cpf: novoAdm.cpf?.replace(/\D/g, ''),
+                telefone: novoAdm.telefone?.replace(/\D/g, ''),
             };
 
-            novoAdm.cpf = novoAdm.cpf?.replace(/\D/g, '');
-            novoAdm.telefone = novoAdm.telefone?.replace(/\D/g, '');
-
-            if (isEditMode && senhaAntiga !== novoAdm.senha) {
-                const senhaCriptografada = bcrypt.hashSync(novoAdm.senha || '', salt);
-                novoAdm.senha = senhaCriptografada;
-            }
+            let response;
 
             if (isEditMode) {
-                await axios.put(`http://localhost:8080/adm/${id}`, novoAdm, {
-                    headers: { Authorization: `Bearer ${adm.token}` },
-                    params: { idSuperAdm: adm.id }
-                });
-                
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Administrador editado com sucesso!',
-                    position: 'top',
-                    background: '#ffffff',
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.style.marginTop = '32px';
-                        const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
-                        if (progressBar) {
-                            progressBar.style.backgroundColor = '#28a745'; // Define a cor verde para a barra de progresso
-                        }
-                    }
-                });
-            } else {
-                await axios.post("http://localhost:8080/adm/criar", admData, {
+                response = await axios.put(`http://localhost:8080/adm/${id}`, admData, {
                     headers: { Authorization: `Bearer ${adm.token}` },
                     params: { idSuperAdm: adm.id },
                 });
+            } else {
+                response = await axios.post("http://localhost:8080/adm/criar", admData, {
+                    headers: { Authorization: `Bearer ${adm.token}` },
+                    params: { idSuperAdm: adm.id },
+                });
+            }
+
+            if (response.status === 200) {
                 Toast.fire({
                     icon: 'success',
-                    title: 'Administrador criado com sucesso!',
+                    title: response.data.message || (isEditMode ? 'Administrador editado com sucesso!' : 'Administrador criado com sucesso!'),
                     position: 'top',
                     background: '#ffffff',
                     timerProgressBar: true,
@@ -134,16 +116,19 @@ const CriacaoAdmin: React.FC = () => {
                         toast.style.marginTop = '32px';
                         const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
                         if (progressBar) {
-                            progressBar.style.backgroundColor = '#28a745'; // Define a cor verde para a barra de progresso
+                            progressBar.style.backgroundColor = '#28a745';
                         }
                     }
                 });
-            }
 
-            navigate("/adm/administradores");
-        } catch (error) {
+                navigate("/adm/administradores");
+            } else {
+                throw new Error(response.data.message || 'Erro inesperado.');
+            }
+        } catch (error: any) {
             console.error("Erro ao salvar administrador:", error);
-            alert("Erro ao salvar administrador.");
+            const errorMessage = error.response?.data?.message || "Erro ao salvar administrador.";
+            alert(errorMessage);
         }
     };
 
@@ -219,52 +204,20 @@ const CriacaoAdmin: React.FC = () => {
                     </div>
 
                     <div className="criad_form_linha baixo">
-                        <div className="criad_form_linha_input">
-                            <label htmlFor="senha">Senha:</label>
-                            <input
-                                type="password"
-                                id="senha"
-                                name="senha"
-                                placeholder={isEditMode ? "Digite a nova senha..." : "Digite aqui..."}
-                                onChange={handleChange}
-                                minLength={8}
-                                required={!isEditMode}
-                            />
-                        </div>
-                    </div>
-                    
-                    {!isEditMode && (
-                        <>
-                            <p>Tipo de Administrador:</p>
-                            <div className="criad_form_linha_radio">
-                                <div className="criad_form_linha_radio_tipo">
-                                    <input
-                                        type="radio"
-                                        id="super_admin"
-                                        name="tipo"
-                                        value="1"
-                                        checked={novoAdm.tipo === 1}
-                                        onChange={handleTipoChange}
-                                        required
-                                    />
-                                    <label htmlFor="super_admin">Super Admin</label>
-                                </div>
-
-                                <div className="criad_form_linha_radio_tipo">
-                                    <input
-                                        type="radio"
-                                        id="admin"
-                                        name="tipo"
-                                        value="2"
-                                        checked={novoAdm.tipo === 2}
-                                        onChange={handleTipoChange}
-                                        required
-                                    />
-                                    <label htmlFor="admin">Admin</label>
-                                </div>
+                        {isEditMode && (
+                            <div className="criad_form_linha_input">
+                                <label htmlFor="senha">Senha:</label>
+                                <input
+                                    type="password"
+                                    id="senha"
+                                    name="senha"
+                                    placeholder="Digite aqui..."
+                                    onChange={handleChange}
+                                    minLength={8}
+                                />
                             </div>
-                        </>
-                    )}
+                        )}
+                    </div>
 
                     <div className="criad_botao_cad">
                         <BotaoCTA escrito={isEditMode ? "Salvar" : "Cadastrar"} aparencia="primario" type="submit" />
