@@ -1,8 +1,8 @@
 .noped_container {
     background-color: #F5F5F5;
-    padding: 20px;
     margin-top: 24px;
     border-radius: 8px;
+    color: #404040;
 }
 
 .noped_container h1 {
@@ -10,12 +10,13 @@
     font-size: 1.25rem;
     font-weight: 700;
     text-align: start !important;
+    padding: 24px 24px 0px 24px;
 }
 
 .noped_hr {
     margin-top: 20px;
     margin-bottom: 20px;
-    height: 2px !important;
+    height: 1px !important;
     background-color: #b0b0b0 !important;
 }
 
@@ -23,6 +24,11 @@
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
+    padding: 0px 24px 24px 24px;
+}
+
+.noped_container p {
+    padding: 0px 24px 0px 24px;
 }
 
 .noped_baixo_dir {

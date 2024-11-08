@@ -99,11 +99,6 @@ const Notificacoes = () => {
         filtrarProjetos();
     }, [projetos, filtrarProjetos]);
 
-    const fecharNotifAlerta = (id: number) => {
-        setProjetosFiltrados((prevProjetos) => prevProjetos.filter((projeto) => projeto.id !== id));
-    };
-    
-
     return (
         <div className="notif_container">
             <Sidebar />
@@ -132,7 +127,6 @@ const Notificacoes = () => {
                                     dataInicio={projeto.dataInicio}
                                     dataTermino={projeto.dataTermino}
                                     diasParaVencer={diasParaVencer}
-                                    fechar={() => fecharNotifAlerta(projeto.id)}
                                 />
                             );
                         })

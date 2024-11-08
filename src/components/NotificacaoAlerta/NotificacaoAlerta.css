@@ -1,8 +1,8 @@
 .noale_container {
     background-color: #F5F5F5;
-    padding: 20px;
     margin-top: 24px;
     border-radius: 8px;
+    color: #404040;
 }
 
 .noale_container h1 {
@@ -15,13 +15,14 @@
 .noale_hr {
     margin-top: 20px;
     margin-bottom: 20px;
-    height: 2px !important;
+    height: 1px !important;
     background-color: #b0b0b0 !important;
 }
 
 .noale_cima {
     display: flex;
     justify-content: space-between;
+    padding: 24px 24px 0px 24px;
 }
 
 .noale_cima img:hover {
@@ -31,11 +32,13 @@
 
 .noale_aviso {
     margin-bottom: 16px;
+    padding: 0px 24px 0px 24px;
 }
 
 .noale_aviso_baixo {
     display: flex;
     justify-content: space-between;
+    padding: 0px 24px 24px 24px;
 }
 
 @media only screen and (max-width: 1400px) and (min-width: 768px) {

@@ -3,14 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import "./NotificacaoAlerta.css";
 import BotaoCTA from "../BotaoCTA/BotaoCTA";
 import Visualizar from "../NotificacaoPedido/visualizar.svg";
-import IconeFechar from "./fechar.svg"
 
 interface NotificacaoAlertaProps {
   id: number;
   dataInicio: number[];
   dataTermino: number[];
   diasParaVencer: number;
-  fechar: () => void;
 }
 
 const formatarDataParaVisualizacao = (dataArray: number[]) => {
@@ -21,14 +19,13 @@ const formatarDataParaVisualizacao = (dataArray: number[]) => {
   return '';
 };
 
-const NotificacaoAlerta: React.FC<NotificacaoAlertaProps> = ({ id, dataInicio, dataTermino, diasParaVencer, fechar }) => {
+const NotificacaoAlerta: React.FC<NotificacaoAlertaProps> = ({ id, dataInicio, dataTermino, diasParaVencer}) => {
   const navigate = useNavigate();
 
   return (
     <div className="noale_container">
       <div className="noale_cima">
         <h1>PROJETO ID {id}</h1>
-        <img src={IconeFechar} onClick={fechar}/>
       </div>
       <div className="noale_hr"></div>
       <p className="noale_aviso">{diasParaVencer === 0 ? "Este projeto vencerá HOJE." : `Este projeto vencerá em ${diasParaVencer} dia(s).`} </p>
