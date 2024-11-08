@@ -7,6 +7,7 @@ import { AuthContext } from '../hook/ContextAuth';
 import BotaoCTA from '../components/BotaoCTA/BotaoCTA';
 import criarProjeto from '../img/criar_projeto.svg';
 import Lixeira from "../img/lixeira.svg";
+import { Toast } from '../components/Swal/Swal'
 
 interface Arquivo {
     id: number;
@@ -155,7 +156,20 @@ const EditarProjeto = () => {
                 },
             });
 
-            alert('Projeto atualizado com sucesso!');
+            Toast.fire({
+              icon: 'success',
+              title: "Projeto atualizado com sucesso!",
+              position: 'top',
+              background: '#ffffff',
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                  toast.style.marginTop = '32px';
+                  const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                  if (progressBar) {
+                      progressBar.style.backgroundColor = '#28a745';
+                  }
+              }
+          });
             navigate("/");
         } catch (error) {
             console.error('Erro ao atualizar o projeto:', error);

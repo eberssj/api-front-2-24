@@ -10,6 +10,7 @@ import IconVer from "../img/ver.svg"
 import IconUnplug from "../img/unplug.svg"
 import UserAdd from "../img/user_add.svg"
 import { useNavigate } from "react-router-dom";
+import { Toast } from '../components/Swal/Swal'
 
 export const Administradores = () => {
 
@@ -55,10 +56,30 @@ export const Administradores = () => {
                     adm.id === id ? { ...adm, ativo: novoStatus } : adm
                 )
             );
+
+            Toast.fire({
+                icon: 'success',
+                title: novoStatus ? 'Administrador ativado com sucesso!' : 'Administrador desativado com sucesso!',
+                position: 'top',
+                background: '#ffffff',
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.style.marginTop = '32px';
+                    const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = '#28a745';
+                    }
+                }
+            });
         } catch (error) {
             console.error("Erro ao atualizar o status do administrador:", error);
+            Toast.fire({
+                icon: 'error',
+                title: 'Erro ao atualizar o status do administrador.'
+            });
         }
     };
+    
     
     
 

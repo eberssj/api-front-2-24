@@ -6,6 +6,7 @@ import NotificacaoAlerta from '../components/NotificacaoAlerta/NotificacaoAlerta
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import { AuthContext } from '../hook/ContextAuth';
 import '../styles/Notificacoes.css';
+import { Toast } from '../components/Swal/Swal'
 
 const Notificacoes = () => {
     const [projetos, setProjetos] = useState<Projeto[]>([]);
@@ -45,7 +46,20 @@ const Notificacoes = () => {
                     adminAprovadorId: adm?.id,
                 },
             });
-            alert("Pedido aprovado com sucesso!");
+            Toast.fire({
+                icon: 'success',
+                title: "Pedido aprovado com sucesso!",
+                position: 'top',
+                background: '#ffffff',
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.style.marginTop = '32px';
+                    const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = '#28a745';
+                    }
+                }
+            });
             setPedidos((prevPedidos) => prevPedidos.filter((pedido) => pedido.id !== id));
         } catch (error) {
             console.error("Erro ao aprovar o pedido:", error);

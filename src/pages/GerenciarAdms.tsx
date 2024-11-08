@@ -2,9 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../hook/ContextAuth"; 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/GerenciarAdms.css"; // CSS para layout
-
-
+import "../styles/GerenciarAdms.css";
 
 const GerenciarAdms: React.FC = () => {
     const { adm } = useContext(AuthContext);
@@ -23,7 +21,7 @@ const GerenciarAdms: React.FC = () => {
     }, [adm, navigate]);
 
     const listarAdms = async () => {
-        if (!adm) return; // Verifica se 'adm' não é nulo ou indefinido
+        if (!adm) return;
 
         try {
             const response = await axios.get("http://localhost:8080/adm/listar", {

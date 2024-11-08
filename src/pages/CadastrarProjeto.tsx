@@ -124,7 +124,20 @@ const CadastrarProjeto = () => {
               Authorization: `Bearer ${adm?.token}`,
             },
           });
-          Toast.fire({ icon: 'success', title: 'Projeto cadastrado com sucesso!' });
+          Toast.fire({
+            icon: 'success',
+            title: 'Projeto cadastrado com sucesso!',
+            position: 'top',
+            background: '#ffffff',
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.style.marginTop = '32px';
+                const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                if (progressBar) {
+                    progressBar.style.backgroundColor = '#28a745'; // Define a cor verde para a barra de progresso
+                }
+            }
+        });   
           navigate("/");
         } catch (error) {
           erroror('Não foi possível cadastrar o projeto.');
@@ -158,7 +171,20 @@ const CadastrarProjeto = () => {
               Authorization: `Bearer ${adm?.token}`,
             },
           });
-          Toast.fire({ icon: 'success', title: 'Solicitação de criação enviada com sucesso!' });
+          Toast.fire({
+            icon: 'success',
+            title: 'Solicitação de criação de projeto enviada com sucesso!',
+            position: 'top',
+            background: '#ffffff',
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.style.marginTop = '32px';
+                const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                if (progressBar) {
+                    progressBar.style.backgroundColor = '#28a745'; // Define a cor verde para a barra de progresso
+                }
+            }
+        });   
           navigate("/");
         } catch (error) {
           erroror('Não foi possível solicitar a criação da permissão.');

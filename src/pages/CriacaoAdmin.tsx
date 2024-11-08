@@ -7,6 +7,7 @@ import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
 import { AuthContext } from "../hook/ContextAuth";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import "../styles/CriacaoAdmin.css";
+import { Toast } from '../components/Swal/Swal'
 
 interface Adm {
     id: number;
@@ -104,13 +105,39 @@ const CriacaoAdmin: React.FC = () => {
                     params: { idSuperAdm: adm.id }
                 });
                 
-                alert("Administrador atualizado com sucesso!");
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Administrador editado com sucesso!',
+                    position: 'top',
+                    background: '#ffffff',
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.style.marginTop = '32px';
+                        const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                        if (progressBar) {
+                            progressBar.style.backgroundColor = '#28a745'; // Define a cor verde para a barra de progresso
+                        }
+                    }
+                });
             } else {
                 await axios.post("http://localhost:8080/adm/criar", admData, {
                     headers: { Authorization: `Bearer ${adm.token}` },
                     params: { idSuperAdm: adm.id },
                 });
-                alert("Administrador criado com sucesso!");
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Administrador criado com sucesso!',
+                    position: 'top',
+                    background: '#ffffff',
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.style.marginTop = '32px';
+                        const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                        if (progressBar) {
+                            progressBar.style.backgroundColor = '#28a745'; // Define a cor verde para a barra de progresso
+                        }
+                    }
+                });
             }
 
             navigate("/adm/administradores");
