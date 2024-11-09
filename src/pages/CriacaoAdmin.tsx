@@ -183,7 +183,7 @@ const CriacaoAdmin: React.FC = () => {
                                 id="cpf"
                                 name="cpf"
                                 value={novoAdm.cpf || ''}
-                                placeholder="Digite aqui..."
+                                placeholder="___.___.___-__"
                                 required
                                 onChange={handleChange}
                             />
@@ -196,7 +196,7 @@ const CriacaoAdmin: React.FC = () => {
                                 id="telefone"
                                 name="telefone"
                                 value={novoAdm.telefone || ''}
-                                placeholder="Digite aqui..."
+                                placeholder="(__) _____-____"
                                 required
                                 onChange={handleChange}
                             />
