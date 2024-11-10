@@ -7,7 +7,7 @@ import { AuthContext } from '../hook/ContextAuth';
 import BotaoCTA from '../components/BotaoCTA/BotaoCTA';
 import criarProjeto from '../img/criar_projeto.svg';
 import Lixeira from "../img/lixeira.svg";
-import { Toast } from '../components/Swal/Swal'
+import { Toast } from '../components/Swal/Swal';
 
 interface Arquivo {
     id: number;
@@ -43,9 +43,15 @@ const EditarProjeto = () => {
         artigos: File | null;
     }>({ propostas: null, contratos: null, artigos: null });
     const [valorFormatado, setValorFormatado] = useState<string>('');
+    const [fileName, setFileName] = useState({
+        propostas: 'Nenhum arquivo foi subido ainda.',
+        contratos: 'Nenhum arquivo foi subido ainda.',
+        artigos: 'Nenhum arquivo foi subido ainda.',
+    });
     const [arquivosParaExcluir, setArquivosParaExcluir] = useState<number[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    // Função para carregar os dados do projeto
     useEffect(() => {
         const fetchProjeto = async () => {
             try {
@@ -53,8 +59,6 @@ const EditarProjeto = () => {
                     headers: { Authorization: `Bearer ${adm?.token}` },
                 });
                 const projeto = response.data;
-                projeto.dataInicio = formatarDataParaInput(projeto.dataInicio);
-                projeto.dataTermino = formatarDataParaInput(projeto.dataTermino);
                 setFormData(projeto);
                 setValorFormatado(formatarValor(projeto.valor));
             } catch (error) {
@@ -64,45 +68,12 @@ const EditarProjeto = () => {
             }
         };
 
-        const fetchArquivos = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8080/arquivos/projeto/${id}`, {
-                    headers: { Authorization: `Bearer ${adm?.token}` },
-                });
-                setArquivosExistentes(response.data);
-            } catch (error) {
-                console.error('Erro ao carregar arquivos:', error);
-            }
-        };
-
-        if (adm && id) {
-            fetchProjeto();
-            fetchArquivos();
-        }
+        if (adm && id) fetchProjeto();
     }, [adm, id]);
-
-    const [fileName, setFileName] = useState({
-        propostas: 'Nenhum arquivo foi subido ainda.',
-        contratos: 'Nenhum arquivo foi subido ainda.',
-        artigos: 'Nenhum arquivo foi subido ainda.',
-    });
 
     const formatarValor = (valor: number | string) => {
         const valorNumerico = typeof valor === 'string' ? parseFloat(valor) : valor;
-        return valorNumerico.toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        }).replace(/\s/g, '');
-    };
-
-    const formatarDataParaInput = (dataArray: number[]): string => {
-        if (Array.isArray(dataArray) && dataArray.length === 3) {
-            const [ano, mes, dia] = dataArray;
-            return `${ano}-${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
-        }
-        return '';
+        return valorNumerico.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -116,12 +87,12 @@ const EditarProjeto = () => {
         }
     };
 
-    const handleArquivoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleArquivoChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, files } = e.target;
         if (files && files.length > 0) {
             setArquivosNovos((prev) => ({ ...prev, [name]: files[0] }));
+            setFileName((prev) => ({ ...prev, [name]: files[0].name }));
         }
-        setFileName((prev) => ({ ...prev, [name]: files ? files[0].name : 'Nenhum arquivo foi subido ainda.' }));
     };
 
     const handleExcluirArquivo = (arquivoId: number) => {
@@ -132,15 +103,18 @@ const EditarProjeto = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        if (adm?.tipo === 1) {
+            await salvarProjeto();
+        } else {
+            await enviarSolicitacaoEdicao();
+        }
+    };
+
+    const salvarProjeto = async () => {
         try {
             const data = new FormData();
             if (formData) {
-                const projeto = {
-                    ...formData,
-                    valor: parseFloat(formData.valor.toString().replace(/\D/g, '')) / 100,
-                    adm: adm?.id,
-                };
-                data.append('projeto', new Blob([JSON.stringify(projeto)], { type: 'application/json' }));
+                data.append('projeto', new Blob([JSON.stringify(formData)], { type: 'application/json' }));
             }
 
             Object.entries(arquivosNovos).forEach(([tipo, file]) => {
@@ -150,37 +124,57 @@ const EditarProjeto = () => {
             arquivosParaExcluir.forEach((id) => data.append('arquivosExcluidos', id.toString()));
 
             await axios.put(`http://localhost:8080/projeto/editar/${id}`, data, {
-                headers: {
-                    Authorization: `Bearer ${adm?.token}`,
-                    'Content-Type': 'multipart/form-data',
-                },
+                headers: { Authorization: `Bearer ${adm?.token}` },
             });
 
-            Toast.fire({
-              icon: 'success',
-              title: "Projeto atualizado com sucesso!",
-              position: 'top',
-              background: '#ffffff',
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                  toast.style.marginTop = '32px';
-                  const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
-                  if (progressBar) {
-                      progressBar.style.backgroundColor = '#28a745';
-                  }
-              }
-          });
+            Toast.fire({ icon: 'success', title: 'Projeto atualizado com sucesso!' });
             navigate("/");
         } catch (error) {
             console.error('Erro ao atualizar o projeto:', error);
-            alert('Erro ao atualizar o projeto.');
+            Toast.fire({ icon: 'error', title: 'Erro ao atualizar o projeto.' });
         }
     };
 
+    const enviarSolicitacaoEdicao = async () => {
+      try {
+          const data = new FormData();
+  
+          if (formData) {
+              // Convertendo o objeto `formData` em JSON e adicionando ao FormData
+              const projetoInfo = {
+                  adminSolicitanteId: adm?.id,
+                  statusSolicitado: "Pendente",
+                  projetoId: id,
+                  informacaoProjeto: JSON.stringify(formData),
+                  tipoAcao: "Editar",
+              };
+              data.append('solicitacao', new Blob([JSON.stringify(projetoInfo)], { type: 'application/json' }));
+          }
+  
+          // Adicionando os arquivos ao FormData, se existirem
+          Object.entries(arquivosNovos).forEach(([tipo, file]) => {
+              if (file) data.append(tipo, file);
+          });
+  
+          // Enviando a solicitação com axios
+          await axios.post('http://localhost:8080/permissao/solicitarEdicao', data, {
+              headers: {
+                  Authorization: `Bearer ${adm?.token}`
+              }
+          });
+  
+          Toast.fire({ icon: 'success', title: 'Solicitação de edição enviada com sucesso!' });
+          navigate("/");
+      } catch (error) {
+          console.error('Erro ao enviar solicitação de edição:', error);
+          Toast.fire({ icon: 'error', title: 'Erro ao enviar solicitação.' });
+      }
+  };
+  
+  
+
     if (isLoading) return <div>Carregando...</div>;
-
     if (!formData) return <div>Erro: Projeto não encontrado.</div>;
-
     return (
         <div className="cadpro_container">
           <Sidebar />
@@ -345,7 +339,7 @@ const EditarProjeto = () => {
                 aparencia="primario"
                 onClick={() => document.getElementById('filePropostas')?.click()}
               />
-               <div className="cadpro_file_baixo">
+              <div className="cadpro_file_baixo">
                 <p>{fileName.propostas}</p>
               </div>
             </div>
@@ -364,7 +358,7 @@ const EditarProjeto = () => {
                 aparencia="primario"
                 onClick={() => document.getElementById('fileContratos')?.click()}
               />
-               <div className="cadpro_file_baixo">
+              <div className="cadpro_file_baixo">
                 <p>{fileName.contratos}</p>
               </div>
             </div>
@@ -390,12 +384,12 @@ const EditarProjeto = () => {
           </div>
       
               <div className="edipro_botoes">
-                <BotaoCTA
-                  img={criarProjeto}
-                  escrito="Salvar Alterações"
-                  aparencia="primario"
-                  type="submit"
-                />
+              <BotaoCTA
+                        img={criarProjeto}
+                        escrito={adm?.tipo === 1 ? "Salvar Alterações" : "Solicitar Edição"}
+                        aparencia="primario"
+                        type="submit"
+                    />
               </div>
             </form>
           </div>
