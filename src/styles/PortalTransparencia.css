@@ -107,7 +107,6 @@
     border-radius: 12px;
     margin-bottom: 20px;
     color: #404040;
-    
 }
 
 .portal_projeto_esq, .portal_projeto_meio, .portal_projeto_dir {
@@ -121,9 +120,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 90%; /* ou uma largura fixa adequada */
+    max-width: 90%;
 }
-
 
 .portal_projeto_esq {
     width: 50%;
@@ -159,9 +157,9 @@
     background-color: #9e9e9e;
 }
 
-
-
-
+.admin_botao_acoes.mobile {
+    display: none;
+}
 
 @media only screen and (max-width: 1050px) {
 
@@ -171,6 +169,44 @@
 
     .filtragem_linha_item.maior, .filtragem_linha_item.menor {
         width: calc(51% - 16px)
+    }
+
+    .portal_projeto_container {
+        flex-direction: column;
+        align-items: end;
+        padding: 0px;
+    }
+
+    .portal_projeto_esq, .portal_projeto_meio, .portal_projeto_dir {
+        padding: 20px;
+    }
+
+    .portal_projeto_esq, .portal_projeto_meio, .portal_projeto_dir {
+        width: 100%;
+        gap: 4px;
+    }
+
+    .portal_projeto_esq, .portal_projeto_meio {
+        padding-bottom: 16px;
+        border-bottom: 1px solid #C4C4C4;
+    }
+
+    .portal_projeto_meio, .portal_projeto_dir {
+        padding-top: 16px;
+    }
+
+    .admin_botao_acoes.mobile {
+        display: flex;
+    }
+
+    .portal_projeto_dir {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .admin_botao_acoes.ver.desktop {
+        display: none;
     }
 
 }
@@ -200,4 +236,17 @@
         font-size: 24px !important;
     }
 
+}
+
+@media only screen and (max-width: 480px) {
+
+    .portal_projeto_dir {
+        flex-direction: column;
+        gap: 20px;
+        align-items: start;
+    }
+
+    .admin_botao_acoes.mobile {
+        width: 100%;
+    }
 }

@@ -6,10 +6,10 @@ import { useAxios } from "../hook/Axios";
 import axios from "axios";
 import { AuthContext } from "../hook/ContextAuth";
 import '../styles/Login.css';
-import { erroror, Toast} from "../components/Swal/Swal";
+import { erroror, Toast } from "../components/Swal/Swal";
 import Navbar from "../components/Navbar/Navbar";
 import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
-import IconeChave from "../img/chave.svg"
+import IconeChave from "../img/chave.svg";
 
 interface JwtPayLoad {
     tipo: string;
@@ -55,10 +55,7 @@ export default function Login() {
     }, []);
 
     useEffect(() => {
-        // Adiciona a classe no-margin ao body quando o componente é montado
         document.body.classList.add("no-margin");
-        
-        // Remove a classe quando o componente é desmontado
         return () => {
             document.body.classList.remove("no-margin");
         };
@@ -67,7 +64,7 @@ export default function Login() {
     const validateSenha = (senha: string): boolean => {
         const senhaRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}[\]:;<>,.?/~`|-]{8,255}$/;
         return senhaRegex.test(senha);
-    }
+    };
 
     const validateEmail = (email: string): boolean => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -75,12 +72,10 @@ export default function Login() {
     };
 
     const handleHome = () => {
-        navigate("/")
-    }
-    
+        navigate("/");
+    };
 
     const handleLogin = () => {
-
         if (isBlocked) {
             erroror("Você ainda está bloqueado. Tente novamente mais tarde.");
             setEmail("");
@@ -109,7 +104,6 @@ export default function Login() {
             setMensagemErro("Formato de E-mail inválido...");
             setErro(false);
             return;
-
         } else {
             setMensagemErro("");
         }
@@ -119,7 +113,6 @@ export default function Login() {
             setMensagemErro("A senha deve conter no mínimo 8 caracteres");
             setErro(false);
             return;
-
         } else {
             setMensagemErro("");
         }
@@ -133,8 +126,7 @@ export default function Login() {
                 });
                 const user = await axios.get(`http://localhost:8080/adm/${decoded.sub}/infoAdm`, {
                     headers: { Authorization: `Bearer ${data.token}` },
-                }
-                )
+                });
 
                 const admData = {
                     token: data.token,
@@ -148,6 +140,16 @@ export default function Login() {
                     ativo: user.data.ativo,
                 };
 
+                // Verifique se a conta está desativada
+                if (!admData.ativo) {
+                    erroror("Sua conta está desativada.");
+                    setEmail("");
+                    setPassword("");
+                    setMensagemErro("Sua conta está desativada.");
+                    setErro(false);
+                    return;
+                }
+
                 login(admData);
                 setAdm(admData);
                 Toast.fire({
@@ -160,12 +162,11 @@ export default function Login() {
                         toast.style.marginTop = '32px';
                         const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
                         if (progressBar) {
-                            progressBar.style.backgroundColor = '#28a745'; // Define a cor verde para a barra de progresso
+                            progressBar.style.backgroundColor = '#28a745';
                         }
-                    }
-                });   
+                    },
+                });
                 navigate("/", { replace: true });
-
                 localStorage.setItem("loginAttempts", "0");
                 setAttempt(0);
             })
@@ -201,35 +202,33 @@ export default function Login() {
 
     return (
         <>
-        <Navbar />
-        <div className="login_container">
-            <div className="login_card">
-                <div className="login_card_esq">
-                    <h1>Entrar como administrador</h1>
-                    <input
-                        aria-placeholder="Email"
-                        type="text" 
-                        placeholder="Email" 
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
-                    />
-                    <input 
-                        aria-placeholder="Senha"
-                        type="password" 
-                        placeholder="Senha" 
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
-                    />
-
-                    {mensagemErro && <div className="login_erro">{mensagemErro} <br/> {mensagemExemplo}</div>}
-                    {erro && <div className="login_erro">Credenciais inválidas. Verifique suas informações.</div>}
-                    <BotaoCTA img={IconeChave} escrito="Entrar" onClick={handleLogin} aparencia="primario" />
-                    <p onClick={handleHome} className="login_link">Ir para a página inicial</p>
-                </div>
-                <div className="login_card_dir">
+            <Navbar />
+            <div className="login_container">
+                <div className="login_card">
+                    <div className="login_card_esq">
+                        <h1>Entrar como administrador</h1>
+                        <input
+                            aria-placeholder="Email"
+                            type="text"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <input
+                            aria-placeholder="Senha"
+                            type="password"
+                            placeholder="Senha"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        {mensagemErro && <div className="login_erro">{mensagemErro} <br /> {mensagemExemplo}</div>}
+                        {erro && <div className="login_erro">Credenciais inválidas. Verifique suas informações.</div>}
+                        <BotaoCTA img={IconeChave} escrito="Entrar" onClick={handleLogin} aparencia="primario" />
+                        <p onClick={handleHome} className="login_link">Ir para a página inicial</p>
+                    </div>
+                    <div className="login_card_dir"></div>
                 </div>
             </div>
-        </div>
         </>
     );
 }

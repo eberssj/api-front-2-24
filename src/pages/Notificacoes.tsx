@@ -1,25 +1,25 @@
-import { useEffect, useState, useCallback, useContext } from 'react';
-import axios from 'axios';
-import { Projeto } from '../Type/Projeto';
-import NotificacaoPedido from '../components/NotificacaoPedido/NotificacaoPedido';
-import NotificacaoAlerta from '../components/NotificacaoAlerta/NotificacaoAlerta';
-import { Sidebar } from '../components/Sidebar/Sidebar';
-import { AuthContext } from '../hook/ContextAuth';
-import '../styles/Notificacoes.css';
-import { Toast } from '../components/Swal/Swal'
+import { useEffect, useState, useCallback, useContext } from "react";
+import axios from "axios";
+import { Projeto } from "../Type/Projeto";
+import NotificacaoPedido from "../components/NotificacaoPedido/NotificacaoPedido";
+import NotificacaoAlerta from "../components/NotificacaoAlerta/NotificacaoAlerta";
+import { Sidebar } from "../components/Sidebar/Sidebar";
+import { AuthContext } from "../hook/ContextAuth";
+import "../styles/Notificacoes.css";
+import { Toast } from "../components/Swal/Swal";
 
 const Notificacoes = () => {
     const [projetos, setProjetos] = useState<Projeto[]>([]);
     const [projetosFiltrados, setProjetosFiltrados] = useState<Projeto[]>([]);
-    const [pedidos, setPedidos] = useState<any[]>([]); // Estado para pedidos
+    const [pedidos, setPedidos] = useState<any[]>([]);
     const { adm } = useContext(AuthContext);
 
     const fetchProjetos = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/projeto/listar');
+            const response = await axios.get("http://localhost:8080/projeto/listar");
             setProjetos(response.data);
         } catch (error) {
-            console.error('Erro ao buscar projetos:', error);
+            console.error("Erro ao buscar projetos:", error);
         }
     };
 
@@ -27,7 +27,7 @@ const Notificacoes = () => {
         try {
             const response = await axios.get("http://localhost:8080/permissao/pedidos", {
                 headers: {
-                    'Authorization': `Bearer ${adm?.token}`,
+                    Authorization: `Bearer ${adm?.token}`,
                 },
             });
             setPedidos(response.data);
@@ -40,29 +40,59 @@ const Notificacoes = () => {
         try {
             await axios.post(`http://localhost:8080/permissao/aceitar/${id}`, null, {
                 headers: {
-                    'Authorization': `Bearer ${adm?.token}`,
+                    Authorization: `Bearer ${adm?.token}`,
                 },
                 params: {
                     adminAprovadorId: adm?.id,
                 },
             });
             Toast.fire({
-                icon: 'success',
+                icon: "success",
                 title: "Pedido aprovado com sucesso!",
-                position: 'top',
-                background: '#ffffff',
+                position: "top",
+                background: "#ffffff",
                 timerProgressBar: true,
                 didOpen: (toast) => {
-                    toast.style.marginTop = '32px';
-                    const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                    toast.style.marginTop = "32px";
+                    const progressBar = toast.querySelector(".swal2-timer-progress-bar") as HTMLElement;
                     if (progressBar) {
-                        progressBar.style.backgroundColor = '#28a745';
+                        progressBar.style.backgroundColor = "#28a745"; // Verde
                     }
-                }
+                },
             });
             setPedidos((prevPedidos) => prevPedidos.filter((pedido) => pedido.id !== id));
         } catch (error) {
             console.error("Erro ao aprovar o pedido:", error);
+        }
+    };
+
+    const handleRejeitar = async (id: number) => {
+        try {
+            await axios.post(`http://localhost:8080/permissao/negar/${id}`, null, {
+                headers: {
+                    Authorization: `Bearer ${adm?.token}`,
+                },
+                params: {
+                    adminAprovadorId: adm?.id,
+                },
+            });
+            Toast.fire({
+                icon: "success",
+                title: "Pedido negado com sucesso!",
+                position: "top",
+                background: "#ffffff",
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.style.marginTop = "32px";
+                    const progressBar = toast.querySelector(".swal2-timer-progress-bar") as HTMLElement;
+                    if (progressBar) {
+                        progressBar.style.backgroundColor = "#28a745"; // Verde
+                    }
+                },
+            });
+            setPedidos((prevPedidos) => prevPedidos.filter((pedido) => pedido.id !== id));
+        } catch (error) {
+            console.error("Erro ao negar o pedido:", error);
         }
     };
 
@@ -75,8 +105,8 @@ const Notificacoes = () => {
 
     const formatarData = (data: Date): string => {
         const ano = data.getFullYear();
-        const mes = (data.getMonth() + 1).toString().padStart(2, '0');
-        const dia = data.getDate().toString().padStart(2, '0');
+        const mes = (data.getMonth() + 1).toString().padStart(2, "0");
+        const dia = data.getDate().toString().padStart(2, "0");
         return `${ano}-${mes}-${dia}`;
     };
 
@@ -92,7 +122,6 @@ const Notificacoes = () => {
             .filter((projeto) => {
                 const dataTermino = new Date(projeto.dataTermino[0], projeto.dataTermino[1] - 1, projeto.dataTermino[2]);
                 const dataTerminoFormatada = formatarData(dataTermino);
-                
                 return dataTerminoFormatada >= hojeFormatado && dataTerminoFormatada <= seteDiasFormatado;
             })
             .map((projeto) => ({
@@ -106,7 +135,7 @@ const Notificacoes = () => {
 
     useEffect(() => {
         fetchProjetos();
-        fetchPedidos(); // Buscar pedidos ao carregar a página
+        fetchPedidos();
     }, []);
 
     useEffect(() => {
@@ -120,35 +149,36 @@ const Notificacoes = () => {
             <div className="notif_meio">
                 <div className="notif_meio_esq">
                     <h2 className="notif_subtitulo">Pedidos de Alteração</h2>
-                        {pedidos.length > 0 ? (
-                            pedidos.map((pedido) => (
-                                <NotificacaoPedido key={pedido.id} pedido={pedido} onAprovar={handleAprovar} />
-                            ))
-                        ) : (
-                            <p className="notif_nenhum">Não há pedidos de alteração no momento.</p>
-                        )}
+                    {pedidos.length > 0 ? (
+                        pedidos.map((pedido) => (
+                            <NotificacaoPedido
+                                key={pedido.id}
+                                pedido={pedido}
+                                onAprovar={handleAprovar}
+                                onRejeitar={handleRejeitar}
+                            />
+                        ))
+                    ) : (
+                        <p className="notif_nenhum">Não há pedidos de alteração no momento.</p>
+                    )}
                 </div>
                 <div className="notif_divisoria"></div>
                 <div className="notif_meio_dir">
                     <h2 className="notif_subtitulo">Alertas de Vencimento</h2>
                     {projetosFiltrados.length > 0 ? (
-                        projetosFiltrados.map((projeto) => {
-                            const diasParaVencer = calcularDiasParaVencer(projeto.dataTermino);
-                            return (
-                                <NotificacaoAlerta
-                                    key={projeto.id}
-                                    id={projeto.id}
-                                    dataInicio={projeto.dataInicio}
-                                    dataTermino={projeto.dataTermino}
-                                    diasParaVencer={diasParaVencer}
-                                />
-                            );
-                        })
+                        projetosFiltrados.map((projeto) => (
+                            <NotificacaoAlerta
+                                key={projeto.id}
+                                id={projeto.id}
+                                dataInicio={projeto.dataInicio}
+                                dataTermino={projeto.dataTermino}
+                                diasParaVencer={calcularDiasParaVencer(projeto.dataTermino)}
+                            />
+                        ))
                     ) : (
                         <p className="notif_nenhum">Não há alertas de vencimento no momento.</p>
                     )}
-</div>
-
+                </div>
             </div>
         </div>
     );
