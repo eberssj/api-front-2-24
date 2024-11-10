@@ -38,14 +38,24 @@ const Notificacoes = () => {
 
     const handleAprovar = async (id: number) => {
         try {
-            await axios.post(`http://localhost:8080/permissao/aceitar/${id}`, null, {
-                headers: {
-                    Authorization: `Bearer ${adm?.token}`,
-                },
-                params: {
-                    adminAprovadorId: adm?.id,
-                },
-            });
+            console.log("Aprovando solicitação:", { id, adminAprovadorId: adm?.id });
+    
+            const response = await axios.post(
+                `http://localhost:8080/permissao/aceitar/${id}`,
+                {}, // Enviando um objeto vazio como corpo
+                {
+                    headers: {
+                        Authorization: `Bearer ${adm?.token}`,
+                        "Content-Type": "application/json"
+                    },
+                    params: {
+                        adminAprovadorId: adm?.id,
+                    },
+                }
+            );
+    
+            console.log("Resposta do servidor:", response.data);
+    
             Toast.fire({
                 icon: "success",
                 title: "Pedido aprovado com sucesso!",
@@ -60,11 +70,23 @@ const Notificacoes = () => {
                     }
                 },
             });
+    
+            // Remover o pedido da lista após aprovação
             setPedidos((prevPedidos) => prevPedidos.filter((pedido) => pedido.id !== id));
-        } catch (error) {
+        } catch (error: any) {
             console.error("Erro ao aprovar o pedido:", error);
+            if (error.response) {
+                console.error("Erro do servidor:", error.response.data);
+            }
+            Toast.fire({
+                icon: "error",
+                title: "Erro ao aprovar o pedido",
+                position: "top",
+                background: "#ffffff",
+            });
         }
     };
+    
 
     const handleRejeitar = async (id: number) => {
         try {

@@ -86,7 +86,7 @@ const InformacoesProjeto = () => {
 
     const deletarProjeto = () => {
         if (adm?.tipo === 2) {
-            // Se o administrador for do tipo 2, faz a solicitação de exclusão
+            // Administrador tipo 2 faz a solicitação de exclusão
             Swal.fire({
                 title: 'Deseja solicitar a exclusão do projeto?',
                 text: 'Esta ação não pode ser desfeita.',
@@ -104,9 +104,24 @@ const InformacoesProjeto = () => {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
+                    // Prepara um objeto completo de informações do projeto
+                    const informacaoProjeto = {
+                        id: projeto.id,
+                        referenciaProjeto: projeto.referenciaProjeto,
+                        empresa: projeto.empresa,
+                        objeto: projeto.objeto,
+                        descricao: projeto.descricao,
+                        coordenador: projeto.coordenador,
+                        ocultarValor: projeto.ocultarValor,
+                        ocultarEmpresa: projeto.ocultarEmpresa,
+                        valor: projeto.valor,
+                        dataInicio: projeto.dataInicio,
+                        dataTermino: projeto.dataTermino,
+                    };
+    
                     axios.post(`http://localhost:8080/permissao/solicitarExclusao`, {
                         adminSolicitanteId: adm.id,
-                        informacaoProjeto: projeto.id
+                        informacaoProjeto: JSON.stringify(informacaoProjeto),
                     }, {
                         headers: {
                             Authorization: `Bearer ${adm.token}`
@@ -132,7 +147,7 @@ const InformacoesProjeto = () => {
                     .catch(error => console.error('Erro ao solicitar exclusão do projeto:', error));
                 }
             });
-            
+    
         } else {
             // Se o administrador não for do tipo 2, deleta o projeto diretamente
             Swal.fire({
@@ -178,7 +193,9 @@ const InformacoesProjeto = () => {
                 }
             });
         }
-    };    
+    };
+    
+        
 
     const editarProjeto = () => {
         navigate(`/projeto/editar/${projeto.id}`);

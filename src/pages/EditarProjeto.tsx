@@ -140,27 +140,41 @@ const EditarProjeto = () => {
           const data = new FormData();
   
           if (formData) {
-              // Convertendo o objeto `formData` em JSON e adicionando ao FormData
+              // Filtrar apenas os campos necessários para `informacaoProjeto`
               const projetoInfo = {
+                  referenciaProjeto: formData.referenciaProjeto,
+                  empresa: formData.empresa,
+                  objeto: formData.objeto,
+                  descricao: formData.descricao,
+                  coordenador: formData.coordenador,
+                  ocultarValor: formData.ocultarValor,
+                  ocultarEmpresa: formData.ocultarEmpresa,
+                  valor: formData.valor,
+                  dataInicio: formData.dataInicio,
+                  dataTermino: formData.dataTermino,
+                  situacao: formData.situacao,
+              };
+  
+              const solicitacaoPayload = {
                   adminSolicitanteId: adm?.id,
                   statusSolicitado: "Pendente",
                   projetoId: id,
-                  informacaoProjeto: JSON.stringify(formData),
+                  informacaoProjeto: JSON.stringify(projetoInfo),
                   tipoAcao: "Editar",
               };
-              data.append('solicitacao', new Blob([JSON.stringify(projetoInfo)], { type: 'application/json' }));
+  
+              data.append('solicitacao', JSON.stringify(solicitacaoPayload));
           }
   
-          // Adicionando os arquivos ao FormData, se existirem
           Object.entries(arquivosNovos).forEach(([tipo, file]) => {
               if (file) data.append(tipo, file);
           });
   
-          // Enviando a solicitação com axios
           await axios.post('http://localhost:8080/permissao/solicitarEdicao', data, {
               headers: {
-                  Authorization: `Bearer ${adm?.token}`
-              }
+                  Authorization: `Bearer ${adm?.token}`,
+                  'Content-Type': 'multipart/form-data',
+              },
           });
   
           Toast.fire({ icon: 'success', title: 'Solicitação de edição enviada com sucesso!' });
@@ -170,6 +184,7 @@ const EditarProjeto = () => {
           Toast.fire({ icon: 'error', title: 'Erro ao enviar solicitação.' });
       }
   };
+  
   
   
 
