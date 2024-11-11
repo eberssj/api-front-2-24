@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from "react";
 import IconeBolsista from "../../img/bolsistas.svg";
-import IconeEditar from '../../img/editar.svg';
-import IconeLixeira from '../../img/lixeira_branco.svg';
+import IconeEditar from "../../img/editar.svg";
+import IconeLixeira from "../../img/lixeira_branco.svg";
 import "./CardBolsista.css";
+import axios from "axios";
+import { AuthContext } from "../../hook/ContextAuth";
 
 interface CardBolsistaProps {
+    id: number;
     nome: string;
     areaAtuacao: string;
     projeto_id: number;
@@ -17,6 +20,7 @@ interface CardBolsistaProps {
 }
 
 const CardBolsista: React.FC<CardBolsistaProps> = ({
+    id,
     nome,
     areaAtuacao,
     projeto_id,
@@ -25,8 +29,32 @@ const CardBolsista: React.FC<CardBolsistaProps> = ({
     duracaoBolsa,
     cidade,
     telefone,
-    cpf
+    cpf,
 }) => {
+    const { adm } = useContext(AuthContext); // Acessa o token do administrador autenticado
+
+    // Função para excluir o bolsista
+    const excluirBolsista = async () => {
+        if (!window.confirm(`Tem certeza que deseja excluir o bolsista ${nome}?`)) {
+            return;
+        }
+
+        try {
+            // Corrigido para usar 'id' em vez de 'idBolsista'
+            await axios.delete(`http://localhost:8080/bolsistas/deletar/${id}?idAdm=${adm?.id}`, {
+                headers: {
+                    Authorization: `Bearer ${adm?.token}`, // Cabeçalho de autorização com token
+                    "Content-Type": "application/json",
+                },
+            });
+            alert("Bolsista excluído com sucesso!");
+            window.location.reload(); // Atualiza a página para refletir a exclusão
+        } catch (error) {
+            console.error("Erro ao excluir bolsista:", error);
+            alert("Erro ao excluir bolsista.");
+        }
+    };
+
     return (
         <div className="cabo_container">
             <div className="cabo_info">
@@ -53,7 +81,7 @@ const CardBolsista: React.FC<CardBolsistaProps> = ({
                 <div className="cabo_botoes botao">
                     <img src={IconeEditar} alt="Ícone Editar" />
                 </div>
-                <div className="cabo_botoes botao excluir">
+                <div className="cabo_botoes botao excluir" onClick={excluirBolsista}>
                     <img src={IconeLixeira} alt="Ícone Lixeira" />
                 </div>
             </div>
