@@ -84,7 +84,7 @@ export const Administradores = () => {
     
 
     return (
-        <div className="container-principal">
+        <div className="admin_container">
 
             <Sidebar />
             <h1 className="notif_titulo">Administradores</h1>
