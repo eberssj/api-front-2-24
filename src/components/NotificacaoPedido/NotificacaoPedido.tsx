@@ -31,13 +31,18 @@ function NotificacaoPedido({ pedido, onAprovar, onRejeitar }: NotificacaoPedidoP
     navigate("/projeto/aceitar", { state: JSON.parse(informacoesProjeto) });
   };
 
-  const tipoAcaoFormatado = pedido.tipoAcao === "Criacao" ? "CRIAÇÃO" : pedido.tipoAcao.toUpperCase();
+  const tipoAcaoFormatado = (() => {
+    if (pedido.tipoAcao === "Criacao") return "CRIAÇÃO";
+    if (pedido.tipoAcao === "Editar") return "EDIÇÃO";
+    if (pedido.tipoAcao === "Exclusao") return "EXCLUSÃO";
+    return pedido.tipoAcao.toUpperCase();
+  })();
 
   return (
     <div className="noped_container">
       <h1>{tipoAcaoFormatado}</h1>
       <div className="noped_hr"></div>
-      <p>O administrador {pedido.adminNome} ID {pedido.adminSolicitanteId} quer fazer a {tipoAcaoFormatado.toLowerCase()} de um novo projeto.</p>
+      <p>O administrador {pedido.adminNome} ID {pedido.adminSolicitanteId} solicitou a {tipoAcaoFormatado.toLowerCase()} de um projeto.</p>
       <div className="noped_baixo">
         <BotaoCTA img={Visualizar} escrito="Ver" aparencia="primario" onClick={() => handleVisualizar(pedido.informacaoProjeto)} />
         <div className="noped_baixo_dir">
