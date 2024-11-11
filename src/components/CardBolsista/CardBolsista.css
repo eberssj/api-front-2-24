@@ -1,0 +1,70 @@
+.cabo_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F5F5F5;
+    border-radius: 20px;
+    padding: 32px;
+    margin-top: 16px;
+    color: #303030;
+}
+
+.cabo_info {
+    display: flex;
+    gap: 48px;
+}
+
+.cabo_esq {
+    display: flex;
+    align-items: center;
+}
+
+.cabo_meio_1 {
+    margin-left: -16px;
+}
+
+.cabo_meio_1, .cabo_meio_2, .cabo_dir {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cabo_meio_1 span, .cabo_meio_2 span, .cabo_dir span {
+    font-weight: 500;
+}
+
+.cabo_esq img {
+    background-color: #003383;
+    padding: 8px;
+    border-radius: 48px;
+    width: 64px;
+    height: 64px;
+}
+
+.cabo_botoes {
+    display: flex;
+    gap: 16px;
+}
+
+.cabo_botoes.botao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    background-color: #003383;
+    color: white;
+    padding: 16px;
+    width: 64px;
+    height: 64px !important;
+    border-radius: 4px;
+}
+
+.cabo_botoes.botao:hover {
+    cursor: pointer;
+    filter: brightness(95%);
+}
+
+.cabo_botoes.botao.excluir {
+    background-color: #C92251
+}
