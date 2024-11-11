@@ -1,0 +1,80 @@
+.rela_container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 48px;
+    margin-right: 48px;
+    margin-top: 80px;
+}
+
+.rela_cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    background-color: #F5F5F5;
+    padding: 32px;
+    border-radius: 16px;
+}
+
+.rela_cadastro_baixo {
+    display: flex;
+    gap: 20px;
+}
+
+.rela_titulo {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #003383;
+    text-align: start;
+}
+
+.rela_cadastro_botao {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #003383;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    width: 25%;
+}
+
+.rela_cadastro_botao p {
+    font-size: 1.125rem;
+}
+
+.rela_cadastro_botao img {
+    width: 48px;
+}
+
+.rela_cadastro_botao:hover {
+    cursor: pointer;
+    filter: brightness(90%)
+}
+
+.rela_gerar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F5F5F5;
+    padding: 32px;
+    border-radius: 16px;
+    margin-top: 32px;
+}
+
+.rela_gerar button {
+    width: 23.5%;
+}
+
+.rela_gerar p {
+    width: 50%;
+    font-weight: 500;
+    color: #606060;
+}
+
+.rela_bolsistas {
+    margin-top: 64px;
+}
+
+.rela_bolsistas h2 {
+    margin-bottom: 32px;
+}
+

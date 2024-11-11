@@ -99,6 +99,10 @@
     border-radius: 8px;
 }
 
+.side_botao img {
+    max-width: 24px;
+}
+
 .side_botao.ativo {
     background-color: white;
     color: #082052;

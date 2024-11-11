@@ -17,6 +17,8 @@ import User from "/src/img/user.svg"
 import UserActive from "/src/img/user_active.svg"
 import Notificacoes from "/src/img/notificacao.svg"
 import NotificacoesActive from "/src/img/notificacao_active.svg"
+import Relatorio from "/src/img/relatorio.svg"
+import RelatorioActive from "/src/img/relatorio_active.svg"
 import LogadoUser from "/src/img/logado_user.svg"
 import Logout from "/src/img/logout.svg"
 
@@ -44,6 +46,7 @@ export const Sidebar: React.FC = () => {
   const isAtivoDashboard = location.pathname === "/adm/dashboard";
   const isAtivoAdministradores = location.pathname === "/adm/administradores";
   const isAtivoNotificacoes = location.pathname === "/adm/notificacoes";
+  const isAtivoRelatorio = location.pathname === "/adm/relatorio";
 
   useEffect(() => {
 
@@ -144,6 +147,12 @@ export const Sidebar: React.FC = () => {
               </p>
             </div>
             )}
+
+            <div className={`side_botao ${isAtivoRelatorio ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`} 
+              onClick={() => navigate('/adm/relatorio')}>
+              <img src={isAtivoRelatorio ? RelatorioActive : Relatorio} alt="Relatório" />
+              <p className={isAbriuSidebar || !isTelaPequena1200 ? "" : "none"}>Relatório</p>
+            </div>
 
           </div>
           </div>

@@ -18,6 +18,7 @@ import VerAdministrador from '../pages/VerAdministrador';
 import { RedefinirSenha } from '../pages/RedefinirSenha';
 import InformacoesProjetoPendente from '../pages/InformacoesProjetoPendente';
 import { ReactNode } from 'react';
+import Relatorio from '../pages/Relatorio';
 
 
 interface LayoutProps {
@@ -93,6 +94,14 @@ export default function AppRoutes() {
             element={
               <PrivateRoutes tiposAllowed={[1]}>
                 <GerenciarAdms />
+              </PrivateRoutes>
+            }
+          />
+          <Route
+            path="/adm/relatorio"
+            element={
+              <PrivateRoutes tiposAllowed={[1, 2]}>
+                <Relatorio />
               </PrivateRoutes>
             }
           />
