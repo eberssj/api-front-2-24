@@ -1,84 +1,35 @@
-.dashboard-container-principal-projetos {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-}
-
-.dashboard-container-input {
-    text-align: center;
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-h1 {
-    font-family: 'Arial', sans-serif;
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.dashboard-select {
-    width: 300px;
-    padding: 12px;
-    font-size: 16px;
-    border: 2px solid #007bff;
-    border-radius: 5px;
-    outline: none;
-    transition: border-color 0.3s ease;
-    background-color: #fff;
-    color: #333;
-}
-
-.dashboard-select:focus {
-    border-color: #0056b3;
-}
-
-.dashboard-select option {
-    font-size: 16px;
-    color: #333;
-}
-
-.dashboard-p {
-    font-family: 'Arial', sans-serif;
-    font-size: 18px;
-    margin-top: 20px;
-    color: #555;
-}
-
-.dashboard-container-input div {
-    margin-top: 20px;
-    font-size: 16px;
-    color: #666;
-}
-
-.select-filtro {
-    @apply border p-2 rounded;
-    border-color: #1e3a8a;
-    margin: 2vh;
-    width: 90%;
-}
-
-.titulo-filtro {
-    @apply text-2xl font-bold text-center;
-    color: darkblue !important;
-    margin-top: 40px;
-}
-
-.container-grafico {
+.dash_container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 5vh;
-    width: 100%;
+    margin-left: 48px;
+    margin-right: 48px;
+    margin-top: 80px;
 }
 
-#chart_div {
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-    height: 60vh;
-    width: 90%;
-    max-width: 100%;
+.dash_titulo {
+    width: 100%;
+    font-size: 2rem;
+    color: #003383;
+    font-weight: 700;
+    text-align: start !important;
+    margin-bottom: 16px;
+}
+
+.dash_secao {
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    padding: 32px;
+    margin-top: 32px;
+}
+
+.dash_secao p {
+    font-size: 20px;
+    font-weight: 500;
+    color: #003383;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.chart {
+    background-color: transparent !important;
 }
