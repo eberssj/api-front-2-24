@@ -135,6 +135,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    margin-top: 16px;
 }
 
 .portal_projeto_bolinha {
