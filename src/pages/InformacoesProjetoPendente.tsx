@@ -56,12 +56,18 @@ const InformacoesProjetoPendente = () => {
         });
     };
 
-    const formatarData = (dataArray: number[]): string => {
-        if (Array.isArray(dataArray) && dataArray.length === 3) {
-            return new Date(dataArray[0], dataArray[1] - 1, dataArray[2]).toLocaleDateString('pt-BR');
+    const formatarData = (data: string | number[]): string => {
+        if (typeof data === 'string') {
+            // Formato 'aaaa-mm-dd'
+            const [ano, mes, dia] = data.split('-').map(Number);
+            return new Date(ano, mes - 1, dia).toLocaleDateString('pt-BR');
+        } else if (Array.isArray(data) && data.length === 3) {
+            // Formato [ano, mes, dia]
+            return new Date(data[0], data[1] - 1, data[2]).toLocaleDateString('pt-BR');
         }
         return 'Data inválida';
     };
+    
 
     const formatarValor = (valor: number | string) => {
         const valorNumerico = typeof valor === 'string' ? parseFloat(valor) : valor;
