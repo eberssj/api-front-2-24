@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: 33%; 
+    width: 30%; 
 }
 
 .criad_form_linha_input label {
@@ -21,7 +21,7 @@
     font-weight: 500;
 }
 
-.criad_form_linha_input input {
+.criad_form_linha_input input, .criad_form_linha_input select {
     font-size: 16px;
     padding: 8px;
 }
@@ -57,4 +57,16 @@
 
 .criad_botao_cad {
     margin-top: 40px;
+}
+
+.criad_subtitulo {
+    font-weight: 500;
+    color: #003383;
+    font-size: 1.5rem;
+    text-align: start;
+    margin-bottom: 32px;
+}
+
+.criad_subtitulo.top {
+    margin-top: 64px;
 }

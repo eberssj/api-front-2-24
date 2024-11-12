@@ -5,6 +5,7 @@ import IconeLixeira from "../../img/lixeira_branco.svg";
 import "./CardBolsista.css";
 import axios from "axios";
 import { AuthContext } from "../../hook/ContextAuth";
+import { useNavigate } from "react-router-dom";
 
 interface CardBolsistaProps {
     id: number;
@@ -31,6 +32,8 @@ const CardBolsista: React.FC<CardBolsistaProps> = ({
     telefone,
     cpf,
 }) => {
+
+    const navigate = useNavigate();
     const { adm } = useContext(AuthContext); // Acessa o token do administrador autenticado
 
     // Função para excluir o bolsista
@@ -78,7 +81,7 @@ const CardBolsista: React.FC<CardBolsistaProps> = ({
                 </div>
             </div>
             <div className="cabo_botoes">
-                <div className="cabo_botoes botao">
+                <div className="cabo_botoes botao" onClick={() => navigate(`/adm/bolsista/editar/${id}`)}>
                     <img src={IconeEditar} alt="Ícone Editar" />
                 </div>
                 <div className="cabo_botoes botao excluir" onClick={excluirBolsista}>

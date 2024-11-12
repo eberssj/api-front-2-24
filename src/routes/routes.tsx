@@ -19,6 +19,7 @@ import { RedefinirSenha } from '../pages/RedefinirSenha';
 import InformacoesProjetoPendente from '../pages/InformacoesProjetoPendente';
 import { ReactNode } from 'react';
 import Relatorio from '../pages/Relatorio';
+import CadastrarBolsista from '../pages/CadastrarBolsista';
 
 
 interface LayoutProps {
@@ -102,6 +103,23 @@ export default function AppRoutes() {
             element={
               <PrivateRoutes tiposAllowed={[1, 2]}>
                 <Relatorio />
+              </PrivateRoutes>
+            }
+          />
+          <Route
+            path="/adm/bolsista/cadastrar"
+            element={
+              <PrivateRoutes tiposAllowed={[1, 2]}>
+                <CadastrarBolsista />
+              </PrivateRoutes>
+            }
+          />
+
+          <Route
+            path="/adm/bolsista/editar/:id"
+            element={
+              <PrivateRoutes tiposAllowed={[1, 2]}>
+                <CadastrarBolsista />
               </PrivateRoutes>
             }
           />

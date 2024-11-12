@@ -78,3 +78,11 @@
     margin-bottom: 32px;
 }
 
+.rela_nenhum {
+    background-color: #F5F5F5;
+    color: #606060;
+    font-weight: 500;
+    background-color: 16px;
+    padding: 16px;
+}
+

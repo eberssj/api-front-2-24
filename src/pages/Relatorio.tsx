@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../styles/Relatorio.css";
 import BotaoCTA from "../components/BotaoCTA/BotaoCTA";
 import { Sidebar } from "../components/Sidebar/Sidebar";
@@ -25,6 +26,9 @@ interface Bolsista {
 }
 
 const Relatorio = () => {
+
+    const navigate = useNavigate();
+
     const [bolsistas, setBolsistas] = useState<Bolsista[]>([]);
     const { adm } = useContext(AuthContext); // Acessa o contexto de autenticação para obter o token
 
@@ -58,7 +62,7 @@ const Relatorio = () => {
                 <div className="rela_cadastro">
                     <h2 className="rela_titulo">Cadastros</h2>
                     <div className="rela_cadastro_baixo">
-                        <div className="rela_cadastro_botao">
+                        <div className="rela_cadastro_botao" onClick={() => navigate('/adm/bolsista/criar')}>
                             <img src={IconeBolsista} />
                             <p>Cadastrar Bolsista</p>
                         </div>
@@ -101,7 +105,7 @@ const Relatorio = () => {
                             />
                         ))
                     ) : (
-                        <p>Nenhum bolsista cadastrado.</p>
+                        <p className="rela_nenhum">Nenhum bolsista cadastrado.</p>
                     )}
                 </div>
             </div>
