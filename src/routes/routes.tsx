@@ -20,6 +20,7 @@ import InformacoesProjetoPendente from '../pages/InformacoesProjetoPendente';
 import { ReactNode } from 'react';
 import Relatorio from '../pages/Relatorio';
 import CadastrarBolsista from '../pages/CadastrarBolsista';
+import CadastrarConvenio from '../pages/CadastrarConvenio';
 
 
 interface LayoutProps {
@@ -120,6 +121,24 @@ export default function AppRoutes() {
             element={
               <PrivateRoutes tiposAllowed={[1, 2]}>
                 <CadastrarBolsista />
+              </PrivateRoutes>
+            }
+          />
+
+          <Route
+            path="/adm/convenio/cadastrar"
+            element={
+              <PrivateRoutes tiposAllowed={[1, 2]}>
+                <CadastrarConvenio />
+              </PrivateRoutes>
+            }
+          />
+
+          <Route
+            path="/adm/convenio/editar/:id"
+            element={
+              <PrivateRoutes tiposAllowed={[1, 2]}>
+                <CadastrarConvenio />
               </PrivateRoutes>
             }
           />

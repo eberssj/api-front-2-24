@@ -87,7 +87,7 @@ const CadastrarBolsista = () => {
                 });
             }
 
-            if (response.status === 200) {
+            if (response.status === 200 || response.status === 201) {
                 Toast.fire({
                     icon: 'success',
                     title: response.data.message || (isEditMode ? 'Bolsista editado com sucesso!' : 'Bolsista cadastrado com sucesso!'),
