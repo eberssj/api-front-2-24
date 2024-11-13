@@ -6,6 +6,8 @@ import "./CardConvenio.css";
 import axios from "axios";
 import { AuthContext } from "../../hook/ContextAuth";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+import { Toast } from "../Swal/Swal";
 
 interface CardConvenioProps {
     id: number;
@@ -30,23 +32,55 @@ const CardConvenio: React.FC<CardConvenioProps> = ({
 
     // Função para excluir o Convenio
     const excluirConvenio = async () => {
-        if (!window.confirm(`Tem certeza que deseja excluir o Convênio ${nome}?`)) {
-            return;
-        }
+        const result = await Swal.fire({
+            title: 'Deseja excluir o cadastro deste convênio?',
+            text: 'Esta ação não pode ser desfeita.',
+            showDenyButton: true,
+            confirmButtonText: 'Sim',
+            denyButtonText: 'Não',
+            width: 620,
+            confirmButtonColor: 'rgb(224, 40, 86)',
+            denyButtonColor: 'rgb(0,114,187)',
+            heightAuto: false,
+            backdrop: true,
+            customClass: {
+                confirmButton: 'confirmButton',
+                denyButton: 'denyButton',
+            }
+        });
 
-        try {
-            // Corrigido para usar 'id' em vez de 'idConvenio'
-            await axios.delete(`http://localhost:8080/convenio/deletar/${id}?idAdm=${adm?.id}`, {
-                headers: {
-                    Authorization: `Bearer ${adm?.token}`, // Cabeçalho de autorização com token
-                    "Content-Type": "application/json",
-                },
-            });
-            alert("Convenio excluído com sucesso!");
-            window.location.reload(); // Atualiza a página para refletir a exclusão
-        } catch (error) {
-            console.error("Erro ao excluir Convenio:", error);
-            alert("Erro ao excluir Convenio.");
+        if (result.isConfirmed) {
+            try {
+                // Exclui o Convenio
+                await axios.delete(`http://localhost:8080/convenio/deletar/${id}?idAdm=${adm?.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${adm?.token}`, // Cabeçalho de autorização com token
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                Toast.fire({
+                    icon: 'success',
+                    title: "Convênio excluído com sucesso!",
+                    position: 'top',
+                    background: '#ffffff',
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.style.marginTop = '32px';
+                        const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                        if (progressBar) {
+                            progressBar.style.backgroundColor = '#28a745';
+                        }
+                    }
+                });
+
+                navigate('/'); // Redireciona para uma página temporária
+                setTimeout(() => navigate('/adm/relatorio'), 10); // Volta para a página atual após um pequeno delay
+            
+            } catch (error) {
+                console.error("Erro ao excluir Convenio:", error);
+                alert("Erro ao excluir Convenio.");
+            }
         }
     };
 
@@ -59,7 +93,7 @@ const CardConvenio: React.FC<CardConvenioProps> = ({
                         <p>{instituicao}</p>
                     </div>
                     <div className="caco_botoes">
-                        <div className="caco_botoes botao" onClick={() => navigate(`/adm/Convenio/editar/${id}`)}>
+                        <div className="caco_botoes botao" onClick={() => navigate(`/adm/convenio/editar/${id}`)}>
                             <img src={IconeEditar} alt="Ícone Editar" />
                         </div>
                     <div className="caco_botoes botao excluir" onClick={excluirConvenio}>

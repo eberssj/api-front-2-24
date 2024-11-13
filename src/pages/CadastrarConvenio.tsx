@@ -25,12 +25,26 @@ const CadastrarConvenio = () => {
         const fetchConvenioData = async () => {
             if (isEditMode) {
                 try {
-                    const response = await axios.get(`http://localhost:8080/convenio/${id}`, {
+                    const response = await axios.get(`http://localhost:8080/convenio/listar/${id}`, {
                         headers: {
                             Authorization: `Bearer ${adm?.token}`,
                         },
                     });
-                    setnovoConvenio(response.data);
+    
+                    // Verifica o formato da data recebida
+                    console.log("Data recebida do backend:", response.data.prazo);
+    
+                    const convenioData = response.data;
+    
+                    // Converter o campo 'prazo' para o formato 'YYYY-MM-DD'
+                    const prazoDate = new Date(convenioData.prazo);
+                    const prazoFormatted = prazoDate.toISOString().split('T')[0];
+    
+                    // Atribuir o valor formatado ao campo 'prazo'
+                    convenioData.prazo = prazoFormatted;
+    
+                    // Atualizar o estado
+                    setnovoConvenio(convenioData);
                 } catch (error) {
                     console.error("Erro ao buscar dados do Convênio:", error);
                     alert("Erro ao carregar os dados do Convênio para edição.");
@@ -39,6 +53,7 @@ const CadastrarConvenio = () => {
         };
         fetchConvenioData();
     }, [id, isEditMode, adm]);
+    
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;

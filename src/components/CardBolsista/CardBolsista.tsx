@@ -6,6 +6,8 @@ import "./CardBolsista.css";
 import axios from "axios";
 import { AuthContext } from "../../hook/ContextAuth";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+import { Toast } from "../Swal/Swal";
 
 interface CardBolsistaProps {
     id: number;
@@ -38,23 +40,55 @@ const CardBolsista: React.FC<CardBolsistaProps> = ({
 
     // Função para excluir o bolsista
     const excluirBolsista = async () => {
-        if (!window.confirm(`Tem certeza que deseja excluir o bolsista ${nome}?`)) {
-            return;
-        }
+        const result = await Swal.fire({
+            title: 'Deseja excluir o cadastro deste bolsista?',
+            text: 'Esta ação não pode ser desfeita.',
+            showDenyButton: true,
+            confirmButtonText: 'Sim',
+            denyButtonText: 'Não',
+            width: 620,
+            confirmButtonColor: 'rgb(224, 40, 86)',
+            denyButtonColor: 'rgb(0,114,187)',
+            heightAuto: false,
+            backdrop: true,
+            customClass: {
+                confirmButton: 'confirmButton',
+                denyButton: 'denyButton',
+            }
+        });
 
-        try {
-            // Corrigido para usar 'id' em vez de 'idBolsista'
-            await axios.delete(`http://localhost:8080/bolsistas/deletar/${id}?idAdm=${adm?.id}`, {
-                headers: {
-                    Authorization: `Bearer ${adm?.token}`, // Cabeçalho de autorização com token
-                    "Content-Type": "application/json",
-                },
-            });
-            alert("Bolsista excluído com sucesso!");
-            window.location.reload(); // Atualiza a página para refletir a exclusão
-        } catch (error) {
-            console.error("Erro ao excluir bolsista:", error);
-            alert("Erro ao excluir bolsista.");
+        if (result.isConfirmed) {
+            try {
+                // Exclui o bolsista
+                await axios.delete(`http://localhost:8080/bolsistas/deletar/${id}?idAdm=${adm?.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${adm?.token}`, // Cabeçalho de autorização com token
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                Toast.fire({
+                    icon: 'success',
+                    title: "Bolsista excluído com sucesso!",
+                    position: 'top',
+                    background: '#ffffff',
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.style.marginTop = '32px';
+                        const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
+                        if (progressBar) {
+                            progressBar.style.backgroundColor = '#28a745';
+                        }
+                    }
+                });
+
+                navigate('/'); // Redireciona para uma página temporária
+                setTimeout(() => navigate('/adm/relatorio'), 10); // Volta para a página atual após um pequeno delay
+            
+            } catch (error) {
+                console.error("Erro ao excluir bolsista:", error);
+                alert("Erro ao excluir bolsista.");
+            }
         }
     };
 

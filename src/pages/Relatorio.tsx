@@ -143,6 +143,7 @@ const Relatorio = () => {
                 {convenios.length > 0 ? (
                     convenios.map((convenio) => (
                 <CardConvenio
+                    key={convenio.id}
                     id={convenio.id}
                     nome={convenio.nome}
                     tipoConvenio={convenio.tipoConvenio}

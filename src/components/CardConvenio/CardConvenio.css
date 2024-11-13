@@ -9,9 +9,11 @@
     width: 48.75%;
 }
 
-.caco_container:last-child {
+.caco_container:nth-last-child(1),
+.caco_container:nth-last-child(2) {
     margin-bottom: 0px;
 }
+
 
 .caco_info {
     display: flex;
