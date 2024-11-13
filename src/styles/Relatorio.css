@@ -20,11 +20,12 @@
     gap: 20px;
 }
 
-.rela_titulo {
+.rela_secao_titulo {
     font-size: 1.5rem;
     font-weight: 500;
     color: #003383;
     text-align: start;
+    margin-bottom: 24px;
 }
 
 .rela_cadastro_botao {
@@ -70,12 +71,8 @@
     color: #606060;
 }
 
-.rela_bolsistas {
-    margin-top: 64px;
-}
-
-.rela_bolsistas h2 {
-    margin-bottom: 32px;
+.rela_secao {
+    margin-top: 80px;
 }
 
 .rela_nenhum {
@@ -84,5 +81,11 @@
     font-weight: 500;
     background-color: 16px;
     padding: 16px;
+}
+
+.rela_convenios_cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5%;
 }
 
