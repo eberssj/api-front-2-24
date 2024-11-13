@@ -65,34 +65,33 @@ const CriacaoAdmin: React.FC = () => {
     const salvarAdm = async (e: FormEvent) => {
         e.preventDefault();
         if (!adm) return;
-
+    
+        // Verificar se o CPF e o telefone são válidos
         if (!novoAdm.cpf || novoAdm.cpf.replace(/\D/g, '').length !== 11) {
             alert("CPF incompleto.");
             return;
         }
-
+    
         if (!novoAdm.telefone || novoAdm.telefone.replace(/\D/g, '').length !== 11) {
             alert("Telefone incompleto.");
             return;
         }
-
+    
         try {
+            // Definir a senha sempre como "12345678"
+            const senhaPadrao = "12345678";
             const salt = bcrypt.genSaltSync(10);
-            let senhaCriptografada = '';
-
-            if (isEditMode && novoAdm.senha && senhaAntiga !== novoAdm.senha) {
-                senhaCriptografada = bcrypt.hashSync(novoAdm.senha, salt);
-            }
-
+            const senhaCriptografada = bcrypt.hashSync(senhaPadrao, salt);
+    
             const admData = {
                 ...novoAdm,
-                senha: senhaCriptografada || novoAdm.senha,
+                senha: senhaCriptografada,
                 cpf: novoAdm.cpf?.replace(/\D/g, ''),
                 telefone: novoAdm.telefone?.replace(/\D/g, ''),
             };
-
+    
             let response;
-
+    
             if (isEditMode) {
                 response = await axios.put(`http://localhost:8080/adm/${id}`, admData, {
                     headers: { Authorization: `Bearer ${adm.token}` },
@@ -104,23 +103,16 @@ const CriacaoAdmin: React.FC = () => {
                     params: { idSuperAdm: adm.id },
                 });
             }
-
-            if (response.status === 200) {
+    
+            if (response.status === 200 || response.status === 201) {
                 Toast.fire({
                     icon: 'success',
-                    title: response.data.message || (isEditMode ? 'Administrador editado com sucesso!' : 'Administrador criado com sucesso!'),
+                    title: isEditMode ? 'Administrador editado com sucesso!' : 'Administrador criado com sucesso!',
                     position: 'top',
                     background: '#ffffff',
                     timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.style.marginTop = '32px';
-                        const progressBar = toast.querySelector('.swal2-timer-progress-bar') as HTMLElement;
-                        if (progressBar) {
-                            progressBar.style.backgroundColor = '#28a745';
-                        }
-                    }
                 });
-
+    
                 navigate("/adm/administradores");
             } else {
                 throw new Error(response.data.message || 'Erro inesperado.');
@@ -131,6 +123,7 @@ const CriacaoAdmin: React.FC = () => {
             alert(errorMessage);
         }
     };
+    
 
     const formatCPF = (cpf: string) => {
         return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");

@@ -140,7 +140,6 @@ const EditarProjeto = () => {
           const data = new FormData();
   
           if (formData) {
-              // Filtrar apenas os campos necessários para `informacaoProjeto`
               const projetoInfo = {
                   referenciaProjeto: formData.referenciaProjeto,
                   empresa: formData.empresa,
@@ -160,10 +159,10 @@ const EditarProjeto = () => {
                   statusSolicitado: "Pendente",
                   projetoId: id,
                   informacaoProjeto: JSON.stringify(projetoInfo),
-                  tipoAcao: "Editar",
+                  tipoAcao: "Edicao"
               };
   
-              data.append('solicitacao', JSON.stringify(solicitacaoPayload));
+              data.append('solicitacao', new Blob([JSON.stringify(solicitacaoPayload)], { type: 'application/json' }));
           }
   
           Object.entries(arquivosNovos).forEach(([tipo, file]) => {
@@ -184,7 +183,6 @@ const EditarProjeto = () => {
           Toast.fire({ icon: 'error', title: 'Erro ao enviar solicitação.' });
       }
   };
-  
   
   
 
@@ -400,11 +398,12 @@ const EditarProjeto = () => {
       
               <div className="edipro_botoes">
               <BotaoCTA
-                        img={criarProjeto}
-                        escrito={adm?.tipo === 1 ? "Salvar Alterações" : "Solicitar Edição"}
-                        aparencia="primario"
-                        type="submit"
-                    />
+                img={criarProjeto}
+                escrito={adm?.tipo === 1 ? "Salvar Alterações" : "Solicitar Edição"}
+                aparencia="primario"
+                type="submit"
+              />
+
               </div>
             </form>
           </div>
