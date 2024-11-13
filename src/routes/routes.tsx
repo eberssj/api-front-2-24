@@ -21,6 +21,7 @@ import { ReactNode } from 'react';
 import Relatorio from '../pages/Relatorio';
 import CadastrarBolsista from '../pages/CadastrarBolsista';
 import CadastrarConvenio from '../pages/CadastrarConvenio';
+import EstatisticasBolsistas from '../pages/Teste';
 
 
 interface LayoutProps {
@@ -64,6 +65,14 @@ export default function AppRoutes() {
             element={
               <PrivateRoutes tiposAllowed={[1]}>
                 <VerAdministrador />
+              </PrivateRoutes>
+            }
+          />
+           <Route
+            path="/adm/teste"
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <EstatisticasBolsistas />
               </PrivateRoutes>
             }
           />
