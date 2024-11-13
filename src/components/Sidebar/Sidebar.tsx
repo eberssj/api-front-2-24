@@ -21,6 +21,8 @@ import Relatorio from "/src/img/relatorio.svg"
 import RelatorioActive from "/src/img/relatorio_active.svg"
 import LogadoUser from "/src/img/logado_user.svg"
 import Logout from "/src/img/logout.svg"
+import Historico from "/src/img/historico.svg"
+import HistoricoActive from "/src/img/historico_active.svg"
 
 export const Sidebar: React.FC = () => {
   const { logout } = useAuth();
@@ -47,6 +49,7 @@ export const Sidebar: React.FC = () => {
   const isAtivoAdministradores = location.pathname === "/adm/administradores";
   const isAtivoNotificacoes = location.pathname === "/adm/notificacoes";
   const isAtivoRelatorio = location.pathname === "/adm/relatorio";
+  const isAtivoHistorico = location.pathname === "/adm/historico";
 
   useEffect(() => {
 
@@ -152,6 +155,12 @@ export const Sidebar: React.FC = () => {
               onClick={() => navigate('/adm/relatorio')}>
               <img src={isAtivoRelatorio ? RelatorioActive : Relatorio} alt="Relatório" />
               <p className={isAbriuSidebar || !isTelaPequena1200 ? "" : "none"}>Relatório</p>
+            </div>
+
+            <div className={`side_botao ${isAtivoHistorico ? "ativo" : ""} ${isTelaPequena1200 && !isAbriuSidebar ? "side_centralizar" : ""}`} 
+              onClick={() => navigate('/adm/historico')}>
+              <img src={isAtivoHistorico ? HistoricoActive :Historico} alt="Histórico" />
+              <p className={isAbriuSidebar || !isTelaPequena1200 ? "" : "none"}>Histórico</p>
             </div>
 
           </div>

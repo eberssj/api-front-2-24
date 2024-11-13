@@ -1,0 +1,61 @@
+.hist_container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 48px;
+    margin-right: 48px;
+    margin-top: 80px;
+}
+
+.hist_cima {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hist_pesquisa {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.hist_pesquisa h2, .hist_datas h2 {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #606060;
+    text-align: start;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+}
+
+.hist_pesquisa_barra {
+    display: flex;
+}
+
+.hist_pesquisa_esq {
+    padding: 12px;
+    border-top: 1px solid #C4C4C4;
+    border-left: 1px solid #C4C4C4;
+    border-bottom: 1px solid #C4C4C4;
+    border-radius: 8px 0px 0px 8px;
+}
+
+.hist_pesquisa input {
+    border-left: none;
+    outline: none;
+    border-radius: 0px 8px 8px 0px;
+}
+
+.hist_datas {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.hist_datas input {
+    padding: 14px;
+    border-radius: 8px;
+}
+
+.hist_datas img {
+    width: 48px;
+    margin-top: 24px;
+}

@@ -55,7 +55,6 @@ const Relatorio = () => {
             setBolsistas(response.data);
         } catch (error) {
             console.error("Erro ao listar bolsistas:", error);
-            alert("Erro ao listar bolsistas.");
         }
     };
 
@@ -70,7 +69,6 @@ const Relatorio = () => {
             setConvenios(response.data);
         } catch (error) {
             console.error("Erro ao listar convênios:", error);
-            alert("Erro ao listar convênios..");
         }
     };
 

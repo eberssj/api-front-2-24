@@ -22,6 +22,7 @@ import Relatorio from '../pages/Relatorio';
 import CadastrarBolsista from '../pages/CadastrarBolsista';
 import CadastrarConvenio from '../pages/CadastrarConvenio';
 import EstatisticasBolsistas from '../pages/Teste';
+import Historico from '../pages/Historico';
 
 
 interface LayoutProps {
@@ -151,6 +152,16 @@ export default function AppRoutes() {
               </PrivateRoutes>
             }
           />
+
+          <Route
+            path="/adm/historico"
+            element={
+              <PrivateRoutes tiposAllowed={[1]}>
+                <Historico />
+              </PrivateRoutes>
+            }
+          />
+
           <Route path="*" element={<PageNotFounded />} />
           <Route path="/" element={<PortalTransparencia />} />
           <Route path="/login" element={<Login />} />
