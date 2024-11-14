@@ -11,8 +11,9 @@
     background-color: #F5F5F5;
     border-radius: 12px 0px 0px 12px;
     padding: 24px;
-    border-right: 2px solid #C4C4C4;
+    border-right: 1px solid #C4C4C4;
     width: 10%;
+    min-width: 88px;
 }
 
 .cahi_esq img {
@@ -26,7 +27,7 @@
     gap: 4px;
     background-color: #F5F5F5;
     padding: 24px;
-    border-right: 2px solid #C4C4C4;
+    border-right: 1px solid #C4C4C4;
     align-items: start;
     width: 70%;
 }
@@ -70,4 +71,31 @@
 
 .cahi_dir p {
     color: #404040;
+}
+
+@media only screen and (max-width: 850px) {
+
+    .cahi_container {
+        flex-direction: column;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .cahi_esq, .cahi_meio, .cahi_dir {
+        width: 100%;
+        border-right: none;
+        padding-top: 24px;
+        border-radius: 0px;
+    }
+
+    .cahi_esq {
+        padding-top: 24px;
+        justify-content: start;
+        border-bottom: 1px solid #C4C4C4;
+    }
+
+    .cahi_dir {
+        padding-bottom: 24px;
+        border-top: 1px solid #C4C4C4;
+    }
 }
