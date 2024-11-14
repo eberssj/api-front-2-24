@@ -72,7 +72,15 @@ const Relatorio = () => {
         }
     };
 
-    // Chama a função listarBolsistas quando o componente é montado
+    function formatarData(prazo: string): string {
+        const [ano, mes, dia] = prazo;
+        // Formata o mês e o dia para terem sempre dois dígitos
+        // Exemplo: 1 vira 01
+        const mesFormatado = mes.toString().padStart(2, '0');
+        const diaFormatado = dia.toString().padStart(2, '0');
+        return `${diaFormatado}/${mesFormatado}/${ano}`;
+    }
+
     useEffect(() => {
         listarBolsistas();
         listarConvenios();
@@ -147,7 +155,7 @@ const Relatorio = () => {
                     tipoConvenio={convenio.tipoConvenio}
                     objetivo={convenio.objetivo}
                     instituicao={convenio.instituicao}
-                    prazo={convenio.prazo}
+                    prazo={formatarData(convenio.prazo)}
                 />
                  ))
                  ) : (
