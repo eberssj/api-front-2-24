@@ -63,3 +63,37 @@
 .hist_cards {
     margin-top: 40px;
 }
+
+@media only screen and (max-width: 1480px ) {
+    
+    .hist_pesquisa_barra input {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 1000px ) {
+    
+    .hist_cima {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .hist_pesquisa, .hist_pesquisa_barra, .hist_pesquisa_barra input {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    
+    .hist_datas {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .hist_datas img {
+        display: none;
+    }
+}
+
+
+
