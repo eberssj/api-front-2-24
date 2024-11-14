@@ -1,0 +1,73 @@
+.cahi_container {
+    display: flex;
+    margin-bottom: 32px;
+    width: 100%;
+}
+
+.cahi_esq {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F5F5F5;
+    border-radius: 12px 0px 0px 12px;
+    padding: 24px;
+    border-right: 2px solid #C4C4C4;
+    width: 10%;
+}
+
+.cahi_esq img {
+    width: 40px;
+    min-width: 40px;
+}
+
+.cahi_meio {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background-color: #F5F5F5;
+    padding: 24px;
+    border-right: 2px solid #C4C4C4;
+    align-items: start;
+    width: 70%;
+}
+
+.cahi_meio p {
+    color: #404040;
+}
+
+.cahi_titulo {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.cahi_titulo.criacao {
+    color: #19670C;
+}
+
+.cahi_titulo.edicao {
+    color: #003383;
+}
+
+.cahi_titulo.exclusao {
+    color: #ED3C5C;
+}
+
+.cahi_dir {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background-color: #F5F5F5;
+    padding: 24px;
+    border-radius: 0px 12px 12px 0px;
+    width: 20%;
+}
+
+.cahi_dir h2 {
+    font-weight: 500;
+    color: #606060;
+    text-align: start;
+}
+
+.cahi_dir p {
+    color: #404040;
+}

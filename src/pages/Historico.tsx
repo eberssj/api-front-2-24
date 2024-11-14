@@ -2,6 +2,7 @@ import "../styles/Historico.css";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import IconePesquisar from "../img/pesquisar_cinza.svg";
 import IconeSeta from "../img/seta_data.svg"
+import CardHistorico from "../components/CardHistorico/CardHistorico";
 
 
 
@@ -34,6 +35,12 @@ const Historico = () => {
                             <input type="date" />
                         </div>
                     </div>
+                </div>
+
+                <div className="hist_cards">
+                    <CardHistorico nomeAdmin="Amanda Carambolas" projetoId={10} TipoAlteracao="Criação" DataAlteracao="14/11/2024"/>
+                    <CardHistorico nomeAdmin="Eduardo Novais" projetoId={20} TipoAlteracao="Edição" DataAlteracao="14/11/2024"/>
+                    <CardHistorico nomeAdmin="Bruna Paprika" projetoId={30} TipoAlteracao="Exclusão" DataAlteracao="14/11/2024"/>
                 </div>
             </div>
         </>
