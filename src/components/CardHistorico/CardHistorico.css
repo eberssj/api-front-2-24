@@ -73,6 +73,17 @@
     color: #404040;
 }
 
+.cahi_dir_data {
+    margin-top: 4px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.cahi_dir_data img {
+    width: 16px;
+}
+
 @media only screen and (max-width: 850px) {
 
     .cahi_container {

@@ -3,6 +3,7 @@ import "./CardHistorico.css";
 import IconeCriacao from "../../img/criacao_historico.svg";
 import IconeEdicao from "../../img/editar_projeto.svg";
 import IconeExclusao from "../../img/lixeira.svg";
+import IconeCalendario from "../../img/calendario.svg";
 
 interface AlteracaoProjetoProps {
   nomeAdmin: string;
@@ -57,7 +58,10 @@ const AlteracaoProjeto: React.FC<AlteracaoProjetoProps> = ({ nomeAdmin, projetoI
         </div>
         <div className="cahi_dir">
             <h2>Data da Alteração:</h2>
-            <p>{DataAlteracao}</p>
+            <div className="cahi_dir_data">
+                <img src={IconeCalendario} />
+                <p>{DataAlteracao}</p>
+            </div>
         </div>
     </div>
   );
