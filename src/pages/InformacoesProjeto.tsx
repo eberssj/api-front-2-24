@@ -7,6 +7,8 @@ import { AuthContext } from '../hook/ContextAuth';
 import { Toast } from '../components/Swal/Swal';
 import Swal from 'sweetalert2';
 import BotaoCTA from '../components/BotaoCTA/BotaoCTA';
+import IconeLixeira from "../img/lixeira.svg"
+import IconeEditar from "../img/editar_projeto.svg"
 
 interface Arquivo {
     id: number;
@@ -210,8 +212,8 @@ const InformacoesProjeto = () => {
                     <div className="infopro_cima_dir">
                         { adm && (
                             <>
-                                <BotaoCTA img="/src/img/lixeira.svg" escrito="Deletar" aparencia="secundario" cor="vermelho" onClick={deletarProjeto} />
-                                <BotaoCTA img="/src/img/editar_projeto.svg" escrito="Editar" aparencia="secundario" cor="cor_primario"  onClick={editarProjeto} />
+                                <BotaoCTA img={IconeLixeira} escrito="Deletar" aparencia="secundario" cor="vermelho" onClick={deletarProjeto} />
+                                <BotaoCTA img={IconeEditar} escrito="Editar" aparencia="secundario" cor="cor_primario"  onClick={editarProjeto} />
                             </>
                         )}
                         <BotaoCTA img="/src/img/voltar.svg" escrito="Voltar" aparencia="primario" onClick={() => navigate(-1)} />
